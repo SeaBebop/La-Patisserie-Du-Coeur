@@ -1,0 +1,17 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain key_value=key site='http://localhost:3000/email_verification/'  %}
+You're receiving this e-mail because user {{ user_display }} has given your e-mail address to register an account on {{ site_domain }}.
+<br>
+<strong>Copy this Verification key:</strong> {{ site }}</button> 
+<br>
+
+<br>
+<a style='border-style:solid; border-radius:30px;padding:20px' href='' >Verification Page</a>
+<br>
+
+
+{% endblocktrans %}{% endautoescape %}{% endblock %}
