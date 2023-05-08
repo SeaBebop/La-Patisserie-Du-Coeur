@@ -60,12 +60,12 @@ const Verify = () => {
 
  
   return (
-    <div>
+    <div className="mt-[12vw] h-[16vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-
+    <label className='text-white text-[2vw] ' for="html">Confirm Verification</label>
       <form onSubmit={onSubmit}>
       <div>
-        <label for="html">Confirm Verification</label>
+       
         <input
           hidden
           onChange={() => setKey(verifyID)}
@@ -74,9 +74,9 @@ const Verify = () => {
           type={'input'}
           name={'key'}/>
       </div>
-      <button type={'submit'}>Verify</button>
+      <button className={"rounded-md  py-[.2vw] px-[1vw]  mb-[2vw] hover:bg-slate-300 bg-slate-100"} type={'submit'}>Verify</button>
       </form>    
-      {<Link to='/email_resend'>Resend Verification Email</Link>}
+      {<Link className="text-blue-300 underline"  to='/email_resend'>Resend Verification Email</Link>}
     </div>
   
   );

@@ -70,20 +70,22 @@ const PasswordReset = () => {
     </div>)
     :
     (
-      <div>
+      <div className="mt-[12vw] h-[16vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
       <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-  
-        <form onSubmit={onSubmit}>
+      <label className='text-white text-[2vw] mb-[-3vw]' for="html">Password Reset</label>
+        <form onSubmit={onSubmit} className='mt-[4vw]'>
         <div>
-          <label for="html">Password Reset</label>
+          
           <input
             onChange={(e) => setEmail(e.target.value)}
+            placeholder='Email'
+            className="rounded-md pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
             value={email}
             ref={emailRef}
             type={'input'}
             name={'email'}/>
         </div>
-        <button type={'submit'}>Submit</button>
+        <button  className={"rounded-md  py-[.2vw] px-[1vw]  mb-[2vw] hover:bg-slate-300 bg-slate-100"} type={'submit'}>Submit</button>
         </form>    
       </div>
     )}

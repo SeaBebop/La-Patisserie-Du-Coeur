@@ -92,9 +92,9 @@ REST_AUTH_REGISTER_SERIALIZERS  = {
 AUTH_USER_MODEL = "accounts.CustomUser" # new
 REST_FRAMEWORK = { # new
 "DEFAULT_PERMISSION_CLASSES": [
-        
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
 
 ],
@@ -127,10 +127,9 @@ JWT_AUTH_COOKIE = 'Access'
 JWT_AUTH_REFRESH_COOKIE = 'Refresh'
 
 MIDDLEWARE = [
-   
+    "corsheaders.middleware.CorsMiddleware", # new
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware", # new
 
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -146,7 +145,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS  = (
 
 "http://localhost:3000",
-"http://localhost:3500",
+
 "http://localhost:8000",
 
 )
@@ -189,7 +188,7 @@ SITE_ID = 1 # new
 WSGI_APPLICATION = "django_project.wsgi.application"
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -233,6 +232,11 @@ DATABASES =  {
 }
 
 CART_SESSION_ID = 'cart'
+
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True 
+SESSION_COOKIE_SAMESITE = 'None'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

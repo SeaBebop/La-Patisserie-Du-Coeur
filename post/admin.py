@@ -27,7 +27,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ['user' ,'updated' ,'timestamp' ,'session_key'] 
+    list_display = ['user' ,'updated' ,'orders','timestamp' ,'session_key'] 
 
 @admin.register(OrderItem)
 class OrderAdmin(admin.ModelAdmin):

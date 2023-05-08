@@ -140,16 +140,21 @@ const SignUp = () => {
                 <button onClick={redirctToVerify}>Verify Email</button>
             </div>
         ) : ( 
-    <div>
+    <div className='mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg'>
+        <div>
+            
+        
         <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
 
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
-        <label htmlFor='email'>
+        <h1 className='mt-[3vw] font-body  text-[2vw] text-white'>REGISTER</h1>
+        <form className='mt-[3vw]' onSubmit={handleSubmit}>
+        <label  className='text-white' htmlFor='email'>
                 Email:
         
             </label>
-            <input type="email" 
+            <input 
+            className='rounded-sm mt-[.6vw]'
+            type="email" 
             id='email'
             autoComplete='off'
             onChange={(e)=> setEmail(e.target.value)}
@@ -163,11 +168,12 @@ const SignUp = () => {
         Must have a @ symbol<br/>
         Every special character that is not @ can't be used<br/>
         </p><br/>
-            <label htmlFor='username'>
+            <label className='text-white'  htmlFor='username'>
                 Username:
         
             </label>
             <input 
+            className='rounded-sm mt-[.6vw]'
             type="text"
             id='username'
             autoComplete='off'
@@ -185,14 +191,14 @@ const SignUp = () => {
         Leters,numbers,underscores,hypens allowed.
         </p>
         <br/>
-        <label htmlFor='password'>
-                password:
+        <label className='text-white' htmlFor='password'>
+                Password:
         
             </label>
             <input 
             type="password"
             id='password1'
-
+className='rounded-sm mt-[.6vw]'
             onChange={(e)=> setPWD(e.target.value)}
             required
             aria-invalid={validPWD ? 'false' : 'true'}
@@ -206,14 +212,14 @@ const SignUp = () => {
        
         </p>
         <br/>
-        <label htmlFor='password2'>
-                Confirm password:
+        <label className='text-white' htmlFor='password2'>
+                Confirm Password:
         
             </label>
             <input 
             type="password"
             id='password2'
-
+className='rounded-sm mt-[.6vw]'
             onChange={(e)=> setMatchPWD(e.target.value)}
             required
             aria-invalid={validMatch ? 'false' : 'true'}
@@ -227,11 +233,12 @@ const SignUp = () => {
        
         </p>
         <br/>
-        <button disabled={!validMatch || !validName || !validPWD ? true : false }>Sign Up</button>
+        <button className="px-[3vw] py-[.35vw] mt-[1vw] rounded bg-white"  disabled={!validMatch || !validName || !validPWD ? true : false }>Sign Up</button>
         </form>
 
         <p>{/*put a router link for log in*/}</p>
 
+    </div>
     </div>
         )}
         </>

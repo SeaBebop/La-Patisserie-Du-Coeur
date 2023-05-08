@@ -1,4 +1,5 @@
-
+from django.db.models import Sum,F
+from decimal import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import SetPasswordForm, PasswordResetForm
@@ -33,27 +34,105 @@ class PostSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('name','category','description', 'slug', 'price',
         'quantity','image','id')
-        lookup_field = 'slug'
+        lookup_field = 'id'
         extra_kwargs = {
-            'url': {'lookup_field': 'slug'}
+            'url': {'lookup_field': 'id'}
         }
         
 class OrderItemSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = OrderItem
         fields = '__all__'
+    def update(self, instance, validated_data):
+        #idea from https://stackoverflow.com/questions/62847000/write-an-explicit-update-method-for-serializer
+        #Solution to the problem: If you update a viewset with a nested serializer you need to customize
+        #the update function
+        
+        #Made it so that it only changes the quantity and ordered so nothing malicious happens
+        
+        product_data = validated_data.pop('item')
+        product = instance.item
+
+        instance.quantity = validated_data.get('quantity',instance.quantity)
+        instance.ordered = validated_data.get('ordered',instance.ordered)
+        instance.session_key = instance.session_key
+        instance.user = instance.user
+        instance.save()
+
+        #Product 
+        product.name =  product.name
+        product.category =  product.category
+        product.description =  product.description
+        product.slug =   product.slug 
+        product.price =  product.price
+        product.quantity =  product.quantity
+        product.image =  product.image
+        product.save()
+        return instance
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ("id","username","email",'roles')
-    def perform_create(self, serializer):
-        return print(self.request)
-    
+
 class CartSerializer(serializers.ModelSerializer):
+    #Nested Serializer
+    orders = OrderItemSerializer()
+    #Also learned how to make custom fields like this one
+    order_price = serializers.SerializerMethodField()
+    total_price = serializers.SerializerMethodField()
+    product_quantity = serializers.SerializerMethodField()
+    product_image = serializers.SerializerMethodField()
+    product_name = serializers.SerializerMethodField()
+    product_category = serializers.SerializerMethodField()
+    def get_product_quantity(self,instance):
+        #print(instance.orders.item)
+        #print(Product.objects.filter(name=instance.orders.item).values_list('quantity',flat=True))
+        my_list = Product.objects.filter(name=instance.orders.item).values_list('quantity',flat=True)
+        #print(my_list[0])
+        return my_list[0]
+    def get_product_name(self,instance):
+        my_list = Product.objects.filter(name=instance.orders.item).values_list('name',flat=True)
+        return my_list[0]
+    def get_product_category(self,instance):
+        my_list = Product.objects.filter(name=instance.orders.item).values_list('category',flat=True)
+        return my_list[0]
+    def get_product_image(self,instance):
+        my_list = Product.objects.filter(name=instance.orders.item).values_list('image',flat=True)
+        return 'http://localhost:8000/products/' + my_list[0]
+    def get_order_price(self,instance):
+        return '{0:.2f}'.format(instance.orders.item.price * instance.orders.quantity)
+    def get_total_price(self,instance):
+        #Experimented alot on how to do math inbetween models
+        #Learned so much about serializers, views,context, and objects
+        #sum = 0
+        #filtered_cart = Cart.objects.filter(user=self.context['request'].user.id).values_list('id',flat=True)
+        #for x in filtered_cart:
+        #    print(Cart.objects.filter(id=x).values())
+
+        if self.context['request'].user.is_authenticated:
+           
+            test = Cart.objects.filter(orders__user= self.context['request'].user.id).aggregate(
+                total_price=Sum(F('orders__item__price') * F('orders__quantity')))
+            #print(test['total_price'])
+            sum = str(test['total_price'])
+            return sum
+        elif self.context['request'].session.session_key and self.context['request'].user.is_anonymous == True:
+            test = Cart.objects.filter(session_key= self.context['request'].session.session_key).aggregate(
+                total_price=Sum(F('orders__item__price') * F('orders__quantity')))
+            #print(test['total_price'])
+            sum = str(test['total_price'])
+            return sum
     class Meta:
         model = Cart
         fields = '__all__'
+        #Tried the code below to get data of foreign key
+        #Ended up doxxing accounts during production
+        #Then I learned what a nested Serializer was
+        #depth = 1 
 
+#Code below is minor edits to libraries, such as adding Regex to passwords etc
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(
         max_length=get_username_max_length(),
@@ -129,6 +208,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
             extra_fields.append(UserModel.USERNAME_FIELD)
         if hasattr(UserModel, 'EMAIL_FIELD'):
             extra_fields.append(UserModel.EMAIL_FIELD)
+        #Added Roles from the custom model
         if hasattr(UserModel, 'roles'):
             extra_fields.append('roles')
  

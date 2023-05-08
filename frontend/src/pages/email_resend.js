@@ -58,20 +58,22 @@ const Resend = () => {
 
  
   return (
-    <div>
+    <div className="mt-[12vw] h-[16vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-
+    <label className='text-white text-[2vw] ' for="html">Resend Verification</label>
       <form onSubmit={onSubmit}>
       <div>
-        <label for="html">Resend Verification</label>
+        
         <input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           ref={emailRef}
           type={'input'}
+          className="rounded-md pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
+          placeholder='Email'
           name={'email'}/>
       </div>
-      <button type={'submit'}>Submit</button>
+      <button className={"rounded-md  py-[.2vw] px-[1vw]  mb-[2vw] hover:bg-slate-300 bg-slate-100"}  type={'submit'}>Submit</button>
       </form>    
     </div>
   
