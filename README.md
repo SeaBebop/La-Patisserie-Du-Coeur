@@ -20,7 +20,8 @@ Setup
 Build and run the Docker container:
 
     docker-compose up --build
-
+    cd frontend
+    npm start
     Navigate to http://localhost:3000 to view the website.
 
 Dependencies
