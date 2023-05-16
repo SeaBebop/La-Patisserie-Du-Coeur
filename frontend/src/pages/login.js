@@ -114,7 +114,7 @@ const Login = () => {
 <div className="mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
 <header className=" ">
         <div className="mt-[3vw] font-body  text-[2vw]">
-            <p className="text-yellow-400 mr-[3vw]"> LA PATISSERE </p> <p className="text-rose-400 mt-[-.6vw] ml-[8vw]">DU COEUR</p> 
+            <p className="text-yellow-400 mr-[3vw] uppercase"> LA Patisserie </p> <p className="text-rose-400 mt-[-.6vw] ml-[8vw]">DU COEUR</p> 
         </div>
         <div className={"mt-[-.4vw] mb-[3vw] text-[.9vw] text-white"}>
         Savor the deliciousness with us

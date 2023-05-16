@@ -17,10 +17,20 @@ import Resend from './pages/email_resend.js';
 import PasswordReset from './pages/password_reset.js';
 import PasswordResetConfirm from './pages/password_reset_confirm.js';
 import Item from './pages/item.js';
+import Footer from './components/Footer.js';
+import Cart from './pages/cart.js'
+import SVG_Star from './components/SVG_Star.js';
+import SVG_Star_Full from './components/SVG_Star_Full.js';
+import SVG_Pastries from './components/SVG_Pastries.js';
+import SVG_Bagel from './components/SVG_Bagel.js';
+import SVG_Cake from './components/SVG_Cake.js';
+import Location from './pages/location.js';
+import Privacy from './pages/privacy.js';
+import Terms from './pages/terms.js';
 function App() {
 
   return (
-    <div >
+    <div className='bg-[#0349aa] ' >
 
       <Navbar />
 
@@ -33,29 +43,36 @@ function App() {
                 <Route element={<PrivateRoute allowedRoles={[1]} />}>
                   <Route path='/User_list' element={<User_list />} />
                 </Route>
-
+                <Route path='/products' element={<Product />} />
                 <Route path='/' element={<Home />} />
                 <Route path='products/:productID/' element={<Item />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/email_resend' element={<Resend />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route path='/email_verification' element={<Verify />} />
+                <Route path='/sign-in' element={<SignUp />} />
+                <Route path='/location' element={<Location />} />
+                <Route path='/privacy' element={<Privacy />} />
+                <Route path='/terms' element={<Terms />} />
           </Route>
-          <Route path='/products' element={<Product />} />
+         
           {/*Public Routes*/}
           {/*Since I learned about useParams I can make a email_resend/ID instead of 
           making the user copy the message ID*/}
-          <Route path='/email_verification' element={<Verify />} />
+          
           <Route path='/email_verification/:verifyID/' element={<Verify />} />
           <Route path='products/:productID/' element={<Item />} />
-          <Route path='/email_resend' element={<Resend />} />
           <Route path='/unauthorized' element={<Unauthorized />} />
+
           <Route path='/password_reset' element={<PasswordReset />} />
           <Route path='/password_reset_confirm' element={<PasswordResetConfirm />} />
           {/*Catch All*/}
-          <Route path='/sign-in' element={<SignUp />} />
+          
         </Route>
       </Routes>
 
 
-
+      
     </div >
 
   );

@@ -4,6 +4,7 @@ import useAuth from './useAuth';
 const useLogout = () => {
     
     const {auth,setAuth} = useAuth();
+    const access_token = auth.accessToken;
     const LOGOUT_URL = 'http://localhost:8000/api/v1/dj-rest-auth/logout/';
     const logout = async () => {
         
@@ -13,6 +14,7 @@ const useLogout = () => {
             {
                 headers :
                 {
+                'Authorization' : `JWT ${access_token}`,
                   'Content-Type': 'application/json',
                  
                 },          withCredentials: true              
