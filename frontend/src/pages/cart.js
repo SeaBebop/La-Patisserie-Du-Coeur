@@ -248,14 +248,14 @@ useEffect(()=>{
                         <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                     </div>
             }
-            <div className='flex justify-center bg-[#1f5cacd0]  '>
-            <div className=' mb-[1vw] mt-[1vw]'>
+            <div className='flex justify-center h-[3vw] bg-[#1f5cacd0]  '>
+            <div className=''>
               {
                 pageAmount &&
 
                 pageAmount.map(index =>
                   <button
-                    className='  focus:bg-slate-400 bg-slate-100 outline p-[.2vw]  font-body ml-[.3vw] px-[.9vw] outline-[.1vw] outline-slate-500 rounded-[1vw]'
+                    className='  focus:bg-slate-400 bg-slate-100 outline h-[2.2vw]  font-body ml-[.3vw] w-[2.2vw] text-[1.1vw] outline-[.1vw] outline-slate-500 rounded-[1vw]'
                     id={'Page ' + index}
                     key={index}
                     value={index}
@@ -335,11 +335,11 @@ useEffect(()=>{
         hiddenElements.forEach((el)=>{observer.observe(el)})
     },[containerRef,data])
     return (
-<div className="h-[40.5vw] mt-[9vw]">
+<div className="h-screen ">
     
 
-        <div className=" flex absolute justify-center font-body flex-col gap-3 ml-[4vw] pt-[2vw] w-screen overflow-hidden">
-            <div className="w-[60vw] shadow-2xl">
+        <div className="h-[40vw] mt-[7vw] flex absolute justify-center font-body flex-col gap-3 ml-[4vw] pt-[2vw] w-screen overflow-hidden">
+            <div className="w-[60vw]  shadow-2xl">
 
 
                 <div className="flex justify-center w-[60vw] bg-[#1f5cacd0] shadow-lg ">
@@ -354,7 +354,7 @@ useEffect(()=>{
                    <p className="mt-[2vw]"> As empty as Patrick Star's head can be</p>
                 </div>
                 :
-                <div className="h-[30vw] mt-[.5vw] flex flex-col w-[60vw] shadow-2xl bg-[#1f5cacd0] rounded-sm animate-pulse">
+                <div className="h-[30vw] mt-[.5vw] flex flex-col shadow-2xl bg-[#1f5cacd0] rounded-sm animate-pulse">
                     <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                     <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                     <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>

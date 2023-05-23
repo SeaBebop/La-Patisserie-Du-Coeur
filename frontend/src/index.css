@@ -6,13 +6,7 @@
 
 @responsive {
 }
-html{
-  height: auto;
-}
-body {
-margin: 0;
-height:auto;
-}
+
 
 .offscreen {
   position: absolute;

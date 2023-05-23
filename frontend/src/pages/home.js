@@ -38,10 +38,10 @@ const Home = () => {
   const backgroundURL =
     'url("https://i0.wp.com/www.society19.com/ca/wp-content/uploads/sites/2/2019/02/bakeries-vanfeatured.png?fit=768%2C576&ssl=1")';
   return (
-    <div>
+    <div className=" h-[500vh]">
       {/*First Picture*/}
       <div className=" z-[-10] w-[100vw]  bg-no-repeat h-[150vw]">
-        <img className=" h-[70vw] mt-[-15vw] unrevealed overflow-hidden" ref={containerRef} loading="lazy" src='https://i.ibb.co/VtpN4L1/pexels-photo-205961.png' alt="" />
+        <img className=" w-[99.9vw] h-[60vw]  z-[-10] overflow-y-hidden overflow-hidden" ref={containerRef} loading="lazy" src='https://i.ibb.co/VtpN4L1/pexels-photo-205961.png' alt="" />
         <div className="w-[100vw] flex flex-row shadow-lg  mt-[6vw] h-[25vw]">
           <div className="w-[52%] z-50 rounded-2xl flex-col justify-center items-center flex h-full bg-[#fb3131] ">
             <p className="font-body font-bold mt-[2vw] text-yellow-200 text-[2vw] uppercase">at La Patisserie Du Coeur!</p>

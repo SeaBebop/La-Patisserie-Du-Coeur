@@ -26,10 +26,7 @@ const Navbar = () => {
     'url("")';
 
   return (
-    <div id="navbar" style={{ backgroundImage: backgroundURL }}
-      className="  flex h-[10vw] fixed w-[99.9vw]  z-[10000] justify-end items-center overflow-hidden ">
-
-
+    <div id="navbar"  className="fixed flex h-[10vw]   w-[99.9vw]  z-[10000] justify-end items-center overflow-hidden ">
 
       <Link className="hover:opacity-80  mr-[25vw]" bg- to="/" >
         <div className="">

@@ -32,12 +32,13 @@ function App() {
   return (
     <div className='bg-[#0349aa] ' >
 
-      <Navbar />
 
+<Navbar />
       <Routes>
         {/*Logged in Route*/}
+        
         <Route path='/' element={<Layout />} >
-
+     
           <Route element={<PersistLogin />}>
 
                 <Route element={<PrivateRoute allowedRoles={[1]} />}>
