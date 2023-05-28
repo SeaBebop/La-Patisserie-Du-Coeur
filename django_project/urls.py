@@ -42,5 +42,7 @@ urlpatterns = [
     url_name="schema"), name="redoc",), # new
     path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(
 url_name="schema"), name="swagger-ui"), # new
+    #stripe
+    path("api/v1/checkout/",include('checkout.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
