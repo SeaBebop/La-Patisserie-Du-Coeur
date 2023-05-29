@@ -5,14 +5,18 @@ from django.shortcuts import redirect
 from django_project.settings import FRONTEND_CHECKOUT_SUCCESS_URL,FRONTEND_CHECKOUT_FAILED_URL
 from post.serializer import CartSerializer
 import stripe 
+from environs import Env
 from post.models import Cart,Product
 
 # Create your views here.
+env = Env()
+env.read_env()
+stripe.api_key = env("DOCKER_STRIPE")
 
 class CreateCheckoutSession(APIView):
     
     
-    def post(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs): 
         counter = 0
         line_items = []
         cart = Cart.objects.filter(user=request.user).values_list('orders__item',flat=True)
@@ -56,5 +60,5 @@ class CreateCheckoutSession(APIView):
         except Exception as e:
             print(e)      
             
-            return Response('Negation')
+            return Response('')
       
