@@ -63,9 +63,10 @@ const Login = () => {
       const accessToken = response?.data.access_token;
       const refreshToken = response?.data.refresh_token;
       const roles = response?.data.user.roles;
+      const userID = response?.data.user.pk;
 
       console.log(response);
-      setAuth({ accessToken, refreshToken, roles });
+      setAuth({ accessToken, refreshToken, roles,userID });
 
 
       changeResponse(response.data);

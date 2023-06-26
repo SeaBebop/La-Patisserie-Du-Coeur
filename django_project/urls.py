@@ -43,6 +43,8 @@ urlpatterns = [
     path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(
 url_name="schema"), name="swagger-ui"), # new
     #stripe
-    path("api/v1/checkout/",include('checkout.urls'))
+    path("api/v1/checkout/",include('checkout.urls')),
+    path('api/v1/customer/',include('customer.urls')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -27,40 +27,45 @@ import SVG_Cake from './components/SVG_Cake.js';
 import Location from './pages/location.js';
 import Privacy from './pages/privacy.js';
 import Terms from './pages/terms.js';
+import CheckoutFalse from './pages/checkout_f.js';
+import CheckoutTrue from './pages/checkout_t.js';
 function App() {
 
   return (
     <div className='bg-[#0349aa] ' >
 
 
-<Navbar />
+      <Navbar />
       <Routes>
         {/*Logged in Route*/}
-        
+
         <Route path='/' element={<Layout />} >
-     
+
           <Route element={<PersistLogin />}>
 
-                <Route element={<PrivateRoute allowedRoles={[1]} />}>
-                  <Route path='/User_list' element={<User_list />} />
-                </Route>
-                <Route path='/products' element={<Product />} />
-                <Route path='/' element={<Home />} />
-                <Route path='products/:productID/' element={<Item />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/email_resend' element={<Resend />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route path='/email_verification' element={<Verify />} />
-                <Route path='/sign-in' element={<SignUp />} />
-                <Route path='/location' element={<Location />} />
-                <Route path='/privacy' element={<Privacy />} />
-                <Route path='/terms' element={<Terms />} />
+            <Route path='/cart/checkout/true' element={<CheckoutTrue />} />
+            <Route path='/cart/checkout/false' element={<CheckoutFalse />} />
+            <Route element={<PrivateRoute allowedRoles={[1]} />}>
+              <Route path='/User_list' element={<User_list />} />
+            </Route>
+            <Route path='/products' element={<Product />} />
+            <Route path='/' element={<Home />} />
+            <Route path='products/:productID/' element={<Item />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/email_resend' element={<Resend />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/email_verification' element={<Verify />} />
+            <Route path='/sign-in' element={<SignUp />} />
+            <Route path='/location' element={<Location />} />
+            <Route path='/privacy' element={<Privacy />} />
+            <Route path='/terms' element={<Terms />} />
+
           </Route>
-         
+
           {/*Public Routes*/}
           {/*Since I learned about useParams I can make a email_resend/ID instead of 
           making the user copy the message ID*/}
-          
+
           <Route path='/email_verification/:verifyID/' element={<Verify />} />
           <Route path='products/:productID/' element={<Item />} />
           <Route path='/unauthorized' element={<Unauthorized />} />
@@ -68,12 +73,12 @@ function App() {
           <Route path='/password_reset' element={<PasswordReset />} />
           <Route path='/password_reset_confirm' element={<PasswordResetConfirm />} />
           {/*Catch All*/}
-          
+
         </Route>
       </Routes>
 
 
-      
+
     </div >
 
   );

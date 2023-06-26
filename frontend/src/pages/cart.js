@@ -5,19 +5,19 @@ import useAuth from "../Hooks/useAuth"
 import SVG_facebook from "../components/SVG_Facebook"
 import SVG_instagram from "../components/SVG_Instagram"
 import SVG_twitter from "../components/SVG_Twitter"
-
+import jwt_decode from 'jwt-decode'
 const CART_URL = 'http://127.0.0.1:8000/api/v1/cart/'
 const ORDER_ID_URL = 'http://127.0.0.1:8000/api/v1/order/'
-
+const CREATE_CHECKOUT_URL = 'http://127.0.0.1:8000/api/v1/checkout/create-checkout-session/'
 const Cart = () => {
     const containerRef = useRef(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState('');
     const [trigger, setTrigger] = useState(false);
     const [isEmpty,setIsEmpty] = useState(false);
+    const { auth } = useAuth();
+    const access_token = auth.accessToken === undefined ? undefined  : auth.accessToken;
 
-    const {auth} = useAuth()
-    const access_token = auth.accessToken;
     //Added this conditional context for both cases:Logged in or anonymousUser
     const header_context = access_token === undefined ?   {'Content-Type': 'application/json',}:  
     {'Authorization' : `JWT ${access_token}`,
@@ -60,7 +60,23 @@ const Cart = () => {
         //Triggers the fetch cart function
         setTrigger(true);
     }
+    /*
+    const cartCheckoutPost = async (e) =>{
+        e.preventDefault();
 
+        try{
+            const response = await axios.post(CREATE_CHECKOUT_URL,JSON.stringify({'':''}), {
+                headers:header_context,
+                withCredentials: true
+            }
+
+            );
+            window.open(response.data);
+        }
+        catch (err){
+           
+        }
+    } */
     const orderEditSubmit = async (e) => {
         e.preventDefault();
 
@@ -101,7 +117,8 @@ const Cart = () => {
     }
     useEffect(() => {
         const fetchCart = async () => {
-
+            const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+            await sleep(400)
             try {
                 const response = await axios.get(CART_URL, {
                     headers: header_context, withCredentials: true
@@ -142,6 +159,7 @@ useEffect(()=>{
       
 },[])
         function HandlePages(){
+
             let pageCalc = 0;
             let counter = 0;
             let pageAmount = []; 
@@ -364,10 +382,38 @@ useEffect(()=>{
                 
             </div>
             {data ?
-                <div className=" absolute uppercase flex justify-center  bg-[#1f5cacd0] text-white w-[20vw] p-[5vw] shadow-lg rounded-sm ml-[70vw] ">
+                <div className=" absolute uppercase flex justify-center flex-col  bg-[#1f5cacd0] text-white w-[20vw] p-[5vw] shadow-lg rounded-sm ml-[70vw] ">
                     <p className="">Total amount </p>
                     <p> ${data[0].total_price}</p>
-                </div> : 
+      
+                    <div>
+                {/* 
+                Tried to do <form onSubmit={cartCheckoutPost}>
+
+                However whenever you do an ajax or a httpRequest, by default redirects are prevented after a post
+                this is because an ajax post expects a response and a redirect isn't a valid one
+                a regular POSt from a form however it works
+                This creates further problems that requires a work around on the backend in the checkout view.py
+                >Can't verify the user's access token without an ajax/request header
+                Solution:
+                Retriving the hidden access token value as request data, decoding the token on the backend for safety,
+                checking if the user is authenticated with that value(can't use is_authenticated without a request header)
+                
+                I could have used the standard solution with window.href or whatever its called for redirecting on the frontend 
+                after getting the checkout url as a response
+                however
+                That is wack: it counts as a popup which can be blocked by the user which creates confusion
+                */}
+                <form action={CREATE_CHECKOUT_URL} method="POST">
+                <input name="sessionKey" id="say" hidden value={data[0]?.session_key} />
+                <input name="userID" id="say" hidden value={access_token} />
+                <input type="submit" name=""  className=" cursor-pointer hover:bg-[#ff5b5b]  border rounded-md bg-red-500 p-[.1vw] mt-[.3vw] text-black" value="CHECK OUT"/>    
+                </form>
+                
+
+                    </div>
+                </div>
+                 : 
                 isEmpty === true ? 
                 
             <div className="absolute uppercase flex justify-center  bg-[#1f5cacd0] text-white w-[20vw] p-[5vw] shadow-lg rounded-sm ml-[70vw]">

@@ -48,9 +48,10 @@ const useRefreshToken = () =>
            */
 
           //Above is replaced with the access token being decoded
-           const decoded = response.access !== undefined ?
-           jwt_decode(response.data.access) : undefined
-         const roles = decoded?.roles || false
+           const decoded = response.data.access !== undefined ?
+           jwt_decode(response.data.access).roles : undefined
+ 
+        
          
        setAuth( prev => {
              

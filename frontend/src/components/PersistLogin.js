@@ -23,7 +23,7 @@ const PersistLogin = () => {
         let isMounted = true;
         
         const verifyRefreshToken = async () => {
-            await sleep(300)
+            await sleep(50)
             try {
                 await refresh();
              

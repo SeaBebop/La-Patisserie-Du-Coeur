@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode'
 
 const PRODUCT_DATA_URL = 'http://127.0.0.1:8000/api/v1/shop';
 const ORDER_URL = 'http://127.0.0.1:8000/api/v1/order/';
+const CUSTOMER_URL = 'http://127.0.0.1:8000/api/v1/customer/manage-customer/'
 
 /*The filter Idea is inspired by  https://codesandbox.io/s/r5x4i?file=/src/App.js 
 
@@ -64,6 +65,9 @@ const Products = () => {
 
   }, [currentPage, data, renderPaginationColor, filter])
 
+  const customerPost = async ()  =>{
+
+  }
   //Toggles the button to have a highlight which filter they clicked
   useEffect(() => {
 
@@ -173,6 +177,14 @@ const Products = () => {
       }
       else {
         console.log('Error:Failed to connect');
+      }
+      
+      try{
+
+      }
+      catch(err)
+      {
+
       }
     }
   }

@@ -31,6 +31,7 @@ class CustomUser(AbstractUser):
 
     roles = models.IntegerField(
         choices=USER_LEVEL_CHOICES, blank=True, default=IS_STANDARD)
+    customer_id = models.CharField(null=True,blank=True,max_length=200)
 
     def is_Admin(self):
         if self.roles == 0:

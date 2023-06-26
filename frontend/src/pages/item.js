@@ -15,7 +15,7 @@ const Item = () => {
   const token = auth.accessToken;
 
   useEffect(() =>{
-    const fetchPost = async () => {
+    const fetchGet = async () => {
       try {
         const response = await axios.get(AUTHOR_DATA_URL,
           {
@@ -45,7 +45,7 @@ const Item = () => {
  
       }
     }
-   fetchPost();
+   fetchGet();
 },[token])
  
   return (

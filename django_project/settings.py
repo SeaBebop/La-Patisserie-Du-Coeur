@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "checkout.apps.CheckoutConfig",
     "accounts.apps.AccountsConfig",
     "post.apps.PostConfig",
+    'customer.apps.CustomerConfig',
 ]
 
 REST_AUTH_SERIALIZERS = {
@@ -267,8 +268,8 @@ USE_TZ = True
 
 #Stripe setup
 STRIPE_SECRET_KEY = env('DOCKER_STRIPE')
-FRONTEND_CHECKOUT_SUCCESS_URL = ''
-FRONTEND_CHECKOUT_FAILED_URL = ''
+FRONTEND_CHECKOUT_SUCCESS_URL = 'http://localhost:3000/cart/checkout/true/'
+FRONTEND_CHECKOUT_FAILED_URL = 'http://localhost:3000/cart/checkout/false/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
