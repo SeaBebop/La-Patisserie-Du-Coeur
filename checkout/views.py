@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 import jwt
 from django_project import settings
 from django.contrib.sessions.models import Session
-
+import json 
 # Create your views here.
 env = Env()
 env.read_env()
@@ -43,7 +43,7 @@ class Webhook(APIView):
         if event['type'] == 'checkout.session.completed':
             session = event['data']['object']
 
-            print('this is user', self.request.user)
+            #print('this is triggered', session)
 
             # Save an order in your database, marked as 'awaiting payment'
             create_order(session)
@@ -75,7 +75,14 @@ class Webhook(APIView):
 
 def fulfill_order(session):
   # TODO: fill me in
-  print("Fulfilling order")
+  #Will use this to delete the cart info
+  checkoutID = session['id']
+  customerInfo = stripe.checkout.Session.retrieve(checkoutID)
+  customerInfo = customerInfo['metadata']['userInfo']
+  print('This is customerInfo', customerInfo)
+
+  #print('this is session', session['metadata']['userInfo'])
+
 
 def create_order(session):
   # TODO: fill me in
@@ -87,10 +94,11 @@ def email_customer_about_failed_payment(session):
 
 class CreateCheckoutSession(APIView):
     
-    def get(self,request,*args,**kwargs):
 
-            return Response('')
-        
+    def get(self,request,*args,**kwargs):
+        charge = stripe.Charge.list(customer='cus_O8yLbjwStIAW8w',payment_intent='pi_3NNzeXH83CFbAyZP0hhKCg7z')
+        return Response(charge)
+              
     def post(self,request,*args,**kwargs): 
         #Setting up a cart of products
         counter = 0
@@ -99,12 +107,20 @@ class CreateCheckoutSession(APIView):
         item = None
         customerID = None
         userData = None
+        loggedIn = False
+        passInInfo = None
+        itemDict = None
+        
         #Trying to decode on the backend more for security purposes
         #Created a solution for redirecting with a post
+        #print(self.request.session.session_key)<-this doesn't work
 
-        print(self.request.session.session_key)
+        #So I passed on hidden inputs of the user data which contains:
+        #Who they are, if they are logged in, their stripe customer ID
+        #With this data I make checkout 
+
         if request.data['userID'] != '':
-            print('this shouldnt')
+            loggedIn = True
             userData = jwt.decode(str(request.data['userID']),key=settings.SECRET_KEY,algorithms=["HS256"])
             customerID = userData['customer']
         
@@ -115,7 +131,7 @@ class CreateCheckoutSession(APIView):
 
             customerID = customerID
         if request.data['userID'] == '' and request.data['sessionKey'] != '': 
-            print('this triggered')
+            #print('this triggered')
             cart = Cart.objects.filter(session_key=request.data['sessionKey']).values_list('orders__item',flat=True)
             item = Cart.objects.filter(session_key=request.data['sessionKey']).values_list('orders__quantity',flat=True)
             customerID = Session.objects.get(pk=request.data['sessionKey'])
@@ -139,16 +155,41 @@ class CreateCheckoutSession(APIView):
                     })
             counter+=1
 
+        #Creating a dict of product data to pass on data to the payment intent
+        #This idea failed, lead there was a 500 character limit
+        #counter = 0
+        #print('this is line items',line_items)
+        """        
+            for product in line_items:
+            tmp = {str(counter) : product['product_data']}
+            itemDict.update(tmp)
+            counter+=1"""
+        #print('This is dict of items',itemDict)
 
-            
-        print(line_items)
-        
+        #itemDict = dict(zip(cart,item))
+
+        #Instead of doing what is above I realized
+        #Using user customerID i can get PaymentIntent->CheckoutData->LineItems
+        #Perfect for purchase history
+        #Using Charge I should get the reciept for the user
         try:
-            
+            if loggedIn:
+                passInInfo = userData['user_id']
+            else:
+                passInInfo = request.data['sessionKey']
+            #print(passInInfo)
             checkout_session = stripe.checkout.Session.create(
+                #So I know who they are for webhook purposes
+                metadata={
+                    "userInfo":passInInfo
+                },
+                        
+                        
                         line_items=line_items,
                         customer = customerID,
                         mode='payment',
+                        #So I can document more info on what the products are 
+                    
                         success_url=FRONTEND_CHECKOUT_SUCCESS_URL,
                         cancel_url=FRONTEND_CHECKOUT_FAILED_URL,
                     )

@@ -24,7 +24,7 @@ import SVG_Star_Full from './components/SVG_Star_Full.js';
 import SVG_Pastries from './components/SVG_Pastries.js';
 import SVG_Bagel from './components/SVG_Bagel.js';
 import SVG_Cake from './components/SVG_Cake.js';
-import Location from './pages/location.js';
+import PurchaseHistory from './pages/purchase_history.js';
 import Privacy from './pages/privacy.js';
 import Terms from './pages/terms.js';
 import CheckoutFalse from './pages/checkout_f.js';
@@ -56,7 +56,7 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/email_verification' element={<Verify />} />
             <Route path='/sign-in' element={<SignUp />} />
-            <Route path='/location' element={<Location />} />
+            <Route path='/purchase-history' element={<PurchaseHistory />} />
             <Route path='/privacy' element={<Privacy />} />
             <Route path='/terms' element={<Terms />} />
 

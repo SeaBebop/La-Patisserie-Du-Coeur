@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="flex flex-row gap-[2vw] font-body  text-[1.4vw] items-center">
           <Link to="/products" className="   text-[#02f407] hover:opacity-70 rounded-[0.07rem]  bg font-semibold flex flex-row ml-[1vw]" ><i className=" "><SVG_Spoon_Fork /></i>  ORDER</Link>
           <Link to="/cart" className="  font-semibold flex flex-row hover:opacity-70  rounded-lg " ><i className=""><SVG_Cart /></i>CART</Link>
-          <Link to="/location" className="  font-semibold flex flex-row hover:opacity-70  rounded-lg " >LOCATION</Link>
+          <Link to="/purchase-history" className="  font-semibold flex flex-row hover:opacity-70  rounded-lg " >PURCHASE HISTORY</Link>
          
         </div>
 
