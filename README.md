@@ -34,4 +34,20 @@ Dependencies
     TailwindCSS 2.1
     Stripe 2.57
 
+Goals
+
+    Once checkout = true, ordered needs to be true<- Changing this to deletion
+    Ordered needs to be used as a condition that prevents further purchases<- Changing this to deletion
+    Customer object for session and account on product selection <-Done
+    ->Finished the auth->fixed
+    ->need to finish the annon part->fixed
+    Purchase History Backend<-Done but can be improved
+    Purchase History Frontend<-Currently on
+    Transferable data between session and account(cart and customer object transfer)
+    More Marketable design of the page
+    Webhook causing data deletion
+    Should data transfer be option? Probably not. Need to keep track of the order data 
+    if the session user and request.user is the same persion for refund and purchase 
+    history purposes.
+
 Credits
