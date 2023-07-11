@@ -102,7 +102,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         # Creates an order if not created, gets an order if created
         
         if (request.user.is_authenticated):
-
+            print('this is customerID',request.user.customer_id)
             productObject = get_object_or_404(
                 Product, id=int(form_data['item']))
             order_item, created = OrderItem.objects.get_or_create(
@@ -131,6 +131,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             if request.user.customer_id is None:
                 sleep(0.05)
                 Customer.post(self, request)
+                
                 return Response('Creating order and customer object')
             else:
                 return Response('Creating order')

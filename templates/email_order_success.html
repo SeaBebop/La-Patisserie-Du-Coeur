@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{% block head_title %}{% trans "Testing" %}{% endblock head_title %}
+
+{% block content %}
+
+<h1>{% trans "Testing Email "%}</h1>
+  
+    <p>{% blocktrans%}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a>
+        is an email address for user {{ name  }}.
+        {% endblocktrans %}</p>
+
+    
+            
+
+{% endblock %}

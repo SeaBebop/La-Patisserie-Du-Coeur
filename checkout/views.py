@@ -13,6 +13,14 @@ import jwt
 from django_project import settings
 from django.contrib.sessions.models import Session
 import json 
+from post.models import OrderItem ,Cart
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template import loader
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 # Create your views here.
 env = Env()
 env.read_env()
@@ -74,12 +82,34 @@ class Webhook(APIView):
         return HttpResponse(status=200)
 
 def fulfill_order(session):
-  # TODO: fill me in
-  #Will use this to delete the cart info
-  checkoutID = session['id']
-  customerInfo = stripe.checkout.Session.retrieve(checkoutID)
-  customerInfo = customerInfo['metadata']['userInfo']
-  print('This is customerInfo', customerInfo)
+    # TODO: fill me in
+    #Will use this to delete the cart info
+    checkoutID = session['id']
+    print('this is the stance',session)
+    customerInfo = stripe.checkout.Session.retrieve(checkoutID)
+
+    metadata = customerInfo
+    customerInfo = metadata['metadata']['userInfo']
+    loggedInInfo = metadata['metadata']['loggedIn']
+    customerEmail = session['customer_details']['email']
+    customerName = session['customer_details']['name']
+    #Deleting Product on the servers
+    #Data is saved in stripe as a customer
+    if loggedInInfo ==  'True':
+        OrderItem.objects.filter(user=int(customerInfo)).delete()
+        Cart.objects.filter(user=int(customerInfo)).delete()
+    else:
+        OrderItem.objects.filter(session_key=customerInfo).delete()
+        Cart.objects.filter(session_key=customerInfo).delete()
+    #Email Making
+    html_message = loader.render_to_string(
+        'email_order_success.html',
+        {
+            'name' : customerName,
+            'email' : customerEmail,
+        }
+    )
+    send_mail(subject='Testing Email Template',message='A cool message :)',from_email= settings.DEFAULT_FROM_EMAIL,recipient_list= [customerEmail],html_message=html_message)
 
   #print('this is session', session['metadata']['userInfo'])
 
@@ -96,7 +126,8 @@ class CreateCheckoutSession(APIView):
     
 
     def get(self,request,*args,**kwargs):
-        charge = stripe.Charge.list(customer='cus_O8yLbjwStIAW8w',payment_intent='pi_3NNzeXH83CFbAyZP0hhKCg7z')
+        #change this
+        charge = stripe.checkout.Session.list(customer='cus_O8yLbjwStIAW8w')
         return Response(charge)
               
     def post(self,request,*args,**kwargs): 
@@ -108,8 +139,10 @@ class CreateCheckoutSession(APIView):
         customerID = None
         userData = None
         loggedIn = False
+
         passInInfo = None
-        itemDict = None
+        passInProduct = []
+        passInQuantity = []
         
         #Trying to decode on the backend more for security purposes
         #Created a solution for redirecting with a post
@@ -120,16 +153,22 @@ class CreateCheckoutSession(APIView):
         #With this data I make checkout 
 
         if request.data['userID'] != '':
+            print(request.data['userID'])
             loggedIn = True
             userData = jwt.decode(str(request.data['userID']),key=settings.SECRET_KEY,algorithms=["HS256"])
-            customerID = userData['customer']
+            #This used to be costumerID = userData['customer_id']
+            #Problem was that access tokens doesn't automatically change whatever data they have, even on refresh token
+            #Unless the user logs out, honestly dont understand how it works fully but this below was the alternative
+            #This actually ended up being better and gave me new ideas
+            customerID = get_user_model().objects.filter(id=userData['user_id']).values_list('customer_id',flat=True)
+            customerID = customerID[0]
         
         
         if request.data['userID'] != '':
             cart = Cart.objects.filter(user=userData['user_id']).values_list('orders__item',flat=True)
             item = Cart.objects.filter(user=userData['user_id']).values_list('orders__quantity',flat=True)
 
-            customerID = customerID
+
         if request.data['userID'] == '' and request.data['sessionKey'] != '': 
             #print('this triggered')
             cart = Cart.objects.filter(session_key=request.data['sessionKey']).values_list('orders__item',flat=True)
@@ -153,6 +192,8 @@ class CreateCheckoutSession(APIView):
                 },
                 'quantity': item[counter],
                     })
+            passInProduct.append(cart_items)
+            passInQuantity.append( item[counter])
             counter+=1
 
         #Creating a dict of product data to pass on data to the payment intent
@@ -173,15 +214,21 @@ class CreateCheckoutSession(APIView):
         #Perfect for purchase history
         #Using Charge I should get the reciept for the user
         try:
+            print('This is customer',customerID)
             if loggedIn:
-                passInInfo = userData['user_id']
+                passInInfo = int(userData['user_id'])
+                
             else:
                 passInInfo = request.data['sessionKey']
             #print(passInInfo)
             checkout_session = stripe.checkout.Session.create(
                 #So I know who they are for webhook purposes
                 metadata={
-                    "userInfo":passInInfo
+                    "userInfo":passInInfo,
+                    #Will use a delimiter to convert this into a list again
+                    "product_quantity" : str(passInQuantity)[1:-1].replace(" ", ""),
+                    "product": str(passInProduct)[1:-1].replace(" ", ""),
+                    "loggedIn" : loggedIn,
                 },
                         
                         
