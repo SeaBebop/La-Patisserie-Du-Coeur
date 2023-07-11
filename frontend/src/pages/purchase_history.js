@@ -75,8 +75,6 @@ const PurchaseHistory = () => {
 
                       <p className="flex flex-col"> {items} </p>
 
-
-
                     )
                   })}
                 </div>

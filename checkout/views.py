@@ -93,6 +93,13 @@ def fulfill_order(session):
     loggedInInfo = metadata['metadata']['loggedIn']
     customerEmail = session['customer_details']['email']
     customerName = session['customer_details']['name']
+    paymentAmount = session['amount_total'] * .01
+    currencyUsed = session['currency']
+    paymentID = session['payment_intent'] 
+    customerID = session['customer']
+
+    paymentData = stripe.Charge.list(customer=customerID, payment_intent=paymentID)
+    print(paymentData)
     #Deleting Product on the servers
     #Data is saved in stripe as a customer
     if loggedInInfo ==  'True':
@@ -107,6 +114,11 @@ def fulfill_order(session):
         {
             'name' : customerName,
             'email' : customerEmail,
+            'paymentID' : paymentID,
+            'website' : 'La Patisserie Du Coeur',
+            'payment' : '{:.2f}'.format(paymentAmount)
+
+
         }
     )
     send_mail(subject='Testing Email Template',message='A cool message :)',from_email= settings.DEFAULT_FROM_EMAIL,recipient_list= [customerEmail],html_message=html_message)

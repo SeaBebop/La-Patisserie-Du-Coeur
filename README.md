@@ -41,13 +41,14 @@ Goals
     Customer object for session and account on product selection <-Done
     ->Finished the auth->fixed
     ->need to finish the annon part->fixed
-    Purchase History Backend<-Done but can be improved
-    Purchase History Frontend<-Currently on
+    Purchase History Backend<-Done and improved improved but I think it needs a tiny bit more
+    Purchase History Frontend<-Basic idea done
     Transferable data between session and account(cart and customer object transfer)
-    More Marketable design of the page
-    Webhook causing data deletion
+    More Marketable design of the page<-Deciding ideas
+    Webhook causing data deletion<-Done on this
+    Webhook dealing with failures + more emails<-Currently on this
     Should data transfer be option? Probably not. Need to keep track of the order data 
     if the session user and request.user is the same persion for refund and purchase 
-    history purposes.
+    history purposes.<-Not there yet
 
 Credits

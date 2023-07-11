@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_jwt',
-
+    #'django_inlinecss', somehow got an error some im not using it
     "dj_rest_auth.registration", # new
     "drf_spectacular", # new
 
@@ -180,6 +180,7 @@ TEMPLATES = [
 ]
 
 DEFAULT_FROM_EMAIL = env('DOCKER_DEFAULT_FROM_EMAIL')
+EMAIL_FROM =  env('DOCKER_DEFAULT_FROM_EMAIL')
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" # new
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
