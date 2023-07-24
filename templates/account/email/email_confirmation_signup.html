@@ -3,15 +3,54 @@
 {% load i18n %}
 
 {% block content %}{% autoescape off %}{% user_display user as user_display %}
-{% blocktrans with site_name=current_site.name site_domain=current_site.domain key_value=key site='http://localhost:3000/email_verification/'  %}
-You're receiving this e-mail because user {{ user_display }} has given your e-mail address to register an account on {{ site_domain }}.
-<br>
-<strong>Copy this Verification key:</strong> {{ site }}</button> 
-<br>
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain key_value=key %}
+<div style='
+        padding: 1vw;
+        text-align: center;
+        background-color: #ff0000;
+        color: white;
+        margin-top: 2vw;
+        margin-left: 14vw;
+        margin-right: 14vw;'>
+  <h2>La Patisserie Du Coeur</h2>
+</div>
+<div style="    
+
+
+        margin-left: 14vw;
+        margin-right: 14vw;
+        margin-top: .2vw;
+        background-color: #f4f4f4;
+        padding-top: 2vw;
+        padding-bottom: 4vw;
+        padding-left: 3vw;
+        padding-right: 3vw;">
+<div  style="  margin-left: 2vw;">Dear {{ user_display }},</div>
+<div style="  margin-top: 2vw;
+        margin-left: 2vw;"></div>
+<div style="  margin-top: 2vw;
+        margin-left: 4vw;">Thank you for joining La Patisserie Du Coeur! We're excited to share our exquisite pastries with you. Expect exclusive menus, promos, and events.</div>
+        <div style=" margin-top: 2vw;
+        margin-left: 4vw;">We value your time, so we'll keep emails concise and relevant. Get updates on new cakes, discounts, and workshops.
+</div>
+<div style=' margin-top: 2vw;
+        margin-left: 4vw;'>Make sure to verify your email with the link down below</div>
+        <div style=' margin-top: 2vw;
+        margin-left: 4vw;'>Need help? Contact our support team. We're here for you.</div>
+         <div style=' margin-top: 2vw;
+        margin-left: 4vw;'>Thank you again for choosing La Patisserie Du Coeur. We can't wait to delight your taste buds!</div>
+        
+
+
+<div style=' margin-top: 2vw;
+        margin-left: 4vw;'>Warm regards,</div>
+<div style=' margin-top: 2vw;
+        margin-left: 4vw;'> {{ user_display }}
+La Patisserie Du Coeur Team</div>
+        <div style=" margin-top: 4vw;
+        margin-left: 2vw;"><a style='padding:1.5vw; margin-top:10vw; border-radius:.5vw; background-color:#f44; text-decoration-line:none; color: white;' href='http://localhost:3000/email_verification/{{key_value}}' >Verification</a></div>
 
 <br>
-<a style='border-style:solid; border-radius:30px;padding:20px' href='' >Verification Page</a>
-<br>
-
+</div>
 
 {% endblocktrans %}{% endautoescape %}{% endblock %}

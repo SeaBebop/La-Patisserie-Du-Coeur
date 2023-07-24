@@ -59,6 +59,7 @@ const PasswordReset = () => {
 
  
   return (
+    <div className='absolute h-screen w-screen'>
     <>
     {success ? (
     <div>
@@ -90,7 +91,9 @@ const PasswordReset = () => {
       </div>
     )}
    
-    </>
+    </>  
+    </div>
+    
   )
 }
 

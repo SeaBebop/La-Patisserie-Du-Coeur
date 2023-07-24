@@ -19,7 +19,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.template import loader
 from pathlib import Path
-
+import datetime
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Create your views here.
 env = Env()
@@ -30,8 +30,7 @@ endpoint_secret = env('DOCKER_ENDPOINT_SK')
 class Webhook(APIView):
     def post(self,request):
         payload = request.body
-        print('This is payload',payload)
-        print('')
+
         
         sig_header = request.META['HTTP_STRIPE_SIGNATURE']
         event = None
@@ -84,13 +83,21 @@ class Webhook(APIView):
 def fulfill_order(session):
     # TODO: fill me in
     #Will use this to delete the cart info
+
+
     checkoutID = session['id']
-    print('this is the stance',session)
     customerInfo = stripe.checkout.Session.retrieve(checkoutID)
 
     metadata = customerInfo
     customerInfo = metadata['metadata']['userInfo']
     loggedInInfo = metadata['metadata']['loggedIn']
+        
+    if loggedInInfo ==  'True':
+        OrderItem.objects.filter(user=int(customerInfo)).delete()
+        Cart.objects.filter(user=int(customerInfo)).delete()
+    else:
+        OrderItem.objects.filter(session_key=customerInfo).delete()
+        Cart.objects.filter(session_key=customerInfo).delete()
     customerEmail = session['customer_details']['email']
     customerName = session['customer_details']['name']
     paymentAmount = session['amount_total'] * .01
@@ -99,15 +106,12 @@ def fulfill_order(session):
     customerID = session['customer']
 
     paymentData = stripe.Charge.list(customer=customerID, payment_intent=paymentID)
-    print(paymentData)
+
+    paymentReceipt = paymentData['data'][0]['receipt_url']
+    paymentDate = paymentData['data'][0]['created']
     #Deleting Product on the servers
     #Data is saved in stripe as a customer
-    if loggedInInfo ==  'True':
-        OrderItem.objects.filter(user=int(customerInfo)).delete()
-        Cart.objects.filter(user=int(customerInfo)).delete()
-    else:
-        OrderItem.objects.filter(session_key=customerInfo).delete()
-        Cart.objects.filter(session_key=customerInfo).delete()
+   
     #Email Making
     html_message = loader.render_to_string(
         'email_order_success.html',
@@ -116,14 +120,15 @@ def fulfill_order(session):
             'email' : customerEmail,
             'paymentID' : paymentID,
             'website' : 'La Patisserie Du Coeur',
-            'payment' : '{:.2f}'.format(paymentAmount)
+            'payment' : '{:.2f}'.format(paymentAmount),
+            'receipt' : paymentReceipt,
+            'date'  : str(datetime.datetime.fromtimestamp(paymentDate,None))[:11],
 
 
         }
     )
-    send_mail(subject='Testing Email Template',message='A cool message :)',from_email= settings.DEFAULT_FROM_EMAIL,recipient_list= [customerEmail],html_message=html_message)
+    send_mail(subject='Receipt From La Patisserie Du Coeur',message='',from_email= settings.DEFAULT_FROM_EMAIL,recipient_list= [customerEmail],html_message=html_message)
 
-  #print('this is session', session['metadata']['userInfo'])
 
 
 def create_order(session):
@@ -132,7 +137,25 @@ def create_order(session):
 
 def email_customer_about_failed_payment(session):
   # TODO: fill me in
-  print("Emailing customer")
+    checkoutID = session['id']
+
+    metadata = customerInfo
+    customerInfo = metadata['metadata']['userInfo']
+    loggedInInfo = metadata['metadata']['loggedIn']
+    customerEmail = session['customer_details']['email']
+    paymentAmount = session['amount_total'] * .01
+    customerName = session['customer_details']['name']
+    html_message = loader.render_to_string(
+        'email_order_failure.html',
+        {
+            'name' : customerName,
+            'email' : customerEmail,
+            'website' : 'La Patisserie Du Coeur',
+            'payment' : '{:.2f}'.format(paymentAmount),
+
+        }
+    )
+    send_mail(subject='Failed Purchase:La Patisserie Du Coeur',message='',from_email= settings.DEFAULT_FROM_EMAIL,recipient_list= [customerEmail],html_message=html_message)
 
 class CreateCheckoutSession(APIView):
     

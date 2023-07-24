@@ -110,7 +110,7 @@ const Login = () => {
 
   return (
     
-    <div className=" w-[100vw] ">
+    <div className=" w-[100vw] absolute h-screen ">
 
 <div className="mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
 <header className=" ">

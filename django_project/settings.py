@@ -153,7 +153,7 @@ CORS_ALLOWED_ORIGINS  = (
 "http://localhost:8000",
 
 )
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"] # new
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://localhost:8000",] # new
 SIMPLE_JWT = {
 'AUTH_HEADER_TYPES': ('JWT',),
 

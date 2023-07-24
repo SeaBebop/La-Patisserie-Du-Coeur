@@ -2,12 +2,15 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import stripe
+from django.contrib.sessions.backends.db import SessionStore
 from rest_framework.permissions import IsAdminUser, AllowAny  # new,
 from django.contrib.auth import get_user_model
-from post.models import Product
+from post.models import Product,OrderItem,Cart
 from decimal import *
 import datetime
-
+from rest_framework import status
+import json
+from time import sleep
 # Create your views here.
 
 
@@ -31,8 +34,9 @@ class Customer(APIView):
                 )
                 get_user_model().objects.filter(id=request.user.id).update(
                     customer_id=stripeCustomer.id)
+                return Response('Customer object was created',status.HTTP_201_CREATED)
             else:
-                return Response('Customer object was not created')
+                return Response('Customer object already created',status.HTTP_409_CONFLICT)
 
         elif request.session.session_key and not request.user.is_authenticated:
             if request.session[request.session.session_key] == '':
@@ -40,13 +44,15 @@ class Customer(APIView):
                     description='API created session customer'
                 )
                 request.session[request.session.session_key] = stripeCustomer.id
+                return Response('Customer object was created',status.HTTP_201_CREATED)
             else:
-                return Response('Session user Customer object was not created')
+                return Response('Customer object already created',status.HTTP_409_CONFLICT)
         else:
-            return Response('Customer object was not created')
-        return Response('Customer object already exists')
+            return Response('Customer object was not created',status.HTTP_400_BAD_REQUEST)
+        
 
     def get(self, request):
+        
         # Default get
         stripeCustomer = None
         # General idea
@@ -61,34 +67,37 @@ class Customer(APIView):
                     id=request.user.id).values_list('customer_id', flat=True)
                 stripeCustomer = stripe.Customer.retrieve(value[0])
                 return Response(stripeCustomer)
-        elif request.session.session_key and not request.user.is_authenticated:
-            if request.session[request.session.session_key] != '':
+        elif self.request.session.session_key and not self.request.user.is_authenticated:
+            if self.request.session[self.request.session.session_key] != '':
                 stripeCustomer = stripe.Customer.retrieve(
-                    request.session[request.session.session_key])
+                    self.request.session[request.session.session_key])
                 return Response(stripeCustomer)
         else:
-            return Response("No customer data found")
+            return Response("No customer data found",status.HTTP_204_NO_CONTENT)
 
 
 class CustomerPurchase(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-
         customerID = None
         paymentList = {}
         eachPaymentLineItem = []
         receiptData = []
         responseData = []
         if self.request.user.is_authenticated and self.request.user.customer_id != None:
-            print('this is customer id', request.user.customer_id)
+            #print('this is customer id', request.user.customer_id)
             customerID = request.user.customer_id
         elif (self.request.session.session_key and not self.request.user.is_authenticated
               and self.request.session[self.request.session.session_key] != ''):
-            customerID = self.request.session[self.request.session.session_key]
+            customerID = self.request.session.get(self.request.session.session_key)
+            #print(self.request.session.get(self.request.session.session_key))
         else:
-
-            return Response('No customer data found or purchases have been made!')
+            #This taught me the importance of specificing the error number. This is suppose to be a catch all response for when
+            #All the conditions above isn't true but since by default responses are 200, the response is treated as okay and bricks the site
+            #This is useful since on reactjs I can actually make error conditions with the numbers, like 204 do this or 404 do this.
+            #This was originally 204, however this response would brick the api for some reason. Searching it up later
+            return Response('No customer data found or purchases have been made!',status.HTTP_503_SERVICE_UNAVAILABLE)
 
         # Aligning the purchase history
         # There is probably a better way to align considering each of these arrays has a foreign key to it
@@ -143,3 +152,43 @@ class CustomerPurchase(APIView):
         #lineItemsComprehension = [{'name' : d[i]['description'],'quantity' :d[i]['quantity'], 'total_amount': d[i]['amount_total']} for d in lineItemsComprehension for i in range(len(d)) ]
 
         return Response(paymentComprehension)
+#Transfers session cus id to the newly signed up user data
+class TransferData(APIView):
+    permission_classes = [AllowAny]
+    def post(self,request):
+        sleep(.001)
+        if self.request.session.session_key:
+            userData =  dict(request.data)
+            userInfo = get_user_model().objects.filter(email=userData['user']).values_list('id',flat=True)[0]
+            
+            tmpCustData = self.request.session[self.request.session.session_key]
+            
+
+            
+            #Grabbing old cart data if any
+            OrderItem.objects.filter(session_key=self.request.session.session_key).update(session_key=None,user= userInfo)
+            Cart.objects.filter(session_key=self.request.session.session_key).update(session_key=None,user= userInfo)
+            #User obtaining the custom
+
+            #Deleteing key
+            try:
+                #Tried the one below, the data still persists. Flush seems to be better as a data wipe
+                #del self.request.session[self.request.session.session_key]
+                self.request.session.flush()
+                get_user_model().objects.filter(id=userInfo).update(
+                        customer_id=tmpCustData)
+
+                return Response("Data successfully transferred!")
+            except:
+                print('No deletion')
+                OrderItem.objects.filter(session_key=userInfo).update(session_key=self.request.session.session_key,user= None)
+                Cart.objects.filter(session_key=userInfo).update(session_key=self.request.session.session_key,user= None)
+                #User obtaining the custom
+                get_user_model().objects.filter(id=userInfo).update(
+                        customer_id=None)
+                return Response("Deletion failed, data recalled. Contact our team if you would like to regain your purchase history!",status.HTTP_500_INTERNAL_SERVER_ERROR)       
+            
+        else:
+            return Response("Cart data and purchase history not found! Contact our team if you believe it to be an error!",status.HTTP_404_NOT_FOUND)    
+
+

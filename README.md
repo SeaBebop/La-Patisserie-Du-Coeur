@@ -42,13 +42,12 @@ Goals
     ->Finished the auth->fixed
     ->need to finish the annon part->fixed
     Purchase History Backend<-Done and improved improved but I think it needs a tiny bit more
-    Purchase History Frontend<-Basic idea done
-    Transferable data between session and account(cart and customer object transfer)
-    More Marketable design of the page<-Deciding ideas
+    Purchase History Frontend<-This weeks goal
+    Transferable data between session and account(cart and customer object transfer)<-Done
+    More Marketable design of the page<-This weeks goal
     Webhook causing data deletion<-Done on this
-    Webhook dealing with failures + more emails<-Currently on this
-    Should data transfer be option? Probably not. Need to keep track of the order data 
-    if the session user and request.user is the same persion for refund and purchase 
-    history purposes.<-Not there yet
+    Webhook dealing with failures + more emails<-Done but more emails can be added if increased functionality
+    Should data transfer be option?<-Currently not an option, happens on sign up page
+    Bug:Purchase history bricks other api calls for session user<-Current goal
 
 Credits

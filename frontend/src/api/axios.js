@@ -6,6 +6,7 @@ export default axios.create({
     baseURL: URL_NAME,
     xsrfHeaderName: 'X-CSRFToken',
     xsrfCookieName: 'csrftoken',
+
 });
 
 export const axiosPrivate = axios.create({

@@ -29,6 +29,7 @@ import Privacy from './pages/privacy.js';
 import Terms from './pages/terms.js';
 import CheckoutFalse from './pages/checkout_f.js';
 import CheckoutTrue from './pages/checkout_t.js';
+import Loader from './components/loading.js';
 function App() {
 
   return (

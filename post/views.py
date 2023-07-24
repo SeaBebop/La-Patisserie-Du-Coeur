@@ -43,7 +43,7 @@ class CartViewSet(viewsets.ModelViewSet):
     # Adding condition of what type of carts you should see
     def get_queryset(self):
         # If its a non logged in user with a cart
-
+        
         if self.request.session.session_key and self.request.user.is_authenticated == False:
 
             queryset = Cart.objects.filter(
@@ -64,12 +64,12 @@ class CartViewSet(viewsets.ModelViewSet):
 
         # If its a logged in user with a cart
         elif self.request.user.is_authenticated == True:
-
             queryset = Cart.objects.filter(user=self.request.user)
 
         else:
             # If its a non logged in user with no cart
             queryset = None
+            
 
         return queryset
 
@@ -83,7 +83,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         # This was created because the request.POST['item'],etc results in an empty dict
         # I have no idea as to why and it cost me 3 days of sleep
         # Request.body is a great alternative I that never knew existed that I will never forget
-
+        
         form_data = dict(request.data)
         # Testing how to call a post of another view
         # Testing ways to reset customer data
@@ -118,7 +118,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     order_item.save()
 
                 else:
-                    return Response("ERROR! Can't order above the product quantity ")
+                    return Response("ERROR! Can't order above the product quantity",status.HTTP_405_METHOD_NOT_ALLOWED)
 
             else:
                 order_item.quantity = int(form_data['quantity'])
@@ -162,7 +162,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                         order_item.quantity = int(form_data['quantity'])
                         order_item.save()
                     else:
-                        print('ERROR!')
+                        return Response("ERROR! Can't order above the product quantity",status.HTTP_405_METHOD_NOT_ALLOWED)
                 else:
                     order_item.quantity = int(form_data['quantity'])
                     order_item.save()
@@ -193,7 +193,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                         order_item.quantity = int(form_data['quantity'])
                         order_item.save()
                     else:
-                        print('ERROR!')
+                        return Response("ERROR! Can't order above the product quantity",status.HTTP_405_METHOD_NOT_ALLOWED)
                 else:
                     order_item.quantity = int(form_data['quantity'])
                     order_item.save()
@@ -209,6 +209,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                     return Response('Creating order and customer object')
                 else:
                     return Response('Creating order')
+
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):

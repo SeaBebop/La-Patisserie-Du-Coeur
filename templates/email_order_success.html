@@ -1,26 +1,18 @@
-{% load i18n %}
-{% load static  %}
-
-{% block head_title %}{% endblock head_title %}
-
-{% block content %}
-<!--Learned that emails are more basic than browsers, forced to use inlines and flex doesnt work properly-->
-    <p>{% blocktrans %}
-        <div style='
+<div style='
         padding: 1vw;
         text-align: center;
         background-color: #ff0000;
         color: white;
         margin-top: 2vw;
-        margin-left: 8vw;
-        margin-right: 8vw;'>
+        margin-left: 14vw;
+        margin-right: 14vw;'>
   <h2>La Patisserie Du Coeur</h2>
 </div>
 <div style="    
 
 
-        margin-left: 8vw;
-        margin-right: 8vw;
+        margin-left: 14vw;
+        margin-right: 14vw;
         margin-top: .2vw;
         background-color: #f4f4f4;
         padding-top: 2vw;
@@ -39,7 +31,8 @@
         margin-left: 2vw;'>
     <span>Your order number is {{ paymentID }}. Please keep this number for your records.</span>
 
-    <span>You can track the purchase history of your order by visiting our website at {{ website }}.
+    <span>You can track the status of your order by visiting our website at {{ website }} and logging into your
+      account.
     </span>
 
 
@@ -57,22 +50,15 @@
 
     <p>Payment Details:</p>
     <div style='  margin-left: 4vw;'>
-      <p>The date and time of the order</p>
-      <p>{{ payment }}</p>
-      <p>The items that were ordered</p>
-      <p>The shipping address</p>
-      <p>The estimated shipping date</p>
+      <p >Date: {{ date }}</p>
+      <p style='margin-bottom:2vw;'>Amount: {{ payment }}</p>
+      <a style='padding:1vw;  border-radius:.5vw; background-color:#f44; text-decoration-line:none; color: white;' href={{ receipt }}>Receipt</a>
 
     </div>
 
     <br>
-    Merci beaucoup pour ton ordre!
+    
+    <div style='margin-top:1vw;'>Merci beaucoup pour ton ordre!</div>
   </div>
 
 </div>
-        {% endblocktrans %}</p>
-
-
-            
-
-{% endblock %}

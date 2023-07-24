@@ -103,7 +103,7 @@ const Products = () => {
           // dont need to make json with this methood
           //useeffect-> async function with await as response and the method, catch and then set
         )
-        //Added this condition in case these 0 products
+        //Added this condition in case there is 0 products
         if (response.data != '') {
           setData(response.data);
         }
@@ -153,6 +153,8 @@ const Products = () => {
     const classNameInt = Number(e.target.className);
 
     const targetValueQuantity = e.target[0].value;
+    const targetID = e.target[0].id;
+    
     let stringifiedData;
     {
       userName ?
@@ -166,13 +168,12 @@ const Products = () => {
         withCredentials: true,
 
       });
-      console.log(response);
+      document.getElementById(targetID).value = '';
     }
     catch (err) {
       if (err.response) {
         //If not in the 200 response range
-        console.log(err.response.data);
-        console.log(err.response.status);
+
 
       }
       else {
@@ -265,7 +266,7 @@ const Products = () => {
                       min={1}
                       max={datas.quantity}
 
-
+                      id={'input '+ datas.id}
                       placeholder={' Insert Quantity'} />
 
                     <button
@@ -323,7 +324,7 @@ const Products = () => {
                       min={1}
                       max={datas.quantity}
 
-
+                      id={'input '+ datas.id}
                       placeholder={' Insert Quantity'} />
 
                     <button
