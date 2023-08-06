@@ -2,9 +2,13 @@ import * as React from "react";
 const SVG_Spoon_Fork = (props) => (
   <svg
   fill="white"
+
+  border="1.1vw"
   height="1.7vw"
   width="1.7vw"
   id="Icons"
+  stroke="black"
+  strokeWidth={".1vw"}
   xmlns="http://www.w3.org/2000/svg"
   xmlnsXlink="http://www.w3.org/1999/xlink"
   viewBox="0 0 32 32"

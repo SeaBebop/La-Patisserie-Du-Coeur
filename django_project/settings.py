@@ -275,7 +275,7 @@ FRONTEND_CHECKOUT_FAILED_URL = 'http://localhost:3000/cart/checkout/false/'
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-
+STATICFILES_DIRS = [BASE_DIR / 'static/pictures/']    
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

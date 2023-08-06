@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, Link } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
+import useCartChecker from '../Hooks/useCartChecker';
 
 
 const USER_REGREX = /^[a-zA-Z][a-zA-Z0-9_]{3,24}$/;
@@ -17,6 +18,9 @@ const SignUp = () => {
     const redirctToVerify = async () => {
         navigate('/email_verification');
     }
+
+    const { cartTrigger, setcartTrigger } = useCartChecker();
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -42,6 +46,7 @@ const SignUp = () => {
     //Focus when components loads
     useEffect(() => {
         userRef.current.focus();
+        setcartTrigger(0);
     }, [])
 
     //validation checker for username
@@ -137,7 +142,7 @@ const SignUp = () => {
     </label>
     */
     return (
-        <div className='h-screen absolute'>
+        <div className='h-screen absolute w-screen'>
 
 
             <>
@@ -151,45 +156,45 @@ const SignUp = () => {
                             <button onClick={redirctToVerify}>Verify Email</button>
                         </div>
                     ) : (
-                        <div className=''>
+                        <div className='flex'>
 
 
-                            <div className='mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg'>
-                                <div>
-
+                            <div className='mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg'>
+                                <div className='flex flex-col justify-center items-center'>
 
                                     <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
 
-                                    <h1 className='mt-[3vw] font-body  text-[2vw] text-white'>REGISTER</h1>
-                                    <form className='mt-[3vw]' onSubmit={handleSubmit}>
-                                        <label className='text-white' htmlFor='email'>
-                                            Email:
+                                    <h1 className=' font-body  text-[2vw] mb-[3vw] text-white'>REGISTER</h1>
+                                    <form className='' onSubmit={handleSubmit}>
+                                    
+                                            <div className="absolute ml-[3.7vw] mt-[-1.71vw] delay-100  transition-all">
+                                                <p className={email != '' ? "opacity-100 ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Email</p>
+                                            </div>
+                                            <input
+                                                className='rounded-sm text-[1.25vw] pl-[1vw] w-[20vw] h-[2.4vw] mt-[.6vw]'
+                                                type="email"
+                                                id='email'
+                                                placeholder='Email'
+                                                autoComplete='off'
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                                aria-invalid={validEmail ? 'false' : 'true'}
+                                                aria-describedby='eidnote'
+                                                onFocus={() => setEmailFocus(true)}
+                                                onBlur={() => setEmailFocus(false)}
+                                            />
+                                        <p id='uidnote' className={email && !validEmail ? "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>*Required @ and .com. No other symbols can be used<br />
+                                        </p>
+                                        
 
-                                        </label>
+                                        <div className="absolute mt-[1.2vw]  delay-100  transition-all">
+                                            <p className={username != '' ? "opacity-100 ml-[3.7vw]  ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Username</p>
+                                        </div>
                                         <input
-                                            className='rounded-sm mt-[.6vw]'
-                                            type="email"
-                                            id='email'
-                                            autoComplete='off'
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            aria-invalid={validEmail ? 'false' : 'true'}
-                                            aria-describedby='eidnote'
-                                            onFocus={() => setEmailFocus(true)}
-                                            onBlur={() => setEmailFocus(false)}
-                                        />
-                                        <p id='uidnote' className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
-                                            Must have a @ symbol<br />
-                                            Every special character that is not @ can't be used<br />
-                                        </p><br />
-                                        <label className='text-white' htmlFor='username'>
-                                            Username:
-
-                                        </label>
-                                        <input
-                                            className='rounded-sm mt-[.6vw]'
+                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
                                             type="text"
                                             id='username'
+                                            placeholder='Username'
                                             autoComplete='off'
                                             ref={userRef}
                                             onChange={(e) => setUser(e.target.value)}
@@ -199,55 +204,54 @@ const SignUp = () => {
                                             onFocus={() => setUserFocus(true)}
                                             onBlur={() => setUserFocus(false)}
                                         />
-                                        <p id='uidnote' className={userFocus && username && !validName ? "instructions" : "offscreen"}>
-                                            4 to 25 characters <br />
-                                            Must begin with a letter<br />
-                                            Leters,numbers,underscores,hypens allowed.
-                                        </p>
+                                        <p id='uidnote' className={username && !validName ? "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
+                                            *4-25char limit.
+                                            Must begin with a letter
+                                        </p> 
                                         <br />
-                                        <label className='text-white' htmlFor='password'>
-                                            Password:
 
-                                        </label>
+                                        <div className="absolute mt-[1.2vw]  delay-100   transition-all">
+                                            <p className={password1 != '' ? "opacity-100 ml-[3.7vw]  ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Password</p>
+                                        </div>
                                         <input
                                             type="password"
                                             id='password1'
-                                            className='rounded-sm mt-[.6vw]'
+                                            placeholder='Password'
+                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
                                             onChange={(e) => setPWD(e.target.value)}
                                             required
                                             aria-invalid={validPWD ? 'false' : 'true'}
                                             aria-describedby='PWDnote'
                                             onFocus={() => setPWDFocus(true)}
                                             onBlur={() => setPWDFocus(false)} />
-
-                                        <p id='PWDnote' className={pwdFocus && password1 && !validPWD ? "instructions" : "offscreen"}>
-                                            7 to 25 characters <br />
-                                            Must contain one lowercase and uppercase letter, a number, and a special character<br />
+                                       
+                                        <p id='PWDnote' className={password1 && !validPWD ?  "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
+                                            *One lower and uppercase letter, a number, and a symbol
 
                                         </p>
                                         <br />
-                                        <label className='text-white' htmlFor='password2'>
-                                            Confirm Password:
-
-                                        </label>
+                                        <div className="absolute  delay-100 mt-[1.2vw] transition-all">
+                                            <p className={password2 != '' ? "ml-[3.7vw]  opacity-100 ease-in text-[1.2vw]  delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Confirm Password</p>
+                                        </div>
                                         <input
                                             type="password"
                                             id='password2'
-                                            className='rounded-sm mt-[.6vw]'
+                                            placeholder='Confirm Password'
+                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
                                             onChange={(e) => setMatchPWD(e.target.value)}
                                             required
                                             aria-invalid={validMatch ? 'false' : 'true'}
                                             aria-describedby='matchnote'
                                             onFocus={() => setMatchFocus(true)}
                                             onBlur={() => setMatchFocus(false)} />
+                                    
+                                        <p id='matchnote' className={password2 && !validMatch ?  "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
 
-                                        <p id='matchnote' className={matchFocus && password2 && !validMatch ? "instructions" : "offscreen"}>
+                                            *Must match the first password
 
-                                            Must match the first <br />
-
-                                        </p>
+                                        </p> 
                                         <br />
-                                        <button className="px-[3vw] py-[.35vw] mt-[1vw] rounded bg-white" disabled={!validMatch || !validName || !validPWD ? true : false}>Sign Up</button>
+                                        <button className=" h-[3vw] text-[1.25vw]   w-[5vw] mt-[1.6vw] rounded bg-white" disabled={!validMatch || !validName || !validPWD ? true : false}>Sign Up</button>
                                     </form>
 
                                     <p>{/*put a router link for log in*/}</p>

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,10 +40,13 @@ opacity: 1;
   animation: loader 0.6  infinite alternate;
 
 }
-
+.shadows-text { 
+  text-shadow: -.1vw -.1vw 0 #00000048, .1vw -.1vw 0 #0000001a, -.1vw .1vw 0 #0000001a, .1vw .1vw 0 #0000001a;
+}
 .loader > div:nth-child(2){
   animation-delay: .3s;
 }
 .loader > div:nth-child(2){
   animation-delay: .6s;
 }
+

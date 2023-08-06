@@ -21,7 +21,7 @@ from dj_rest_auth.registration.views import VerifyEmailView
 from allauth.account.views import ConfirmEmailView
 from django.conf.urls.static import static
 from django.conf import settings
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     #PASSWORD
     path("password-reset/confirm/<uidb64>/<token>/",
@@ -48,3 +48,4 @@ url_name="schema"), name="swagger-ui"), # new
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()

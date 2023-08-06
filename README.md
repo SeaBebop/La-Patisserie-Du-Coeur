@@ -36,18 +36,20 @@ Dependencies
 
 Goals
 
-    Once checkout = true, ordered needs to be true<- Changing this to deletion
-    Ordered needs to be used as a condition that prevents further purchases<- Changing this to deletion
+    Once checkout = true, ordered needs to be true<- Changing this to deletion<-Done
+    Ordered needs to be used as a condition that prevents further purchases<- Changing this to deletion<-Done
     Customer object for session and account on product selection <-Done
     ->Finished the auth->fixed
     ->need to finish the annon part->fixed
     Purchase History Backend<-Done and improved improved but I think it needs a tiny bit more
-    Purchase History Frontend<-This weeks goal
+    Purchase History Frontend<-Done
     Transferable data between session and account(cart and customer object transfer)<-Done
-    More Marketable design of the page<-This weeks goal
+    More Marketable design of the page<-Finished, Need footer
     Webhook causing data deletion<-Done on this
     Webhook dealing with failures + more emails<-Done but more emails can be added if increased functionality
-    Should data transfer be option?<-Currently not an option, happens on sign up page
-    Bug:Purchase history bricks other api calls for session user<-Current goal
+    Should data transfer be option?<-Finished
+    Bug:Purchase history bricks other api calls for session user<-Fixed
+    Mobile Friendliness<-Current Goal
+    Product to 20 left and reset daily<-Current Goal
 
 Credits

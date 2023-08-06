@@ -91,7 +91,7 @@ class CustomerPurchase(APIView):
         elif (self.request.session.session_key and not self.request.user.is_authenticated
               and self.request.session[self.request.session.session_key] != ''):
             customerID = self.request.session.get(self.request.session.session_key)
-            #print(self.request.session.get(self.request.session.session_key))
+            print(self.request.session.get(self.request.session.session_key))
         else:
             #This taught me the importance of specificing the error number. This is suppose to be a catch all response for when
             #All the conditions above isn't true but since by default responses are 200, the response is treated as okay and bricks the site
@@ -123,12 +123,15 @@ class CustomerPurchase(APIView):
         # Brute Force way takes 7 seconds to load, aint no way im using that AND its too confusing
         # I haven't used list comphrension in a long time
         # But wow it is very effective but perhaps unreadable compared to for loops
-        #From 7000ms~ to 800ms~, great improvement
+        #From 7000ms~ to 800ms~, great improvement 
      
+        
         paymentIntentDetails = stripe.checkout.Session.list(
             customer=customerID)
-        paymentIntentDetails = paymentIntentDetails['data']
-
+        #If there is no checkout
+        if(len(paymentIntentDetails) == 0 ):
+             return Response('No customer data found or purchases have been made!',status.HTTP_503_SERVICE_UNAVAILABLE)
+        
         # List comprehension think in terms of [the_result_you_want looping_through_original conditions/filters_if_any]
         
         paymentComprehension = [{'payment_intent': d['payment_intent'], 'customerID':d['customer'], 'checkoutID':d['id'], 'productsName': [Product.objects.filter(id=(int(x))).values_list('name', flat=True)[0] for x in d['metadata']['product'].split(',')],
@@ -150,7 +153,7 @@ class CustomerPurchase(APIView):
             
         # Tried hard to make this work, it does but it is too slow and too complex, decided to instead pass in the product id from checkout
         #lineItemsComprehension = [{'name' : d[i]['description'],'quantity' :d[i]['quantity'], 'total_amount': d[i]['amount_total']} for d in lineItemsComprehension for i in range(len(d)) ]
-
+  
         return Response(paymentComprehension)
 #Transfers session cus id to the newly signed up user data
 class TransferData(APIView):

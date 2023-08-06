@@ -10,9 +10,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 
 import { add, addDays } from 'date-fns'
 import Loader from "../components/loading";
+import useCartChecker from "../Hooks/useCartChecker";
 
 const PurchaseHistory = () => {
   const { auth } = useAuth();
+  const {cartTrigger,setcartTrigger} = useCartChecker();
   //Thresholds of lower and upperlimit
   //Could make this a backend feature instead
   const yesterday = addDays(new Date(), -1).getTime() / 1000;
@@ -43,7 +45,8 @@ const PurchaseHistory = () => {
 
 
   useEffect(() => {
-    document.getElementById('time-3m').click();
+    setcartTrigger(0);
+    document.getElementById('time-6m').click();
   },
     [])
 
@@ -79,7 +82,7 @@ const PurchaseHistory = () => {
           const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
           await sleep(400)
           setErrMsg(err.response.data);
-          console.log('this is error', errMsg)
+
           setTrigger(false);
         }
       }
@@ -91,9 +94,16 @@ const PurchaseHistory = () => {
   return (
 
     <div className="flex h-screen  flex-col w-screen items-center  absolute gap-3">
-      <div className="mt-[10vw] flex gap-[2vw]">
 
-        { }
+      <div className="mt-[10vw] flex gap-[2vw]">
+      <div className="flex flex-col">
+      <div className="mb-[2vw] text-[#4d3526]  font-semibold underline text-[1.6vw] font-body">
+       PURCHASE HISTORY
+      </div>
+   
+        { } 
+<div className=" flex gap-[1.4vw]">
+
         {/*Creating filter*/}
         <button id='time-y' className="px-[.6vw] text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in " onClick={(e) => { setLowerLimit(yesterday); setUpperLimit(today); ColorUp(e); }} >YESTERDAY</button>
@@ -105,17 +115,20 @@ const PurchaseHistory = () => {
          bg-white border-red-400 transition-all delay-150 ease-in " onClick={(e) => { setLowerLimit(year); setUpperLimit(today); ColorUp(e); }} >1 YEAR AGO</button>
         <button id='time-A' type="" className="px-[.6vw] text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in" onClick={(e) => { setLowerLimit(reset); setUpperLimit(reset); ColorUp(e); }} >All</button>
+       </div>
+  
+       </div>
       </div>
       {getPurchase ?
         upperLimit == 0 || lowerLimit == 0 ? getPurchase.map((Purchases, index) => {
 
           return (
 
-            <div key={index} id={Purchases.date} className="flex uppercase  text-white bg-[#1f5cacd0] flex-row justify-around h-[10vw] w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw] ">
-              <div className="flex flex-row mt-[4vw] justify-center gap-[1.8vw] ">
-                {Purchases.date}
+            <div key={index} id={Purchases.date} className="flex font-body uppercase  ">
+              <div className="flex mt-[1vw] text-[#4d3526] text-[1.5vw] bg-[#ff6e61a9] flex-row justify-around h-auto w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+                <p className="text-white">{Purchases.date}</p>
                 <div className="">
-                  <p>Name</p>
+                  <p className="text-white">Name</p>
                   {Purchases.productsName.map((items, index) => {
                     return (
 
@@ -125,7 +138,7 @@ const PurchaseHistory = () => {
                   })}
                 </div>
                 <div>
-                  <p>Quantity</p>
+                <p className="text-white">Quantity</p>
                   {Purchases.productsQuantity.map((items, index) => {
                     return (
                       <div>
@@ -139,7 +152,7 @@ const PurchaseHistory = () => {
 
                 </div>
                 <div>
-                  Total Price
+                  <p className="text-white">Total Price</p>
                   <div>
                     {Purchases.amount_total}
                   </div>
@@ -147,7 +160,7 @@ const PurchaseHistory = () => {
                 </div>
                 <div className="flex items-end">
                   <div className=" bottom-0">
-                    <a target="_blank" className="flex " href={Purchases.reciept}>Reciept</a>
+                    <a target="_blank" className="flex text-blue-800 hover:opacity-75" href={Purchases.reciept}>Reciept</a>
                   </div>
 
                 </div>
@@ -166,27 +179,24 @@ const PurchaseHistory = () => {
 
             return (
 
-              <div key={index} id={Purchases.date} className="flex ">
-                <div className="flex flex-row mt-[4vw] justify-center gap-[1vw]">
-                  {Purchases.date}
+              <div key={index} id={Purchases.date} className="flex font-body uppercase">
+                <div className="flex  mt-[1vw] text-[#4d3526] text-[1.5vw] bg-[#ff6e61a9] flex-row justify-around h-auto w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw] ">
+                  <p className="text-white">{Purchases.date}</p>
                   <div>
-                    <p>Name</p>
+                    <p className="text-white">Name</p>
                     {Purchases.productsName.map((items, index) => {
                       return (
 
                         <p className="flex flex-col"> {items} </p>
-
-
-
                       )
                     })}
                   </div>
                   <div>
-                    <p>Quantity</p>
+                    <p className="text-white">Quantity</p>
                     {Purchases.productsQuantity.map((items, index) => {
                       return (
                         <div>
-                          <p className="flex flex-col">x {items} </p>
+                          <p className="flex flex-col">x  {items} </p>
 
                         </div>
 
@@ -196,7 +206,7 @@ const PurchaseHistory = () => {
 
                   </div>
                   <div>
-                    Total Price
+                    <p className="text-white"> Total Price</p>
                     <div>
                       {Purchases.amount_total}
                     </div>
@@ -204,7 +214,7 @@ const PurchaseHistory = () => {
                   </div>
                   <div className="flex items-end">
                     <div className=" bottom-0">
-                      <a target="_blank" className="flex " href={Purchases.reciept}>Reciept</a>
+                      <a target="_blank" className="flex text-blue-800 hover:opacity-75" href={Purchases.reciept}>Reciept</a>
                     </div>
 
                   </div>
@@ -221,11 +231,11 @@ const PurchaseHistory = () => {
           <Loader />
         </div>
           :
-          <div className=" flex uppercase justify-center text-white bg-[#1f5cacd0] flex-row h-[10vw] w-[60vw] pt-[1vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+          <div className=" flex uppercase justify-center text-[#4d3526] bg-[#ff6e61a9] flex-row h-[10vw] w-[60vw] pt-[1vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
             {/*Somehow error msg failed {errMsg} but this worked
           ,setting hooks are a bit finicky 
           */}
-            <p className={errMsg ? "errmsg text-white mt-[3vw]" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <p className={errMsg ? "errmsg text-[#4d3526] text-[1.4vw] mt-[3vw]" : "offscreen"} aria-live="assertive">{errMsg}</p>
           </div>)
       }
     </div>

@@ -3,6 +3,8 @@ import axios from '../api/axios';
 import { json } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 import jwt_decode from 'jwt-decode'
+import useCartChecker from '../Hooks/useCartChecker';
+
 
 
 const PRODUCT_DATA_URL = 'http://127.0.0.1:8000/api/v1/shop';
@@ -25,6 +27,7 @@ const Products = () => {
   const containerRef = useRef();
   const { auth } = useAuth();
   const access_token = auth.accessToken;
+
   const decoded = auth?.accessToken ?
     jwt_decode(auth.accessToken) : undefined
   const userName = decoded?.username || false
@@ -37,6 +40,7 @@ const Products = () => {
   const [data, setData] = useState('');
   //This will store one of the values from the productItems list 
   const [filter, setFilter] = useState('');
+  const {cartTrigger,setcartTrigger} = useCartChecker();
   //Used to Control when the handleFilter jsx element is called
   const [hasRender, setRender] = useState(false);
   const [renderPaginationColor, SetPaginationColor] = useState(false);
@@ -65,9 +69,7 @@ const Products = () => {
 
   }, [currentPage, data, renderPaginationColor, filter])
 
-  const customerPost = async ()  =>{
 
-  }
   //Toggles the button to have a highlight which filter they clicked
   useEffect(() => {
 
@@ -106,8 +108,10 @@ const Products = () => {
         //Added this condition in case there is 0 products
         if (response.data != '') {
           setData(response.data);
+          setcartTrigger(3);
         }
 
+        
         console.log('this is name', userName);
       }
 
@@ -124,8 +128,9 @@ const Products = () => {
 
       }
     }
-
+    
     fetchProduct();
+    setcartTrigger(0);
   }, [])
 
   //Intialized the page with All as the filter
@@ -169,7 +174,10 @@ const Products = () => {
 
       });
       document.getElementById(targetID).value = '';
+  
+      setcartTrigger(0);
     }
+ 
     catch (err) {
       if (err.response) {
         //If not in the 200 response range
@@ -250,14 +258,14 @@ const Products = () => {
         <div>
 
 
-          <div className='flex flex-row'>
+          <div className='flex flex-row  overflow-x-hidden'>
             {data ?
               data.filter(datas => datas.category === productType).slice(start, end).map(datas =>
                 /*Key is portional to the backend name*/
                 <div key={datas.id} className="flex flex-col justify-center shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
 
 
-                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase'>{datas.name}</p> <p className='font-body'>${datas.price}</p> <p className='font-body '>{datas.quantity} LEFT</p>
+                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase text-[1.4vw]'>{datas.name}</p> <p className='font-body text-[1.2vw]'>${datas.price}</p> <p className='font-body text-[1.2vw]'>{datas.quantity} LEFT</p>
                   <form onSubmit={onOrderSubmit} className={datas.id} >
 
                     <input className='outline-[.1vw] rounded-md shadow-md outline  outline-slate-300 pl-[.6vw] text-black w-[60%]'
@@ -268,7 +276,7 @@ const Products = () => {
 
                       id={'input '+ datas.id}
                       placeholder={' Insert Quantity'} />
-
+                          
                     <button
                       className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium mt-[1vw] outline outline-slate-200 outline-[.05vw] rounded-sm px-[.3vw] py-[.2vw] text-[1.1vw] '
 
@@ -280,13 +288,13 @@ const Products = () => {
             }
           </div>
           <div className='flex  justify-center  '>
-            <div className=' mb-[1vw] mt-[3vw]'>
+            <div className='flex gap-[1vw] mb-[1vw] mt-[3vw]'>
               {
                 pageAmount &&
 
                 pageAmount.map(index =>
                   <button
-                    className='  focus:bg-slate-400 outline p-[.2vw] font-body ml-[.3vw] px-[.9vw] outline-[.1vw] outline-slate-500 rounded-[1vw]'
+                    className='  focus:bg-slate-400 outline py-[.5vw] px-[1.2vw]  font-body ml-[.3vw]  outline-[.1vw] outline-slate-500 rounded-full'
                     id={'Page ' + index}
                     key={index}
                     value={index}
@@ -309,16 +317,16 @@ const Products = () => {
         :
         //For the filter ALL
         <div>
-          <div className='flex gap-5'>
+          <div className='flex gap-[1vw]'>
             {data ?
               data.slice(start, end).map(datas =>
                 /*Key is portional to the backend name*/
-                <div key={datas.id} className="flex flex-col justify-center shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
+                <div key={datas.id} className="flex flex-col justify-center text-[1.4vw] shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
 
-                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase'>{datas.name}</p> <p className='font-body'>${datas.price}</p> <p className='font-body '>{datas.quantity} LEFT</p>
+                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase'>{datas.name}</p> <p className='font-body text-[1.2vw]'>${datas.price}</p> <p className='font-body text-[1.2vw]'>{datas.quantity} LEFT</p>
                   <form onSubmit={onOrderSubmit} className={datas.id} >
 
-                    <input className='outline-[.1vw] rounded-md shadow-md outline outline-slate-300 pl-[.6vw] text-black w-[60%]'
+                    <input className='outline-[.1vw] text-[1.2vw] rounded-md shadow-md outline outline-slate-300 pl-[.6vw] text-black w-[70%]'
                       type={'number'}
                       name="quantity"
                       min={1}
@@ -331,19 +339,19 @@ const Products = () => {
                       className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium mt-[1vw] outline outline-slate-200 outline-[.05vw] rounded-sm px-[.3vw] py-[.2vw] text-[1.1vw] '
 
                       type="submit">
-                      <div className='text-black'>ADD TO CART</div>
+                      <div className='text-black '>ADD TO CART</div>
                     </button>
                   </form>
                 </div>) : <div className='w-[30vw]'> Refresh</div>
             }
           </div>
-          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-1'>
+          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[1vw]'>
             {
               pageAmount &&
 
               pageAmount.map(index =>
                 <button
-                  className='  focus:bg-slate-400 outline p-[.2vw] font-body  px-[.9vw] outline-[.1vw] outline-slate-500 rounded-[1vw]'
+                  className='  focus:bg-slate-400 outline p-[.5vw] font-body  px-[1.5vw] outline-[.1vw] outline-slate-500 rounded-full'
                   id={'Page ' + index}
                   key={index}
                   value={index}
@@ -371,7 +379,7 @@ const Products = () => {
     //***The products listed out
     <div className='h-[100vh]'>
       <div className='flex justify-center min-w-screen m-h-screen overflow-hidden'>
-        <img className=' absolute min-w-[100vw] max-h-[75vw] mt-[-29vw] z-[3]  ' loading='lazy' src="https://i.ibb.co/6Ddk4s7/just-food-sharpen.png" alt="" />
+        <img className=' absolute min-w-[100vw] max-h-[75vw] mt-[-29vw] z-[3]  ' loading='lazy' src="http://localhost:8000/static/just-food-sharpen.png" alt="" />
         <div className='absolute  text-black rounded-[.1vw] bg-white  mt-[43vw] pb-[1vw]   flex  items-center flex-col '>
 
           <div className=' pt-[.7vw]  text-[2.5vw] flex flex-col font-body  z-[200]' >Menu

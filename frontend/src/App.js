@@ -33,7 +33,7 @@ import Loader from './components/loading.js';
 function App() {
 
   return (
-    <div className='bg-[#0349aa] ' >
+    <div className='bg-[#fcce9d] overflow-x-hidden' >
 
 
       <Navbar />

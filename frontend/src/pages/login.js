@@ -3,6 +3,7 @@ import useAuth from "../Hooks/useAuth";
 import axios from "../api/axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../Hooks/useLocalStorage";
+import useCartChecker from "../Hooks/useCartChecker";
 
 const Login = () => {
   const LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
@@ -15,6 +16,7 @@ const Login = () => {
   //Ref
   const userRef = useRef();
   const errRef = useRef();
+  const { cartTrigger, setcartTrigger } = useCartChecker();
   //Backend
   const [resp, changeResponse] = useState(null);
   const [errMsg, setErrMsg] = useState('');
@@ -34,6 +36,7 @@ const Login = () => {
   //Focus content if first time??
   useEffect(() => {
     userRef.current.focus();
+    setcartTrigger(1);
   }, [])
   //This one is more understandable, refreshes message when user is adjusting the list paras
   useEffect(() => {
@@ -66,7 +69,7 @@ const Login = () => {
       const userID = response?.data.user.pk;
 
       console.log(response);
-      setAuth({ accessToken, refreshToken, roles,userID });
+      setAuth({ accessToken, refreshToken, roles, userID });
 
 
       changeResponse(response.data);
@@ -109,60 +112,71 @@ const Login = () => {
     , [persist])
 
   return (
-    
+
     <div className=" w-[100vw] absolute h-screen ">
 
-<div className="mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
-<header className=" ">
-        <div className="mt-[3vw] font-body  text-[2vw]">
-            <p className="text-yellow-400 mr-[3vw] uppercase"> LA Patisserie </p> <p className="text-rose-400 mt-[-.6vw] ml-[8vw]">DU COEUR</p> 
-        </div>
-        <div className={"mt-[-.4vw] mb-[3vw] text-[.9vw] text-white"}>
-        Savor the deliciousness with us
-        </div>
+      <div className="mt-[12vw] h-[32vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg">
+          <div className=" h-[7vw] mb-[1.2vw]">
+          <div className="mt-[1vw]font-body  text-[2vw]">
+            <h1 className="font-Fancy  text-[3.5vw] text-orange-200">L</h1>
+          </div>
+          <div className={"mt-[-.4vw] mb-[2vw] text-[.9vw] text-white"}>
+            Savor the deliciousness with us
+          </div>
+            
+          </div>
 
 
-        <div className={'help-text'}>
-        </div>
-        <div>
+          <div className={'help-text'}>
+          </div>
+          <div>
 
-          {/*This is how you would make an error message for situations of your choice*/}
-          <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-          {/**/}
-          <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{verify ? <Link to='/email_verification'>Verify Your Email</Link> : ''}</div>
-        </div>
-        <div>
-          <form onSubmit={onSubmit}>
-            <div>
-              <input
-                className="rounded-md pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
-                onChange={(e) => changeUsername(e.target.value)}
-                value={username}
-                placeholder={"Email or User ID"}
-                ref={userRef}
-                type={'input'}
-                name={'username'} />
-            </div>
-            <div>
-              <input
-                className={"rounded-md pl-[1vw] py-[.2vw]  mb-[2vw] bg-slate-100"}
-                onChange={(e) => changePassword(e.target.value)}
+            {/*This is how you would make an error message for situations of your choice*/}
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            {/**/}
+            <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{verify ? <Link to='/email_verification'>Verify Your Email</Link> : ''}</div>
+          </div>
+          <div>
+            <form onSubmit={onSubmit}>
+              <div className="flex items-center flex-col">
+                <div className=" mt-[-1.71vw] delay-100  transition-all">
+                  <p className={username != '' ? "opacity-100 ease-in text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>UserID/Email</p>
+                </div>
+                <input
+                  className="rounded-md pl-[1vw] py-[.2vw] w-[16vw] h-[2vw] text-[1.3vw]  mb-[.4vw] bg-slate-100"
+                  onChange={(e) => changeUsername(e.target.value)}
+                  value={username}
+                  placeholder={"UserID/Email"}
+                  ref={userRef}
+                  type={'input'}
+                  name={'username'} />
+              </div>
 
-                value={password}
-                type={'password'}
-                name={'password'} />
-            </div>
-            <div className='persistCheck'>
-              <input type="checkbox" name="" id='persist' onChange={togglePersist} checked={persist} value="" />
-              <label htmlFor="persist" className="text-white"> Stay Logged in?</label>
-            </div>
-            <button className="px-[3vw] py-[.35vw] mt-[1vw] rounded bg-white" type={'submit'}>Log In</button>
-          </form>
-          <button className="text-blue-300 underline" onClick={PwdNavigate}>Forgot your password?</button>
-        </div>
-      </header>
-</div>
-      
+              <div className="flex items-center flex-col mt-[1.3vw]">
+                <div className="mt-[-1.71vw] delay-100 transition-all">
+                  <p className={password != '' ? "opacity-100 ease-in text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>Password</p>
+                </div>
+                <input
+                  className={"rounded-md pl-[1vw] py-[.2vw]  w-[16vw] h-[2vw] text-[1.3vw] mb-[2vw] bg-slate-100"}
+                  onChange={(e) => changePassword(e.target.value)}
+                  placeholder="Password"
+                  value={password}
+                  type={'password'}
+                  name={'password'} />
+
+              </div>
+
+              <div className='persistCheck'>
+                <input type="checkbox" name="" id='persist' onChange={togglePersist} checked={persist} value="" />
+                <label htmlFor="persist" className="text-[1.1vw] text-white"> Stay Logged in?</label>
+              </div>
+              <button className="h-[3vw] w-[10vw] mt-[1vw] rounded text-[1.3vw] bg-white" type={'submit'}>Log In</button>
+            </form>
+            <button className="text-black text-[1.1vw] underline" onClick={PwdNavigate}>Forgot your password?</button>
+          </div>
+     
+      </div>
+
     </div>
   );
 }

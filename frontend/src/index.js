@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { AuthProvider } from './context/AuthContext.js'
+import{ CartProvider } from './context/CartContext.js'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
@@ -11,10 +12,12 @@ root.render(
 
     <BrowserRouter>
     <AuthProvider>
+      <CartProvider>
     <Routes>
 
       <Route path='/*' element={<App/>}/>
     </Routes>
+    </CartProvider>
     </AuthProvider>
 
     </BrowserRouter>

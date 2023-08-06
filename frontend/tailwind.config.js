@@ -7,7 +7,8 @@ module.exports = {
     }},
     fontFamily:{
       body: ['Vibur'],
-      Exo:['Exo 2']
+      Exo:['Exo 2'],
+      Fancy:['Great Vibes,cursive'],
     }
   },
   plugins: [],
