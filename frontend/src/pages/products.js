@@ -40,7 +40,7 @@ const Products = () => {
   const [data, setData] = useState('');
   //This will store one of the values from the productItems list 
   const [filter, setFilter] = useState('');
-  const {cartTrigger,setcartTrigger} = useCartChecker();
+  const { cartTrigger, setcartTrigger } = useCartChecker();
   //Used to Control when the handleFilter jsx element is called
   const [hasRender, setRender] = useState(false);
   const [renderPaginationColor, SetPaginationColor] = useState(false);
@@ -111,7 +111,7 @@ const Products = () => {
           setcartTrigger(3);
         }
 
-        
+
         console.log('this is name', userName);
       }
 
@@ -128,7 +128,7 @@ const Products = () => {
 
       }
     }
-    
+
     fetchProduct();
     setcartTrigger(0);
   }, [])
@@ -159,7 +159,7 @@ const Products = () => {
 
     const targetValueQuantity = e.target[0].value;
     const targetID = e.target[0].id;
-    
+
     let stringifiedData;
     {
       userName ?
@@ -174,10 +174,10 @@ const Products = () => {
 
       });
       document.getElementById(targetID).value = '';
-  
+
       setcartTrigger(0);
     }
- 
+
     catch (err) {
       if (err.response) {
         //If not in the 200 response range
@@ -187,22 +187,21 @@ const Products = () => {
       else {
         console.log('Error:Failed to connect');
       }
-      
-      try{
+
+      try {
 
       }
-      catch(err)
-      {
+      catch (err) {
 
       }
     }
   }
-  useEffect(()=>{
-   
-      window.scrollTo(0, 0);
+  useEffect(() => {
+
+    window.scrollTo(0, 0);
 
 
-  },[])
+  }, [])
   //The idea is to 
   function HandleFilter() {
     const productType = filter;
@@ -257,101 +256,100 @@ const Products = () => {
         //All the data for every filter but All
         <div>
 
-
-          <div className='flex flex-row  overflow-x-hidden'>
+          <div className='flex flex-col lg:flex-row  gap-[1vw]'>
             {data ?
               data.filter(datas => datas.category === productType).slice(start, end).map(datas =>
                 /*Key is portional to the backend name*/
-                <div key={datas.id} className="flex flex-col justify-center shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
+                <div key={datas.id} className="flex lg:h-[25vw] h-[50vw] flex-col  justify-center  lg:text-[1.4vw] shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
 
-
-                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase text-[1.4vw]'>{datas.name}</p> <p className='font-body text-[1.2vw]'>${datas.price}</p> <p className='font-body text-[1.2vw]'>{datas.quantity} LEFT</p>
+                  <img className='lg:h-[9.5vw] h-[22vw] shadow-xl rounded-sm unrevealed ' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body md:text-[2vw] lg:text-[1.15vw] uppercase'>{datas.name}</p> <p className='font-body text-[3.5vw] lg:text-[1.2vw]'>${datas.price}</p> <p className='font-body md:text-[1.8vw] lg:text-[1.2vw]'>{datas.quantity} LEFT</p>
                   <form onSubmit={onOrderSubmit} className={datas.id} >
+                    <div className='flex lg:flex-col flex-row'>
+                      <input className='outline-[.1vw] lg:text-[1.2vw] text-[4vw] h-[6.6vw] lg:h-[2vw] rounded-md shadow-md outline outline-slate-300 pl-[2vw] lg:pl-[.6vw] text-black w-[80%] lg:w-[90%]'
+                        type={'number'}
+                        name="quantity"
+                        min={1}
+                        max={datas.quantity}
 
-                    <input className='outline-[.1vw] rounded-md shadow-md outline  outline-slate-300 pl-[.6vw] text-black w-[60%]'
-                      type={'number'}
-                      name="quantity"
-                      min={1}
-                      max={datas.quantity}
+                        id={'input ' + datas.id}
+                        placeholder={' Insert Quantity'} />
 
-                      id={'input '+ datas.id}
-                      placeholder={' Insert Quantity'} />
-                          
-                    <button
-                      className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium mt-[1vw] outline outline-slate-200 outline-[.05vw] rounded-sm px-[.3vw] py-[.2vw] text-[1.1vw] '
+                      <button
+                        className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium lg:mt-[1vw] mt-[-5vw] outline outline-slate-200 outline-[.05vw] rounded-sm  px-[.3vw] py-[.2vw] text-[3vw] lg:text-[1.1vw] '
 
-                      type="submit">
-                      <div className='text-black'>ADD TO CART</div>
-                    </button>
-                  </form>
-                </div>) : <p>Refresh the page</p>
-            }
-          </div>
-          <div className='flex  justify-center  '>
-            <div className='flex gap-[1vw] mb-[1vw] mt-[3vw]'>
-              {
-                pageAmount &&
+                        type="submit">
+                        <div className='text-black '>ADD TO CART</div>
+                      </button>
+                    </div>
 
-                pageAmount.map(index =>
-                  <button
-                    className='  focus:bg-slate-400 outline py-[.5vw] px-[1.2vw]  font-body ml-[.3vw]  outline-[.1vw] outline-slate-500 rounded-full'
-                    id={'Page ' + index}
-                    key={index}
-                    value={index}
-                    onClick={() => { setCurrentPage(index); }}
-                    type="">
-                    {index}
-                  </button>)
-
-              }
-
-
-            </div>
-          </div>
-
-
-
-
-        </div>
-
-        :
-        //For the filter ALL
-        <div>
-          <div className='flex gap-[1vw]'>
-            {data ?
-              data.slice(start, end).map(datas =>
-                /*Key is portional to the backend name*/
-                <div key={datas.id} className="flex flex-col justify-center text-[1.4vw] shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
-
-                  <img className='h-[9.5vw] shadow-xl rounded-sm unrevealed' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body uppercase'>{datas.name}</p> <p className='font-body text-[1.2vw]'>${datas.price}</p> <p className='font-body text-[1.2vw]'>{datas.quantity} LEFT</p>
-                  <form onSubmit={onOrderSubmit} className={datas.id} >
-
-                    <input className='outline-[.1vw] text-[1.2vw] rounded-md shadow-md outline outline-slate-300 pl-[.6vw] text-black w-[70%]'
-                      type={'number'}
-                      name="quantity"
-                      min={1}
-                      max={datas.quantity}
-
-                      id={'input '+ datas.id}
-                      placeholder={' Insert Quantity'} />
-
-                    <button
-                      className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium mt-[1vw] outline outline-slate-200 outline-[.05vw] rounded-sm px-[.3vw] py-[.2vw] text-[1.1vw] '
-
-                      type="submit">
-                      <div className='text-black '>ADD TO CART</div>
-                    </button>
                   </form>
                 </div>) : <div className='w-[30vw]'> Refresh</div>
             }
           </div>
-          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[1vw]'>
+          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[3vw] lg:gap-[1vw]'>
             {
               pageAmount &&
 
               pageAmount.map(index =>
                 <button
-                  className='  focus:bg-slate-400 outline p-[.5vw] font-body  px-[1.5vw] outline-[.1vw] outline-slate-500 rounded-full'
+                  className='  focus:bg-slate-400 outline p-[.5vw] font-body text-[4vw]  px-[3vw] lg:text-[1vw]  lg:px-[1vw] outline-[.1vw] outline-slate-500 rounded-full'
+                  id={'Page ' + index}
+                  key={index}
+                  value={index}
+                  onClick={() => { setCurrentPage(index); }}
+                  type="">
+                  {index}
+                </button>)
+
+            }
+          </div>
+        </div>
+
+
+
+
+
+
+        :
+        //For the filter ALL
+        <div className='lg:h-[33vw]'>
+          <div className='flex flex-col lg:flex-row  gap-[1vw]'>
+            {data ?
+              data.slice(start, end).map(datas =>
+                /*Key is portional to the backend name*/
+                <div key={datas.id} className="flex lg:h-[26vw] h-[50vw] flex-col  justify-center  lg:text-[1.4vw] shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
+
+                  <img className='lg:h-[9.5vw] h-[22vw] shadow-xl rounded-sm unrevealed ' ref={containerRef} src={datas.image} alt="" />  <p className='md:text-[2vw] lg:text-[1.15vw] font-Body uppercase'>{datas.name}</p> <p className='font-body text-[3.5vw] lg:text-[1.2vw]'>${datas.price}</p> <p className='font-body md:text-[1.8vw] lg:text-[1.2vw]'>{datas.quantity} LEFT</p>
+                  <form onSubmit={onOrderSubmit} className={datas.id} >
+                    <div className='flex lg:flex-col flex-row'>
+                      <input className='outline-[.1vw] lg:text-[1.2vw] text-[4vw] h-[6.6vw] lg:h-[2vw] rounded-md shadow-md outline outline-slate-300 pl-[2vw] lg:pl-[.6vw] text-black w-[80%] lg:w-[90%]'
+                        type={'number'}
+                        name="quantity"
+                        min={1}
+                        max={datas.quantity}
+
+                        id={'input ' + datas.id}
+                        placeholder={' Insert Quantity'} />
+
+                      <button
+                        className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium lg:mt-[1vw] mt-[-5vw] outline outline-slate-200 outline-[.05vw] rounded-sm  px-[.3vw] py-[.2vw] text-[3vw] lg:text-[1.1vw] '
+
+                        type="submit">
+                        <div className='text-black '>ADD TO CART</div>
+                      </button>
+                    </div>
+
+                  </form>
+                </div>) : <div className='w-[30vw]'> Refresh</div>
+            }
+          </div>
+          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[3vw] lg:gap-[1vw]'>
+            {
+              pageAmount &&
+
+              pageAmount.map(index =>
+                <button
+                  className='  focus:bg-slate-400 outline p-[.5vw] font-body text-[4vw]  px-[3vw] lg:text-[1vw]  lg:px-[1vw] outline-[.1vw] outline-slate-500 rounded-full'
                   id={'Page ' + index}
                   key={index}
                   value={index}
@@ -377,14 +375,14 @@ const Products = () => {
 
   return (
     //***The products listed out
-    <div className='h-[100vh]'>
-      <div className='flex justify-center min-w-screen m-h-screen overflow-hidden'>
+    <div className='lg:h-[82vw] h-auto min-h-[800px]'>
+      <div className='flex justify-center  overflow-hidden'>
         <img className=' absolute min-w-[100vw] max-h-[75vw] mt-[-29vw] z-[3]  ' loading='lazy' src="http://localhost:8000/static/just-food-sharpen.png" alt="" />
-        <div className='absolute  text-black rounded-[.1vw] bg-white  mt-[43vw] pb-[1vw]   flex  items-center flex-col '>
+        <div className='  text-black rounded-[.1vw] bg-white  lg:mt-[43vw] mt-[40vw]   flex  items-center flex-col '>
 
-          <div className=' pt-[.7vw]  text-[2.5vw] flex flex-col font-body  z-[200]' >Menu
+          <div className=' pt-[.7vw]  lg:text-[2.5vw] text-[6vw] flex flex-col font-body  z-[200]' >Menu
           </div>
-          <div className='absolute px-[3.3vw] py-[3.3vw] rounded-full border border-b-0 border-l-0 border-r-0 z-10 bg-white'>
+          <div className='absolute lg:px-[3.3vw] lg:py-[3.3vw] px-[6.6vw] py-[6.6vw] rounded-full border border-b-0 border-l-0 border-r-0 z-10 bg-white'>
 
           </div>
 
@@ -407,7 +405,7 @@ const Products = () => {
                 <>
                   <button
                     id={productItems[index]}
-                    className=' px-[.6vw] text-[1.5vw] font-body rounded-full  bg-white border-red-400 transition-all delay-150 ease-in '
+                    className=' lg:px-[.6vw] px-[.7vw] lg:text-[1.5vw] text-[4.4vw] font-body rounded-full  bg-white border-red-400 transition-all delay-150 ease-in '
                     key={index}
                     value={productItems[index]}
                     onClick={() => {
@@ -440,22 +438,46 @@ const Products = () => {
                 data ?
                   <Clicker />
                   :
-                  <div className='w-[90vw] h-[30vw] flex flex-col item-center  animate-pulse'>
-                    <div className=' flex flex-row w-[100%] h-[100%]'>
-                      <div className='mt-[4vw] h-[70%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200'></div>
-                      <div className='mt-[4vw] h-[70%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200'></div>
-                      <div className='mt-[4vw] h-[70%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200 mr-[4vw]'></div>
+                  <div>
+
+                    <div id='desktop' className='w-[90vw]  lg:h-[30vw] h-[40vw] hidden lg:flex flex-col item-center  animate-pulse'>
+                      <div className=' flex flex-row w-[100%] h-[100%]'>
+                        <div className='mt-[4vw] h-[75%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200'></div>
+                        <div className='mt-[4vw] h-[75%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200'></div>
+                        <div className='mt-[4vw] h-[75%] ml-[5vw] w-[25%] flex rounded-md bg-slate-200 mr-[4vw]'></div>
+
+                      </div>
+
+                      <div className='mt-[-1.5vw] h-[10%] ml-[34vw] w-[25%] flex  rounded-md bg-slate-200'>
+
+                      </div>
+
+
+
 
                     </div>
 
-                    <div className='mt-[-1.5vw] h-[10%] ml-[34vw] w-[25%] flex  rounded-md bg-slate-200'>
+
+                    <div id='mobile' className='w-[90vw]  min-h-[600px] max-h-[600px] h-[30vw]  lg:hidden flex-col item-center  animate-pulse'>
+                      <div className=' flex flex-col justify-center items-center w-[100%] h-[100%]'>
+                        <div className='mt-[4vw] h-[25%]  w-[85%] flex rounded-md bg-slate-200'></div>
+                        <div className='mt-[4vw] h-[25%]  w-[85%] flex rounded-md bg-slate-200'></div>
+                        <div className='mt-[4vw] h-[25%]  w-[85%] flex rounded-md bg-slate-200 '></div>
+
+                        <div className='mt-[4.5vw] h-[8%]  w-[55%] flex  rounded-md bg-slate-200'>
+                      </div>
+
+                     
+
+                      </div>
+
+
+
 
                     </div>
-
-
-
-
                   </div>
+
+
               }
             </div>}
 

@@ -37,7 +37,7 @@ const Privacy = () => {
   return (
    
   
-      <div className="mt-[11vw] p-[2vw] mb-[2vw] text-white flex flex-col item-center unrevealed justify-around ml-[10vw]  w-[80vw] bg-[#1a58ab] rounded-md shadow-lg">
+      <div className="lg:mt-[11vw] mt-[20vw] p-[2vw] min-h-[750px] mb-[2vw] text-black flex flex-col item-center unrevealed justify-around ml-[10vw]  w-[80vw]  bg-[#ff6e61a9]  rounded-md shadow-lg">
         <p>
         Thank you for visiting our website! We value your privacy and are committed to protecting it. This privacy policy explains how we collect, use, and safeguard your personal information when you visit our website.
         </p>

@@ -1,7 +1,7 @@
 import * as React from "react";
 const SVG_instagram = (props) => (
   <svg
-    fill="#cbd5e1"
+    fill="white"
     width="2vw"
     height="2vw"
     viewBox="0 0 24 24"

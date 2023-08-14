@@ -59,7 +59,7 @@ const PasswordReset = () => {
 
  
   return (
-    <div className='absolute h-screen w-screen'>
+    <div className=' lg:h-[60vw] flex min-h-[750px]  justify-center items-center h-[62vw] w-screen'>
     <>
     {success ? (
     <div>
@@ -71,22 +71,22 @@ const PasswordReset = () => {
     </div>)
     :
     (
-      <div className="mt-[12vw] h-[16vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg">
+      <div className="lg:h-[16vw] min-h-[750px]  h-[35vw] lg:mt-[0vw] mt-[10vw] flex flex-col justify-center w-[60vw] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg">
       <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-      <label className='text-white text-[2vw] h-[3.5vw] mb-[-3vw]' for="html">Password Reset</label>
-        <form onSubmit={onSubmit} className='mt-[4vw]'>
+      <label className='text-white lg:text-[2vw] text-[4vw] lg:h-[3.5vw]  mb-[-3vw]' for="html">Password Reset</label>
+        <form onSubmit={onSubmit} className='mt-[5vw] h-auto flex-col gap-[4vw]'>
         <div>
           
           <input
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Email'
-            className="rounded-md text-[1.2vw] pl-[1vw] py-[.2vw] h-[2.4vw] w-[18vw]  mb-[.4vw] bg-slate-100"
+            className="rounded-md lg:text-[1.2vw] text-[3vw] pl-[1vw]  lg:py-[.2vw]  h-[4vw] lg:h-[2.4vw] w-[80%] lg:w-[18vw]  mb-[.4vw] bg-slate-100"
             value={email}
             ref={emailRef}
             type={'input'}
             name={'email'}/>
         </div>
-        <button  className={"rounded-md text-[1.3vw] py-[.2vw] px-[1vw]  w-[7vw]  h-[2.4vw] mb-[2vw] hover:bg-slate-300 bg-slate-100"} type={'submit'}>Submit</button>
+        <button  className={"rounded-md lg:text-[1.3vw] text-[2.7vw] py-[.2vw] px-[1vw]  w-[10vw] lg:w-[7vw] h-[6vw] lg:h-[2.4vw] mb-[1vw] hover:bg-slate-300 bg-slate-100"} type={'submit'}>Submit</button>
         </form>    
       </div>
     )}

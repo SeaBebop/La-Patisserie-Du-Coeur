@@ -15,6 +15,7 @@ import useCartChecker from "../Hooks/useCartChecker";
 const PurchaseHistory = () => {
   const { auth } = useAuth();
   const {cartTrigger,setcartTrigger} = useCartChecker();
+  
   //Thresholds of lower and upperlimit
   //Could make this a backend feature instead
   const yesterday = addDays(new Date(), -1).getTime() / 1000;
@@ -24,16 +25,24 @@ const PurchaseHistory = () => {
   const reset = 0;
   const today = new Date();
   const filter = ['time-3m', 'time-y', 'time-6m', 'time-1y', 'time-A']
+
   //Hooks and Ref
   const [lowerLimit, setLowerLimit] = useState(threeMonth);
   const [upperLimit, setUpperLimit] = useState(today);
   const [trigger, setTrigger] = useState(true);
   const [getPurchase, setPurchase] = useState('')
   const [errMsg, setErrMsg] = useState('');
+  const [length,setLength] = useState(1);
+  const amount =  "flex h-[calc(75vh_+_" + 50*length +"vh)]  flex-col w-screen items-center  overflow-y-hidden gap-3" 
+  const overflowChecker = ()=>{
+    console.log(document.getElementById("purchase").scrollHeight > document.getElementById("purchase").clientHeight)
+    return document.getElementById("purchase").scrollHeight > document.getElementById("purchase").clientHeight}
+
+
   const ColorUp = (e) => {
     e.preventDefault();
 
-
+    
     document.getElementById(e.target.id).style.backgroundColor = '#ec3c5f';
 
     filter.map((type, index) => {
@@ -47,6 +56,7 @@ const PurchaseHistory = () => {
   useEffect(() => {
     setcartTrigger(0);
     document.getElementById('time-6m').click();
+    
   },
     [])
 
@@ -72,9 +82,10 @@ const PurchaseHistory = () => {
 
         })
         if (response.data != '') {
-          setPurchase(response.data)
+          setPurchase(response.data);
+          setLength(response.data.length);
         }
-        console.log(response)
+     
       }
 
       catch (err) {
@@ -93,27 +104,27 @@ const PurchaseHistory = () => {
   }, [])
   return (
 
-    <div className="flex h-screen  flex-col w-screen items-center  absolute gap-3">
-
-      <div className="mt-[10vw] flex gap-[2vw]">
+    <div id="purchase" className={ getPurchase ?  "flex min-h-[800px]  flex-col w-screen items-center  overflow-y-hidden gap-3"  : "flex h-[100vh] flex-col w-screen items-center  overflow-y-hidden gap-3"}>
+      
+      <div className="lg:mt-[10vw] mt-[20vw] flex gap-[2vw]">
       <div className="flex flex-col">
-      <div className="mb-[2vw] text-[#4d3526]  font-semibold underline text-[1.6vw] font-body">
+      <div className="mb-[2vw] text-[#4d3526]  font-semibold underline text-[4.5vw] lg:text-[1.6vw] font-body">
        PURCHASE HISTORY
       </div>
    
         { } 
-<div className=" flex gap-[1.4vw]">
+<div className=" flex gap-[2vw] lg:gap-[1.4vw]">
 
         {/*Creating filter*/}
-        <button id='time-y' className="px-[.6vw] text-[1.5vw] font-body rounded-full 
+        <button id='time-y' className="px-[.6vw] text-[3.7vw] lg:text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in " onClick={(e) => { setLowerLimit(yesterday); setUpperLimit(today); ColorUp(e); }} >YESTERDAY</button>
-        <button id='time-3m' className="px-[.6vw] text-[1.5vw] font-body rounded-full 
+        <button id='time-3m' className="px-[.6vw] text-[3.7vw] lg:text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in " onClick={(e) => { setLowerLimit(threeMonth); setUpperLimit(today); ColorUp(e); }} >3 MONTHS</button>
-        <button id='time-6m' type="" className="px-[.6vw] text-[1.5vw] font-body rounded-full 
+        <button id='time-6m' type="" className="px-[.6vw] text-[3.7vw] lg:text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in" onClick={(e) => { setLowerLimit(sixMonth); setUpperLimit(today); ColorUp(e); }}>6 MONTHS</button>
-        <button id='time-1y' type="" className="px-[.6vw] text-[1.5vw] font-body rounded-full 
+        <button id='time-1y' type="" className="px-[.6vw] text-[3.7vw] lg:text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in " onClick={(e) => { setLowerLimit(year); setUpperLimit(today); ColorUp(e); }} >1 YEAR AGO</button>
-        <button id='time-A' type="" className="px-[.6vw] text-[1.5vw] font-body rounded-full 
+        <button id='time-A' type="" className="px-[.6vw] text-[3.7vw] lg:text-[1.5vw] font-body rounded-full 
          bg-white border-red-400 transition-all delay-150 ease-in" onClick={(e) => { setLowerLimit(reset); setUpperLimit(reset); ColorUp(e); }} >All</button>
        </div>
   
@@ -125,7 +136,8 @@ const PurchaseHistory = () => {
           return (
 
             <div key={index} id={Purchases.date} className="flex font-body uppercase  ">
-              <div className="flex mt-[1vw] text-[#4d3526] text-[1.5vw] bg-[#ff6e61a9] flex-row justify-around h-auto w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+              <div className="flex mt-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
+              flex-row justify-around h-auto lg:w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
                 <p className="text-white">{Purchases.date}</p>
                 <div className="">
                   <p className="text-white">Name</p>
@@ -151,8 +163,8 @@ const PurchaseHistory = () => {
 
 
                 </div>
-                <div>
-                  <p className="text-white">Total Price</p>
+                <div className="ml-[1.2vw]">
+                  <p className=" text-white">Total Price</p>
                   <div>
                     {Purchases.amount_total}
                   </div>
@@ -179,9 +191,10 @@ const PurchaseHistory = () => {
 
             return (
 
-              <div key={index} id={Purchases.date} className="flex font-body uppercase">
-                <div className="flex  mt-[1vw] text-[#4d3526] text-[1.5vw] bg-[#ff6e61a9] flex-row justify-around h-auto w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw] ">
-                  <p className="text-white">{Purchases.date}</p>
+              <div key={index} id={Purchases.date} className="flex font-body uppercase  ">
+              <div className="flex mt-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
+              flex-row justify-around h-auto lg:w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">                  
+              <p className="text-white">{Purchases.date}</p>
                   <div>
                     <p className="text-white">Name</p>
                     {Purchases.productsName.map((items, index) => {
@@ -205,7 +218,7 @@ const PurchaseHistory = () => {
 
 
                   </div>
-                  <div>
+                  <div className="ml-[2vw]">
                     <p className="text-white"> Total Price</p>
                     <div>
                       {Purchases.amount_total}
@@ -231,11 +244,11 @@ const PurchaseHistory = () => {
           <Loader />
         </div>
           :
-          <div className=" flex uppercase justify-center text-[#4d3526] bg-[#ff6e61a9] flex-row h-[10vw] w-[60vw] pt-[1vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+          <div className=" flex uppercase justify-center text-[#4d3526] bg-[#ff6e61a9] flex-row h-[15vw] w-[90vw] mr-[4vw] lg:h-[10vw] lg:w-[60vw] pt-[1vw] before:border-t before:absolute before:w-[75%] lg:before:w-[55%] before:mt-[vw]">
             {/*Somehow error msg failed {errMsg} but this worked
           ,setting hooks are a bit finicky 
           */}
-            <p className={errMsg ? "errmsg text-[#4d3526] text-[1.4vw] mt-[3vw]" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <p className={errMsg ? "errmsg text-[#4d3526] text-[3.1vw] lg:text-[1.4vw] mt-[3vw]" : "offscreen"} aria-live="assertive">{errMsg}</p>
           </div>)
       }
     </div>

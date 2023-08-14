@@ -106,7 +106,7 @@ const SignUp = () => {
             if (!err.response) {
                 setErrMsg('No server response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Username taken');
+                setErrMsg('UserName is taken');
             } else {
                 let message = JSON.stringify(err.response.data.email);
                 const slicedMessage = message.slice(2, -3);
@@ -142,7 +142,7 @@ const SignUp = () => {
     </label>
     */
     return (
-        <div className='h-screen absolute w-screen'>
+        <div className='lg:h-[70vw] h-[76vh]  min-h-[800px] flex justify-center  w-screen'>
 
 
             <>
@@ -156,22 +156,24 @@ const SignUp = () => {
                             <button onClick={redirctToVerify}>Verify Email</button>
                         </div>
                     ) : (
-                        <div className='flex'>
+                        <div className='flex justify-center   items-center'>
 
 
-                            <div className='mt-[12vw] h-[32vw]  flex flex-row justify-center ml-[37vw] w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg'>
-                                <div className='flex flex-col justify-center items-center'>
+                            <div className=' lg:h-[35vw] h-[75vw] lg:-mt-[12vw]  flex  justify-center w-[75vw] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg'>
+                                <div className='flex h-auto flex-col w-[70vw] justify-center items-center'>
 
                                     <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
 
-                                    <h1 className=' font-body  text-[2vw] mb-[3vw] text-white'>REGISTER</h1>
-                                    <form className='' onSubmit={handleSubmit}>
-                                    
-                                            <div className="absolute ml-[3.7vw] mt-[-1.71vw] delay-100  transition-all">
-                                                <p className={email != '' ? "opacity-100 ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Email</p>
+                                    <h1 className=' font-body  lg:text-[2vw] text-[4.5vw]  mb-[4vw] text-white'>REGISTER</h1>
+                                    <form className='flex-col w-[70%] lg:gap-[2.7vw] gap-[7vw] flex' onSubmit={handleSubmit}>
+                                            <div>
+                                                
+                                            
+                                            <div className="absolute lg:ml-[1vw] ml-[3vw] sm:mt-[-4vw] mt-[-3.7vw] lg:mt-[-1.71vw] delay-100  transition-all">
+                                                <p className={email != '' ? "opacity-100 ease-in text-[3vw] lg:text-[1.2vw] delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>Email</p>
                                             </div>
                                             <input
-                                                className='rounded-sm text-[1.25vw] pl-[1vw] w-[20vw] h-[2.4vw] mt-[.6vw]'
+                                                                 className="rounded-md pl-[1vw] py-[.2vw] w-[100%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]   bg-slate-100"
                                                 type="email"
                                                 id='email'
                                                 placeholder='Email'
@@ -183,16 +185,17 @@ const SignUp = () => {
                                                 onFocus={() => setEmailFocus(true)}
                                                 onBlur={() => setEmailFocus(false)}
                                             />
-                                        <p id='uidnote' className={email && !validEmail ? "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>*Required @ and .com. No other symbols can be used<br />
+                                        <p id='uidnote' className={email && !validEmail ? "instructions absolute ml-[-5.4vw] lg:ml-[-1vw] lg:mt-[.1vw] mt-[-.5vw] text-white text-[2.5vw] lg:text-[.9vw]" : "offscreen abolute "}>*Required @ and .com. Use no other symbols<br />
                                         </p>
-                                        
+                                        </div>
+<div>
+    
 
-                                        <div className="absolute mt-[1.2vw]  delay-100  transition-all">
-                                            <p className={username != '' ? "opacity-100 ml-[3.7vw]  ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Username</p>
+                                        <div className="absolute ml-[2.2vw] lg:ml-[1vw] lg:mt-[-1.6vw] sm:mt-[-4vw]  mt-[-3.5vw]   delay-100  transition-all">
+                                            <p className={username != '' ? "opacity-100  ease-in text-[3vw] lg:text-[1.2vw] delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>Username</p>
                                         </div>
                                         <input
-                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
-                                            type="text"
+                                                             className="rounded-md pl-[1vw] py-[.2vw] w-[100%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]   bg-slate-100"            type="text"
                                             id='username'
                                             placeholder='Username'
                                             autoComplete='off'
@@ -204,54 +207,58 @@ const SignUp = () => {
                                             onFocus={() => setUserFocus(true)}
                                             onBlur={() => setUserFocus(false)}
                                         />
-                                        <p id='uidnote' className={username && !validName ? "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
+                                        <p id='uidnote' className={username && !validName ? "instructions absolute ml-[-3vw] lg:ml-[-1vw] lg:mt-[.1vw] mt-[-.5vw] text-[2.7vw] text-white lg:text-[.9vw]" : "offscreen abolute "}>
                                             *4-25char limit.
                                             Must begin with a letter
                                         </p> 
-                                        <br />
-
-                                        <div className="absolute mt-[1.2vw]  delay-100   transition-all">
-                                            <p className={password1 != '' ? "opacity-100 ml-[3.7vw]  ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Password</p>
+                                      
+                                        </div>
+                                        <div>
+                                            
+                                     
+                                        <div className="absolute sm:mt-[-4vw] lg:mt-[-1.7vw]  mt-[-3.7vw]  delay-100   transition-all">
+                                            <p className={password1 != '' ? "opacity-100 ml-[3vw] lg:ml-[1vw]  ease-in text-[3vw] lg:text-[1.2vw] delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>Password</p>
                                         </div>
                                         <input
                                             type="password"
                                             id='password1'
                                             placeholder='Password'
-                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
-                                            onChange={(e) => setPWD(e.target.value)}
+                                            className="rounded-md pl-[1vw] py-[.2vw] w-[100%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]   bg-slate-100"                                            onChange={(e) => setPWD(e.target.value)}
                                             required
                                             aria-invalid={validPWD ? 'false' : 'true'}
                                             aria-describedby='PWDnote'
                                             onFocus={() => setPWDFocus(true)}
                                             onBlur={() => setPWDFocus(false)} />
                                        
-                                        <p id='PWDnote' className={password1 && !validPWD ?  "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
-                                            *One lower and uppercase letter, a number, and a symbol
+                                        <p id='PWDnote' className={password1 && !validPWD ?  "instructions absolute ml-[-10vw] mt-[-vw] lg:ml-[-3vw] text-white text-[2.7vw] lg:text-[.9vw]" : "offscreen abolute "}>
+                                            *One lower and uppercase letter, number, and symbol
 
                                         </p>
-                                        <br />
-                                        <div className="absolute  delay-100 mt-[1.2vw] transition-all">
-                                            <p className={password2 != '' ? "ml-[3.7vw]  opacity-100 ease-in text-[1.2vw]  delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Confirm Password</p>
+                                        </div>
+                                        <div>
+                                            
+                                        
+                                        <div className="absolute  delay-100 sm:mt-[-4vw]  mt-[-3.6vw] lg:mt-[-1.67vw] transition-all">
+                                            <p className={password2 != '' ? "ml-[3.7vw] lg:ml-[1vw]  opacity-100 ease-in text-[3vw]  lg:text-[1.2vw]  delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>Confirm Password</p>
                                         </div>
                                         <input
                                             type="password"
                                             id='password2'
                                             placeholder='Confirm Password'
-                                            className='rounded-sm w-[20vw] text-[1.25vw] pl-[1vw] h-[2.4vw]  mt-[3.1vw]'
-                                            onChange={(e) => setMatchPWD(e.target.value)}
+                                            className="rounded-md pl-[1vw] py-[.2vw] w-[100%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]  bg-slate-100"                                          onChange={(e) => setMatchPWD(e.target.value)}
                                             required
                                             aria-invalid={validMatch ? 'false' : 'true'}
                                             aria-describedby='matchnote'
                                             onFocus={() => setMatchFocus(true)}
                                             onBlur={() => setMatchFocus(false)} />
                                     
-                                        <p id='matchnote' className={password2 && !validMatch ?  "instructions absolute ml-[3.7vw] mt-[.2vw] text-white text-[.9vw]" : "offscreen abolute "}>
+                                        <p id='matchnote' className={password2 && !validMatch ?  "instructions absolute text-[2.7vw] mt-[.2vw] text-white lg:text-[.9vw]" : "offscreen abolute "}>
 
                                             *Must match the first password
 
                                         </p> 
-                                        <br />
-                                        <button className=" h-[3vw] text-[1.25vw]   w-[5vw] mt-[1.6vw] rounded bg-white" disabled={!validMatch || !validName || !validPWD ? true : false}>Sign Up</button>
+                                        </div>
+                                        <button  className="h-[6vw] lg:h-[3vw] w-[40%] mt-[1vw] rounded text-[3vw] lg:text-[1.2vw] bg-white" disabled={!validMatch || !validName || !validPWD ? true : false}>Sign Up</button>
                                     </form>
 
                                     <p>{/*put a router link for log in*/}</p>

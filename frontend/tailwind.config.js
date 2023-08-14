@@ -4,7 +4,12 @@ module.exports = {
   theme: {
     extend: {backgroundImage:{
       'menu-pattern' : "url('https://wallpapercave.com/wp/wp10260057.jpg')",
-    }},
+    },
+    screens:{
+      'short': { 'raw': '(max-height: 740px)' },
+
+    }
+  },
     fontFamily:{
       body: ['Vibur'],
       Exo:['Exo 2'],

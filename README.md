@@ -44,12 +44,12 @@ Goals
     Purchase History Backend<-Done and improved improved but I think it needs a tiny bit more
     Purchase History Frontend<-Done
     Transferable data between session and account(cart and customer object transfer)<-Done
-    More Marketable design of the page<-Finished, Need footer
+    More Marketable design of the page<-Finished, Need footer<-Footer Completed
     Webhook causing data deletion<-Done on this
     Webhook dealing with failures + more emails<-Done but more emails can be added if increased functionality
     Should data transfer be option?<-Finished
     Bug:Purchase history bricks other api calls for session user<-Fixed
-    Mobile Friendliness<-Current Goal
+    Mobile Friendliness<-Current Goal<-Finished Generally Design
     Product to 20 left and reset daily<-Current Goal
 
 Credits

@@ -12,7 +12,7 @@ const SVG_Cart = (props) => (
     <path d="M39 32H13L8 12h36l-5 20Z" fill="red" />
     <path
       d="M3 6h3.5L8 12m0 0 5 20h26l5-20H8Z"
-      stroke="#000"
+      stroke="white"
       strokeWidth={4}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -21,7 +21,7 @@ const SVG_Cart = (props) => (
       cx={13}
       cy={39}
       r={3}
-      stroke="#000"
+      stroke="white"
       strokeWidth={4}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -30,7 +30,7 @@ const SVG_Cart = (props) => (
       cx={39}
       cy={39}
       r={3}
-      stroke="#000"
+      stroke="white"
       strokeWidth={4}
       strokeLinecap="round"
       strokeLinejoin="round"

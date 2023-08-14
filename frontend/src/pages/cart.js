@@ -198,12 +198,13 @@ const Cart = () => {
 
                 data.slice(start, end).map(datas =>
 
-                    <div>
+                    <div className="">
 
-                        <div key={datas.id} className=" flex uppercase text-[1.25vw] text-[#4d3526] bg-[#ff6e61a9] flex-row   justify-around h-[10vw] w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
-                            <div className=" flex gap-5 ">
+                        <div key={datas.id} className=" flex uppercase text-[3.5vw] lg:text-[1.25vw] text-[#4d3526] bg-[#ff6e61a9] flex-row  pt-[1vw] 
+                         justify-around h-auto lg:h-[10vw] w-[] lg:w-[60vw] lg:pt-[.4vw] before:border-t before:absolute lg:before:w-[55%] before:w-[65%] before:mt-[-.6vw]">
+                            <div className=" flex  gap-[3vw] pt-[.5vw] ">
 
-                                <img src={datas.product_image} loading="lazy" ref={containerRef} className="h-[7.5vw]  rounded-sm shadow-md" alt="" />
+                                <img src={datas.product_image} loading="lazy" ref={containerRef} className="lg:h-[7.5vw] h-[14vw]  rounded-sm shadow-md" alt="" />
                                 <div className="flex gap-[4vw] flex-col">
                                     <div>
                                         {datas.product_name}
@@ -212,7 +213,7 @@ const Cart = () => {
                                         <form className="" onSubmit={deleteSubmit}>
                                             <input className="absolute" type="submit" name="" hidden value={datas.id} />
                                             <input className="absolute" type="submit" name="" hidden value={datas.orders.id} />
-                                            <input className="cursor-pointer"  type="submit" name="" value="DELETE PRODUCT" />
+                                            <input className="cursor-pointer lg:text-[1.2vw] text-[3.2vw]"  type="submit" name="" value="REMOVE FROM CART" />
                                         </form>
 
                                     </div>
@@ -267,24 +268,25 @@ const Cart = () => {
 
                     </div>
                 ) : isEmpty === true
-                    ? <div className=" flex uppercase  text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around h-[10vw] w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+                    ? <div className=" flex uppercase  text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around h-[15vw] w-[90vw] lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
                         <p className="mt-[2vw]"> As empty as Patrick Star's head can be</p>
                     </div>
                     :
-                    <div className="h-[30vw] mt-[.5vw] flex flex-col w-[60vw] shadow-2xl bg-[#ff6e61a9] rounded-sm animate-pulse">
+                    <div className="lg:h-[30vw] h-[45vw] mt-[.5vw] flex flex-col w-[60vw] shadow-2xl bg-[#ff6e61a9] rounded-sm animate-pulse">
                         <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                         <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                         <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                     </div>
             }
-            <div className='flex justify-center h-[3vw] bg-[#ff6e61a9]  '>
-                <div className=''>
+            <div className='flex justify-center lg:items-start items-center lg:h-[6vw] h-[15vw]  bg-[#ff6e61a9]  '>
+                <div className='flex gap-[1.5vw]'>
                     {
                         pageAmount &&
 
                         pageAmount.map(index =>
                             <button
-                                className='  focus:bg-slate-400 bg-slate-100 outline h-[2.2vw]  font-body ml-[.3vw] w-[2.2vw] text-[1.1vw] outline-[.1vw] outline-slate-500 rounded-[1vw]'
+                                className='  focus:bg-slate-400 bg-slate-100 outline h-[5vw] lg:h-[2.2vw] mt-[.8vw] font-body ml-[.3vw] w-[5vw] rounded-full 
+                                lg:w-[2.2vw] text-[4vw] lg:text-[1.1vw] outline-[.1vw] outline-slate-500 '
                                 id={'Page ' + index}
                                 key={index}
                                 value={index}
@@ -362,26 +364,26 @@ const Cart = () => {
         hiddenElements.forEach((el) => { observer.observe(el) })
     }, [containerRef, data])
     return (
-        <div className="h-screen ">
+        <div id='cart' className="lg:h-[110vw] short:h-auto ">
 
 
-            <div className="h-[40vw] mt-[7vw] flex absolute justify-center font-body flex-col gap-3 ml-[4vw] pt-[2vw] w-screen overflow-hidden">
-                <div className="w-[60vw]  shadow-2xl">
+            <div className="lg:h-auto h-[130vw] short: min-h-[757px] justify-center lg:flex-row  flex flex-col  items-center font-body gap-[4vw] lg:gap-3  pt-[2vw] w-screen overflow-hidden">
+                <div className="lg:w-[60vw] w-[95vw] mr-[1vw] lg:mr-[3.6vw] flex  flex-col ">
 
 
-                    <div className="flex justify-center items-center h-[3vw] w-[60vw] bg-[#ff6e61a9] shadow-lg ">
+                    <div className="flex justify-center items-center md:mt-[10vw]  mt-[20vw] lg:h-[6vw] h-[10vh] w-[95vw] lg:w-[60vw] bg-[#ff6e61a9] shadow-lg ">
 
-                        <h2 className="z-[10] text-3xl pb-[.5vw] mt-[.1vw] text-[2.3vw]  text-[#4d3526] rounded-sm">MY CART</h2>
+                        <h2 className="z-[10]  pb-[.5vw] mt-[.1vw] lg:text-[2.3vw] text-[5vw]  text-[#4d3526] rounded-sm">MY CART</h2>
                     </div>
                     {data
                         ?
 
                         <HandlePages /> : isEmpty === true
-                            ? <div className=" flex uppercase  text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around h-[10vw] w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
-                                <p className="mt-[2vw] text-[1.3vw]"> As empty as Patrick Star's head can be</p>
+                            ? <div className=" flex uppercase   text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around  h-[15vw] w-[95vw] lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+                                <p className="mt-[2vw] text-[3.5vw] lg:text-[1.3vw]"> As empty as Patrick Star's head can be</p>
                             </div>
                             :
-                            <div className="h-[30vw] mt-[.5vw] flex flex-col shadow-2xl bg-[#ff6e61a9] rounded-sm animate-pulse">
+                            <div className="lg:h-[30vw] h-[45vw] mt-[.5vw] flex flex-col shadow-2xl bg-[#ff6e61a9] rounded-sm animate-pulse">
                                 <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                                 <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
                                 <div className="h-[25%] w-[97%] ml-[.6vw] mt-[1.5vw] shadow-lg rounded-sm bg-slate-300"></div>
@@ -391,7 +393,7 @@ const Cart = () => {
 
                 </div>
                 {data ?
-                    <div className=" absolute uppercase flex justify-center flex-col text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[20vw] p-[5vw] shadow-lg rounded-sm ml-[70vw] ">
+                    <div className="  uppercase flex justify-center flex-col h-[23vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">
                         <p className="">Total amount </p>
                         <p> ${data[0].total_price}</p>
 
@@ -416,7 +418,7 @@ const Cart = () => {
                             <form action={CREATE_CHECKOUT_URL} method="POST">
                                 <input name="sessionKey" id="say" hidden value={data[0]?.session_key} />
                                 <input name="userID" id="say" hidden value={access_token} />
-                                <input type="submit" name="" className=" cursor-pointer text-[1.2vw]  hover:bg-[#1f5cacd0]  border rounded-md bg-blue-500 p-[.5vw] mt-[.3vw] text-black" value="CHECK OUT" />
+                                <input type="submit" name="" className=" cursor-pointer text-[3vw] lg:text-[1.2vw]  h-[7vw] lg:h-[2.5vw] w-[18vw] lg:w-[8vw] hover:bg-[#1f5cacd0] hover:translate-y-[.1vw] transition-all delay-75 border rounded-md bg-blue-500 p-[.5vw] mt-[.3vw] text-black" value="CHECK OUT" />
                             </form>
 
 
@@ -425,10 +427,10 @@ const Cart = () => {
                     :
                     isEmpty === true ?
                     
-                        <div className="absolute uppercase flex   justify-center  bg-[#FF6F61] text-[1.4vw] text-[#4d3526] w-[20vw] p-[5vw] shadow-lg rounded-sm ml-[70vw]">
-                            <p className="text-[#4d3526]">TOTAL AMOUNT N/A</p>
+                    <div className="  uppercase flex justify-center flex-col h-[23vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">
+                            <p className="text-[#4d3526]">TOTAL AMOUNT <br/> N/A</p>
                         </div> :
-                        <div className="absolute right-0 text-[1.4vw]  shadow-lg bg-[#FF6F61] p-[5vw] rounded-sm mr-[10vw] mt-[-20vw]">
+                      <div className="  uppercase flex justify-center flex-col h-[23vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">
                             <p className="text-[#4d3526]">TOTAL AMOUNT </p>
                         </div>}
 

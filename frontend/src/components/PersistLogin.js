@@ -52,10 +52,13 @@ const PersistLogin = () => {
             :
                 isLoading
                 ? 
+                <div className=' h-[75vh]  min-h-[860px]'>
                 <span class="absolute shadow-sm mt-[20vw] mr-[10.1vw] gap-[.2vw] flex-col">
                 <i className=" mt-[.1vw] animate-pulse mr-[2.1vw]"><SVG_Food /></i> 
                 <div className='animate-pulse'><p className='mt-[-3vw] text-[3vw]'>. . .</p> </div>
                 </span>
+                    
+                </div>
 
                 : <Outlet/>
         }

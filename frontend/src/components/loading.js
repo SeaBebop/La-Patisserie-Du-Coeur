@@ -6,7 +6,7 @@ import React from "react";
 //Used tailwindcss animate-bounce instead, just wanted to know how keyframe works
 const Loader = (props) =>{
     return (
-<div className="loader mt-[4vw]">
+<div className="loader mt-[4vw] flex ">
             <div className="animate-bounce bg-[#ec3c5f]">
 
             </div>

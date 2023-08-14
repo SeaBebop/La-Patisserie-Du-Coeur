@@ -37,7 +37,7 @@ const Terms = () => {
   return (
    
   
-      <div className="mt-[11vw] p-[2vw] mb-[2vw] text-white flex flex-col item-center unrevealed justify-around ml-[10vw]  w-[80vw] bg-[#1a58ab] rounded-md shadow-lg">
+      <div className="mt-[11vw] p-[2vw] mb-[2vw] min-h-[750px] text-black flex flex-col item-center unrevealed justify-around ml-[10vw]  w-[80vw] bg-[#ff6e61a9] rounded-md shadow-lg">
         <p>Thank you for using our website! These terms and conditions govern your use of our website, so please read them carefully. By using our website, you agree to be bound by these terms and conditions.</p>
 
 <p> <h1 className="underline"> Intellectual Property:</h1>

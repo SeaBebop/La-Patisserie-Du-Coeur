@@ -50,3 +50,6 @@ opacity: 1;
   animation-delay: .6s;
 }
 
+#flex-B{
+  flex-basis:50%;
+}

@@ -38,6 +38,7 @@ const Resend = () => {
 
         );
         console.log(response);
+        setErrMsg("*Resent Verification")
       }
      
        catch (err) {
@@ -58,10 +59,10 @@ const Resend = () => {
 
  
   return (
-    <div className='absolute h-screen w-screen'>
-    <div className="mt-[12vw] h-[16vw]  flex flex-col justify-center ml-[37vw] w-[28vw] bg-[#1a58ab] rounded-md shadow-lg">
-    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-    <label className='text-white text-[2vw] ' for="html">Resend Verification</label>
+    <div className='h-[85vw] lg:h-[55vw] flex min-h-[750px]  justify-center items-center w-screen'>
+    <div className=" lg:h-[16vw] h-[32vw] mt-[6vw] lg:mt-[0vw] flex flex-col justify-center w-[60vw]  lg:w-[28vw] bg-[#ee5042e5]  rounded-md shadow-lg">
+    <p ref={errRef} className={errMsg ? "errmsg text-[3vw] lg:text-[1.6vw]" : "offscreen"} aria-live="assertive">{errMsg}</p>
+    <label className='text-white text-[4vw] lg:text-[2vw] ' for="html">Resend Verification</label>
       <form onSubmit={onSubmit}>
       <div>
         
@@ -70,11 +71,11 @@ const Resend = () => {
           value={email}
           ref={emailRef}
           type={'input'}
-          className="rounded-md pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
+          className='rounded-sm w-[70%] text-[3vw] lg:text-[1.25vw] pl-[1vw] h-[4vw] lg:h-[2.4vw]  mt-[3.1vw]'
           placeholder='Email'
           name={'email'}/>
       </div>
-      <button className={"rounded-md  py-[.2vw] px-[1vw]  mb-[2vw] hover:bg-slate-300 bg-slate-100"}  type={'submit'}>Submit</button>
+      <button className={"h-[5vw] lg:h-[3vw] lg:text-[1.25vw] text-[3vw] w-[30%]  lg:w-[5vw] mt-[1.6vw] rounded bg-white"}  type={'submit'}>Submit</button>
       </form>    
     </div>    
     </div>

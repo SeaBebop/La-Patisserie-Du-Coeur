@@ -69,9 +69,10 @@ const PasswordResetConfirm = () => {
       if (!err.response) {
         //If not in the 200 response range
         setErrMsg('No Server Response');
+ 
       }
       else {
-        setErrMsg('Check if password 1, password 2 and the Token are all correct, if it is then request a password reset again')
+        setErrMsg('Check if all inputs are correct and try again')
       }
 
     }
@@ -81,6 +82,9 @@ const PasswordResetConfirm = () => {
 
 
   return (
+    <div className='lg:h-[50vw] h-[80vw] min-h-[750px]  flex justify-center items-center '>
+      
+
     <>
       {success ? (
         <div>
@@ -88,13 +92,13 @@ const PasswordResetConfirm = () => {
         </div>)
         :
         (
-          <div className="mt-[12vw] h-[20vw]  flex flex-col justify-center ml-[37vw] w-[32vw] bg-[#ee5042e5] rounded-md shadow-lg">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+          <div className=" h-[65vw]  lg:h-[25vw]  flex flex-col gap-[vw] justify-center w-[75vw] lg:w-[32vw] bg-[#ee5042e5] rounded-md shadow-lg">
+            <p ref={errRef} className={errMsg ? "errmsg text-[3vw] lg:text-[1.5vw] mb-[2vw] text-white" : "offscreen"} aria-live="assertive">*{errMsg}</p>
 
-            <form onSubmit={onSubmit}>
+            <form className='h-auto' onSubmit={onSubmit}>
               <div>
-                <div className="absolute ml-[5.9vw] mt-[.5vw] delay-100  transition-all">
-                  <p className={newPWD1 != '' ? "opacity-100 ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>New Password</p>
+                <div className="absolute ml-[5.9vw] mt-[-3vw] lg:mt-[-.7vw] delay-100  transition-all">
+                  <p className={newPWD1 != '' ? "opacity-100 ease-in text-[3.4vw] lg:text-[1.2vw] delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>New Password</p>
                 </div>
                 <input
                   onChange={(e) => setPWD1(e.target.value)}
@@ -103,22 +107,22 @@ const PasswordResetConfirm = () => {
                   type={'password'}
                   name={'PWD1'}
                   placeholder='New Password'
-                  className="rounded-md text-[1.2vw] h-[2vw] mt-[2.5vw] w-[20vw] pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
+                  className="rounded-md lg:text-[1.2vw] text-[2.3vw] h-[4.2vw]  lg:h-[2vw] mt-[1vw]  w-[80%]  lg:w-[20vw] pl-[1vw] py-[.2vw] mb-[6vw] lg:mb-[.4vw] bg-slate-100"
                   aria-describedby='pwd1Note'
                   aria-invalid={pwd1Valid ? 'true' : 'false'}
                   onBlur={() => setPWD1Focus(false)}
                   onFocus={() => setPWD1Focus(true)}
                 />
-                <p id='pwd1Note' className={!pwd1Valid && newPWD1 ? "instructions absolute ml-[1vw] mt-[-.1vw] text-white text-[.9vw]" : "offscreen abolute "}>*Must be 7+char with one lower and uppercase letter, a number, and a symbol</p>
+                <p id='pwd1Note' className={!pwd1Valid && newPWD1 ? "instructions absolute ml-[2vw] lg:ml-[2vw] mt-[-6vw] lg:mt-[-.1vw] text-white text-[2.5vw] lg:text-[.9vw]" : "offscreen hidden abolute "}>*7+char with one lower and uppercase letter, number, and symbol</p>
               </div>
               <div>
-              <div className="absolute ml-[5.9vw] mt-[.5vw] delay-100  transition-all">
-                  <p className={newPWD2 != '' ? "opacity-100 ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Confirm New Password</p>
+              <div className="absolute ml-[5.9vw] mt-[-1.5vw] lg:mt-[2.5vw] delay-100  transition-all">
+                  <p className={newPWD2 != '' ? "opacity-100 ease-in text-[3.4vw] mt-[-1.8vw] lg:text-[1.2vw] delay-100 transition-all" : "hidden ml-[3.7vw]  ease-out delay-100 transition-all"}>Confirm New Password</p>
                 </div>
                 <input
                   onChange={(e) => setPWD2(e.target.value)}
                   value={newPWD2}
-                  className="rounded-md text-[1.2vw] h-[2vw] mt-[2.5vw] w-[20vw] pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
+                  className="rounded-md lg:text-[1.2vw] text-[2.3vw] h-[4.2vw] lg:h-[2vw] mt-[0vw] lg:mt-[2.5vw] w-[80%] lg:w-[20vw] pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
                   aria-describedby='matchNote'
                   placeholder='Confirm Password'
                   aria-invalid={pwd2Match ? 'true' : 'false'}
@@ -127,7 +131,7 @@ const PasswordResetConfirm = () => {
                   type={'password'}
                   name={'PWD2'} />
               </div>
-              <p id='pwd2Note' className={!pwd2Match && newPWD2 ? "instructions absolute ml-[5.5vw] mt-[-.1vw] text-white text-[.9vw]" : "offscreen abolute "}>*Make sure the passwords match</p>
+              <p id='pwd2Note' className={!pwd2Match && newPWD2 ? "instructions absolute ml-[5.5vw]  lg:mt-[-.1vw] text-white mt-[-1vw] text-[2.5vw]  lg:text-[.9vw]" : "offscreen hidden abolute "}>*Make sure the passwords match</p>
               <div>
 
                 <input
@@ -139,11 +143,11 @@ const PasswordResetConfirm = () => {
 
               </div>
               <div>
-              <div className="absolute ml-[5.9vw] mt-[.5vw] delay-100  transition-all">
-                  <p className={tokenPWD != '' ? "opacity-100 ease-in text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Email Sent Token</p>
+              <div className="absolute ml-[5.9vw] mt-[2vw] lg:mt-[.8vw] delay-100  transition-all">
+                  <p className={tokenPWD != '' ? "opacity-100 ease-in text-[2.7vw] lg:text-[1.2vw] delay-100 transition-all" : "opacity-0 ml-[3.7vw]  ease-out delay-100 transition-all"}>Email Sent Token</p>
                 </div>
                 <input
-                  className="rounded-md text-[1.2vw] h-[2vw] mt-[2.5vw] w-[20vw] pl-[1vw] py-[.2vw]  mb-[2vw] bg-slate-100"
+                   className="rounded-md lg:text-[1.2vw] text-[2.3vw] h-[4.5vw]  lg:h-[2vw] mt-[6vw] lg:mt-[2.5vw] w-[80%] lg:w-[20vw] pl-[1vw] py-[.2vw]  mb-[.4vw] bg-slate-100"
                   onChange={(e) => setTokenPWD(e.target.value)}
                   value={tokenPWD}
                   placeholder='Email Sent Token'
@@ -152,13 +156,14 @@ const PasswordResetConfirm = () => {
                   type={'input'}
                   name={'Token'} />
               </div>
-              <button className={"rounded-md  py-[.2vw] px-[1vw] h-[3vw] w-[5.4vw]  mb-[2vw] hover:bg-slate-300 bg-slate-100"} disabled={!pwd2Match || !pwd1Valid || !tokenPWD} type={'submit'}>Submit</button>
+              <button className={"rounded-md  py-[.2vw] px-[1vw] lg:h-[3vw] h-[6vw] w-[12vw] lg:text-[1.2vw]  lg:w-[5.4vw] text-[2.8vw] mb-[2vw] hover:bg-slate-300 bg-slate-100"} disabled={!pwd2Match || !pwd1Valid || !tokenPWD} type={'submit'}>Submit</button>
 
             </form>
           </div>
         )}
-
+   
     </>
+    </div>
   )
 }
 
