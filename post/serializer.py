@@ -38,6 +38,8 @@ class PostSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'url': {'lookup_field': 'id'}
         }
+
+        
         
 class OrderItemSerializer(serializers.ModelSerializer):
     

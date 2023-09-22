@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Blog API Project
+  title: Blog API Project # No longer the case
   version: 1.0.0
   description: A sample blog to learn about DRF
 paths:

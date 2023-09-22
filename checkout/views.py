@@ -162,7 +162,7 @@ class CreateCheckoutSession(APIView):
 
     def get(self,request,*args,**kwargs):
         #change this
-        charge = stripe.checkout.Session.list(customer='cus_O8yLbjwStIAW8w')
+        charge = stripe.checkout.Session.list(customer='cus_O8yLbjwStIAW8w') #Change this
         return Response(charge)
               
     def post(self,request,*args,**kwargs): 
@@ -200,14 +200,18 @@ class CreateCheckoutSession(APIView):
         
         
         if request.data['userID'] != '':
-            cart = Cart.objects.filter(user=userData['user_id']).values_list('orders__item',flat=True)
-            item = Cart.objects.filter(user=userData['user_id']).values_list('orders__quantity',flat=True)
+            user = Cart.objects.filter(user=userData['user_id'])
+            
+            cart = user.values_list('orders__item',flat=True)
+            item = user.values_list('orders__quantity',flat=True)
 
 
         if request.data['userID'] == '' and request.data['sessionKey'] != '': 
             #print('this triggered')
-            cart = Cart.objects.filter(session_key=request.data['sessionKey']).values_list('orders__item',flat=True)
-            item = Cart.objects.filter(session_key=request.data['sessionKey']).values_list('orders__quantity',flat=True)
+            sessionUser = Cart.objects.filter(session_key=request.data['sessionKey'])
+
+            cart = sessionUser.values_list('orders__item',flat=True)
+            item = sessionUser.values_list('orders__quantity',flat=True)
             customerID = Session.objects.get(pk=request.data['sessionKey'])
             customerID = customerID.get_decoded()
             customerID = customerID[str(request.data['sessionKey'])]

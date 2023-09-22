@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     #'django_inlinecss', somehow got an error some im not using it
     "dj_rest_auth.registration", # new
     "drf_spectacular", # new
+    'celery',
 
 
 
@@ -231,7 +232,7 @@ DATABASES =  {
         'NAME': 'bakery', 
         'USER': 'postgres',
         'PASSWORD': 'Jk',
-        'HOST': '192.168.65.2', 
+        'HOST': 'host.docker.internal', 
         'PORT': 5432,
     }
 }

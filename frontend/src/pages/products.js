@@ -9,7 +9,7 @@ import useCartChecker from '../Hooks/useCartChecker';
 
 const PRODUCT_DATA_URL = 'http://127.0.0.1:8000/api/v1/shop';
 const ORDER_URL = 'http://127.0.0.1:8000/api/v1/order/';
-const CUSTOMER_URL = 'http://127.0.0.1:8000/api/v1/customer/manage-customer/'
+
 
 /*The filter Idea is inspired by  https://codesandbox.io/s/r5x4i?file=/src/App.js 
 
@@ -58,7 +58,7 @@ const Products = () => {
   //Coloring the pagination numbers for current page
   useEffect(() => {
     function colorUp() {
-      console.log('nani')
+
       document.getElementById('Page ' + currentPage).style.backgroundColor = '#e2e8f9'
     }
     {
@@ -94,6 +94,7 @@ const Products = () => {
   }, [filter, renderBorderColor, data])
   //Funtion Will fetch the products in the URL
   useEffect(() => {
+    
     const fetchProduct = async () => {
 
       try {
@@ -112,18 +113,17 @@ const Products = () => {
         }
 
 
-        console.log('this is name', userName);
+
       }
 
       catch (err) {
         if (err.response) {
           //If not in the 200 response range
-          console.log(err.response.data);
-          console.log(err.response.status);
+
 
         }
         else {
-          console.log('Error:Failed to connect');
+
         }
 
       }
@@ -131,6 +131,7 @@ const Products = () => {
 
     fetchProduct();
     setcartTrigger(0);
+
   }, [])
 
   //Intialized the page with All as the filter
@@ -157,15 +158,13 @@ const Products = () => {
 
     const classNameInt = Number(e.target.className);
 
-    const targetValueQuantity = e.target[0].value;
+    const targetValueQuantity = e.target[0].value != "" ? e.target[0].value : 0;
+
     const targetID = e.target[0].id;
 
-    let stringifiedData;
-    {
-      userName ?
-        stringifiedData = JSON.stringify({ 'quantity': targetValueQuantity, 'user': userName, 'item': classNameInt })
-        : stringifiedData = JSON.stringify({ 'quantity': targetValueQuantity, 'item': classNameInt })
-    }
+    const stringifiedData = userName ? JSON.stringify({ 'quantity': targetValueQuantity, 'user': userName, 'item': classNameInt })
+      : JSON.stringify({ 'quantity': targetValueQuantity, 'item': classNameInt })
+
 
     try {
       const response = await axios.post(ORDER_URL, stringifiedData, {
@@ -202,7 +201,7 @@ const Products = () => {
 
 
   }, [])
-  //The idea is to 
+
   function HandleFilter() {
     const productType = filter;
     //console.log(document.getElementsByClassName('buttonValue')) <-Failed idea, leaving it here to remember why
@@ -262,7 +261,7 @@ const Products = () => {
                 /*Key is portional to the backend name*/
                 <div key={datas.id} className="flex lg:h-[25vw] h-[50vw] flex-col  justify-center  lg:text-[1.4vw] shadow-lg bg-slate-100 outline outline-[.1vw] outline-slate-300 px-[1.3vw] py-[.8vw] rounded-[.5vw] mx-[1vw] my-[1vw] items-center">
 
-                  <img className='lg:h-[9.5vw] h-[22vw] shadow-xl rounded-sm unrevealed ' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body md:text-[2vw] lg:text-[1.15vw] uppercase'>{datas.name}</p> <p className='font-body text-[3.5vw] lg:text-[1.2vw]'>${datas.price}</p> <p className='font-body md:text-[1.8vw] lg:text-[1.2vw]'>{datas.quantity} LEFT</p>
+                  <img className='lg:h-[9.5vw] h-[22vw] shadow-xl rounded-sm unrevealed ' ref={containerRef} src={datas.image} alt="" />  <p className=' font-Body md:text-[2vw] lg:text-[1.15vw] uppercase'>{datas.name}</p> <p className='font-body text-[3.5vw] lg:text-[1.34vw]'>${datas.price}</p> <p className='font-body md:text-[1.8vw] lg:text-[1.2vw]'>{datas.quantity} LEFT</p>
                   <form onSubmit={onOrderSubmit} className={datas.id} >
                     <div className='flex lg:flex-col flex-row'>
                       <input className='outline-[.1vw] lg:text-[1.2vw] text-[4vw] h-[6.6vw] lg:h-[2vw] rounded-md shadow-md outline outline-slate-300 pl-[2vw] lg:pl-[.6vw] text-black w-[80%] lg:w-[90%]'
@@ -275,6 +274,7 @@ const Products = () => {
                         placeholder={' Insert Quantity'} />
 
                       <button
+
                         className='bg-green-400 shadow-md hover:bg-green-200 ml-[11vw] flex items-center justify-center font-medium lg:mt-[1vw] mt-[-5vw] outline outline-slate-200 outline-[.05vw] rounded-sm  px-[.3vw] py-[.2vw] text-[3vw] lg:text-[1.1vw] '
 
                         type="submit">
@@ -286,7 +286,7 @@ const Products = () => {
                 </div>) : <div className='w-[30vw]'> Refresh</div>
             }
           </div>
-          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[3vw] lg:gap-[1vw]'>
+          <div className='flex justify-center mb-[1vw] lg:mt-[0vw] mt-[3vw] gap-[3vw] lg:gap-[1vw]'>
             {
               pageAmount &&
 
@@ -343,7 +343,7 @@ const Products = () => {
                 </div>) : <div className='w-[30vw]'> Refresh</div>
             }
           </div>
-          <div className='flex justify-center mb-[1vw] mt-[3vw] gap-[3vw] lg:gap-[1vw]'>
+          <div className='flex justify-center mb-[1vw]  gap-[3vw] lg:gap-[1vw]'>
             {
               pageAmount &&
 
@@ -465,9 +465,9 @@ const Products = () => {
                         <div className='mt-[4vw] h-[25%]  w-[85%] flex rounded-md bg-slate-200 '></div>
 
                         <div className='mt-[4.5vw] h-[8%]  w-[55%] flex  rounded-md bg-slate-200'>
-                      </div>
+                        </div>
 
-                     
+
 
                       </div>
 

@@ -67,6 +67,7 @@ const Cart = () => {
         }
         //Triggers the fetch cart function
         setTrigger(true);
+        document.getElementById("Page 1").click();
         
     }
     /*
@@ -268,7 +269,8 @@ const Cart = () => {
 
                     </div>
                 ) : isEmpty === true
-                    ? <div className=" flex uppercase  text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around h-[15vw] w-[90vw] lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+                    ? <div className=" flex uppercase  text-[#4d3526] shadow-2xl bg-[#ff6e61a9] flex-row justify-around h-[15vw] w-[90vw] 
+                    lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
                         <p className="mt-[2vw]"> As empty as Patrick Star's head can be</p>
                     </div>
                     :
@@ -364,11 +366,11 @@ const Cart = () => {
         hiddenElements.forEach((el) => { observer.observe(el) })
     }, [containerRef, data])
     return (
-        <div id='cart' className="lg:h-[110vw] short:h-auto ">
+        <div id='cart' className="lg:h-[110vw] min-h-[850px]">
 
 
             <div className="lg:h-auto h-[130vw] short: min-h-[757px] justify-center lg:flex-row  flex flex-col  items-center font-body gap-[4vw] lg:gap-3  pt-[2vw] w-screen overflow-hidden">
-                <div className="lg:w-[60vw] w-[95vw] mr-[1vw] lg:mr-[3.6vw] flex  flex-col ">
+                <div className="lg:w-[60vw] w-[95vw] overflow-x-hidden  mr-[0vw] lg:mr-[3.6vw] flex  flex-col ">
 
 
                     <div className="flex justify-center items-center md:mt-[10vw]  mt-[20vw] lg:h-[6vw] h-[10vh] w-[95vw] lg:w-[60vw] bg-[#ff6e61a9] shadow-lg ">
@@ -379,7 +381,8 @@ const Cart = () => {
                         ?
 
                         <HandlePages /> : isEmpty === true
-                            ? <div className=" flex uppercase   text-[#4d3526] bg-[#ff6e61a9] flex-row justify-around  h-[15vw] w-[95vw] lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
+                            ? <div className=" flex uppercase   text-[#4d3526] shadow-lg bg-[#ff6e61a9] flex-row justify-around  h-[15vw] 
+                            w-[95vw] lg:w-[60vw] pt-[.4vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
                                 <p className="mt-[2vw] text-[3.5vw] lg:text-[1.3vw]"> As empty as Patrick Star's head can be</p>
                             </div>
                             :
@@ -427,7 +430,7 @@ const Cart = () => {
                     :
                     isEmpty === true ?
                     
-                    <div className="  uppercase flex justify-center flex-col h-[23vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">
+                    <div className="  uppercase flex justify-center flex-col h-[19vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">
                             <p className="text-[#4d3526]">TOTAL AMOUNT <br/> N/A</p>
                         </div> :
                       <div className="  uppercase flex justify-center flex-col h-[23vw] text-[4vw] lg:text-[1.4vw]  bg-[#FF6F61] text-[#4d3526] w-[55vw] lg:w-[20vw] p-[5vw] shadow-lg rounded-sm ">

@@ -30,6 +30,8 @@ class ShopViewSet(viewsets.ModelViewSet):  # new
     lookup_field = 'id'
 
 
+
+
 class UserViewSet(viewsets.ModelViewSet):  # new
     permission_classes = [IsAdminUser]
     queryset = get_user_model().objects.all()
@@ -43,7 +45,7 @@ class CartViewSet(viewsets.ModelViewSet):
     # Adding condition of what type of carts you should see
     def get_queryset(self):
         # If its a non logged in user with a cart
-        
+
         if self.request.session.session_key and self.request.user.is_authenticated == False:
 
             queryset = Cart.objects.filter(
@@ -90,7 +92,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         # get_user_model().objects.filter(id=request.user.id).update(customer_id=None)
         # stripe.Customer.delete("cus_O8wjW8UccIUUkS")
         # Customer.post(self,request)
-
+        checkProduct = get_object_or_404(
+                Product, id=int(form_data['item']) )
+        
+        if(checkProduct.quantity < 1 or  int(form_data['quantity']) < 1):
+            return Response("ERROR! Product is sold out or no quantity selected",status.HTTP_405_METHOD_NOT_ALLOWED)
+        
         # The idea below was inspire by reading what the create doc says below
         """if request.user.is_authenticated():
             serializer = self.get_serializer(data=request.data)

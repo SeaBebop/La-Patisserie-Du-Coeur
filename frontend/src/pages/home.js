@@ -14,8 +14,7 @@ import useCartChecker from "../Hooks/useCartChecker";
 
 const Home = () => {
   const containerRef = useRef(null);
-  //https://i.ibb.co/hC4m8mk/40213353998.png
-  //https://i.ibb.co/VtpN4L1/pexels-photo-205961.png
+
   const { cartTrigger, setcartTrigger } = useCartChecker();
   const { videoTrigger, setVideoTrigger } = useState(false);
   useEffect(() => {
@@ -40,7 +39,7 @@ const Home = () => {
   }, [containerRef])
 
   const playBack = () => {
-    console.log('Hello N-')
+
     const video = document.getElementById('autoplayVideo');
     video.play();
   }
@@ -58,8 +57,7 @@ const Home = () => {
     window.addEventListener('height', height, { passive: true });
     return () => window.removeEventListener('height', height);
   }, [])
-  const backgroundURL =
-    'url("https://i0.wp.com/www.society19.com/ca/wp-content/uploads/sites/2/2019/02/bakeries-vanfeatured.png?fit=768%2C576&ssl=1")';
+
   return (
     <div className="lg:h-[115vw]  min-h-[750px]  h-[85vh] short:h-auto md:h-[130vh] overflow-hidden">
       {/*First Picture*/}

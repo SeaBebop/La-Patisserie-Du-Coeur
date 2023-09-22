@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
 
     roles = models.IntegerField(
         choices=USER_LEVEL_CHOICES, blank=True, default=IS_STANDARD)
-    customer_id = models.CharField(null=True,blank=True,max_length=200)
+    customer_id = models.CharField(null=True,blank=True,max_length=200) #Added this to use as a trigger if the user has a stripe customer id or not
 
     def is_Admin(self):
         if self.roles == 0:

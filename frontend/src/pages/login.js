@@ -68,7 +68,7 @@ const Login = () => {
       const roles = response?.data.user.roles;
       const userID = response?.data.user.pk;
 
-      console.log(response);
+      //console.log(response);
       setAuth({ accessToken, refreshToken, roles, userID });
 
 
@@ -91,7 +91,7 @@ const Login = () => {
         if (message.includes('verified')) {
           setVerify(true);
         }
-        const slicedMessage = message.slice(2, -3);//Unused since it is way to long even with the slice
+        //const slicedMessage = message.slice(2, -3);Unused since it is way to long even with the slice
         setErrMsg('Incorrect Username/email or Password');
       } else if (err.response?.status === 401) {
         setErrMsg('Unauthorized');

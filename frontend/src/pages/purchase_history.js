@@ -104,11 +104,11 @@ const PurchaseHistory = () => {
   }, [])
   return (
 
-    <div id="purchase" className={ getPurchase ?  "flex min-h-[800px]  flex-col w-screen items-center  overflow-y-hidden gap-3"  : "flex h-[100vh] flex-col w-screen items-center  overflow-y-hidden gap-3"}>
+    <div id="purchase" className={ getPurchase ?  "flex min-h-[800px]  flex-col w-screen items-center  overflow-x-hidden gap-3"  : "flex h-[100vh] flex-col w-screen items-center  overflow-y-hidden gap-3"}>
       
-      <div className="lg:mt-[10vw] mt-[20vw] flex gap-[2vw]">
+      <div className="lg:mt-[10vw] mt-[10vh] flex gap-[2vw]">
       <div className="flex flex-col">
-      <div className="mb-[2vw] text-[#4d3526]  font-semibold underline text-[4.5vw] lg:text-[1.6vw] font-body">
+      <div className="mb-[2vw] text-[#4d3526]  font-semibold underline text-[4vw] lg:text-[1.6vw] font-body">
        PURCHASE HISTORY
       </div>
    
@@ -135,8 +135,8 @@ const PurchaseHistory = () => {
 
           return (
 
-            <div key={index} id={Purchases.date} className="flex font-body uppercase  ">
-              <div className="flex mt-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
+            <div key={index} id={Purchases.date} className="flex  font-body uppercase  ">
+              <div className="flex mt-[1vw] px-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
               flex-row justify-around h-auto lg:w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">
                 <p className="text-white">{Purchases.date}</p>
                 <div className="">
@@ -192,7 +192,7 @@ const PurchaseHistory = () => {
             return (
 
               <div key={index} id={Purchases.date} className="flex font-body uppercase  ">
-              <div className="flex mt-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
+              <div className="flex mt-[1vw] px-[1vw] text-[#4d3526] text-[2.6vw] lg:text-[1.5vw] mr-[5vw] bg-[#ff6e61a9] 
               flex-row justify-around h-auto lg:w-[60vw] py-[3vw] before:border-t before:absolute before:w-[55%] before:mt-[-.3vw]">                  
               <p className="text-white">{Purchases.date}</p>
                   <div>

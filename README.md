@@ -1,30 +1,43 @@
-## La Patisserie Du Coeur
+# La Patisserie Du Coeur
 
-La Patisserie Du Coeur is an e-commerce bakery website that allows users to order goods online. The website is built using Django REST API on the backend and ReactJS, Docker, and TailwindCSS on the frontend.
+La Patisserie Du Coeur is an e-commerce bakery website that allows users to order goods online. The website is built using Django REST API on the backend and ReactJS, Docker and TailwindCSS on the frontend.
 
-Features
+## Features
 
    * Users can browse and select bakery goods to add to their cart.
-   * Anonymous users are identified with a session ID that expires in 2 weeks, which is used to store orders in their respective carts.
-   * Users that register will have an account that utilizes JWT cookie authentication and can persist log in.
-   * Users can transfer their old session carts to their new account carts.
-   * Purchases are processed by a test mode version of Stripe.
+   * Celery task and beat managing the product inventory
+   * Anonymous users are registered as a persistent session user that have a cart and purchase history
+   * Users that register will have an account that utilizes JWT cookie authentication and can persist log in
+   * Anonymous users can transfer their old session carts to their new account carts
+   * Purchases are processed by a test mode version of Stripe webhook
   
-Setup
+## Setup
 
     Clone the repository:
 
     git clone https://github.com/<your-username>/La-Patisserie-Du-Coeur.git
     cd La-Patisserie-Du-Coeur
+### Set up each docker container with the following environment:
 
-Build and run the Docker container:
+  * DJANGO_DEBUG
+  * DOCKER_KEY
+  * DJANGO_SETTINGS_MODULE
+  * DOCKER_STRIPE
+  * DOCKER_ENDPOINT_SK
+  * DOCKER_DEFAULT_FROM_EMAIL (Optional)
+  * DOCKER_EMAIL_HOST_PASSWORD (Optional)
+    
+
+### Build and run the Docker container:
 
     docker-compose up --build
+    new terminal
     cd frontend
+    npm i
     npm start
     Navigate to http://localhost:3000 to view the website.
 
-Dependencies
+### Dependencies
 
     Docker 20.10.5
     Python 3.8
@@ -34,22 +47,25 @@ Dependencies
     TailwindCSS 2.1
     Stripe 2.57
 
-Goals
+# Goals
 
-    Once checkout = true, ordered needs to be true<- Changing this to deletion<-Done
-    Ordered needs to be used as a condition that prevents further purchases<- Changing this to deletion<-Done
-    Customer object for session and account on product selection <-Done
-    ->Finished the auth->fixed
-    ->need to finish the annon part->fixed
-    Purchase History Backend<-Done and improved improved but I think it needs a tiny bit more
-    Purchase History Frontend<-Done
-    Transferable data between session and account(cart and customer object transfer)<-Done
-    More Marketable design of the page<-Finished, Need footer<-Footer Completed
-    Webhook causing data deletion<-Done on this
-    Webhook dealing with failures + more emails<-Done but more emails can be added if increased functionality
-    Should data transfer be option?<-Finished
-    Bug:Purchase history bricks other api calls for session user<-Fixed
-    Mobile Friendliness<-Current Goal<-Finished Generally Design
-    Product to 20 left and reset daily<-Current Goal
-
-Credits
+:heavy_check_mark: Have a session user for the anonymous and JWT user for the registered user<br>
+  :heavy_check_mark: On succesful checkout, cart is archived to purchase history<br>
+    :arrow_right::heavy_check_mark: For both Session User and JWT User.<br>
+  :heavy_check_mark: On succesful checkout, order data is removed and quantity of product object decreases <br>
+  :arrow_right::heavy_check_mark: Deal with case where product quantity is 0<br>
+   :heavy_check_mark: Create stripe customer ID for both the session and JWT user on product selection<br>
+   :arrow_right::heavy_check_mark:Transfer Customer ID from session user to JWT user on registration <br>
+    :heavy_check_mark: Purchase History Backend<br>
+    :heavy_check_mark: Purchase History Frontend<br>
+    :arrow_right: Make it look better<br>
+    :heavy_check_mark:More Marketable design of the page<br>
+    :heavy_check_mark:Webhook dealing with failed purchases<br>
+    :arrow_right::heavy_check_mark: Create email of failed purchase<br>
+    :heavy_check_mark:Fix Bug purchase history api call bricks other api calls for session user<br>
+    :heavy_check_mark:Mobile Friendliness<br>
+    :arrow_right:Make some units slightly bigger<br>
+    :heavy_check_mark:Use celery task and beat<br>
+    :arrow_right:Fix the issue of restrictive time to trigger worker is ignored<br>
+    
+    

@@ -116,7 +116,7 @@ const Navbar = () => {
   return (
     <div>
       {/*Desktop*/}
-      <div id="navbar-d" className="fixed lg:flex h-[9vw] w-[100vw] bg-[#000000de] hidden z-[10000] justify-center items-center overflow-hidden ">
+      <div id="navbar-d" className="fixed lg:flex h-[9vw] w-[100vw] bg-[#000000de] hidden z-[10000] justify-center items-center overflow-x-hidden ">
         {/*Next time plan ahead for mobile and desktop design*/}
         <div className="flex flex-row gap-[2vw] text-white font-body text-[1.3vw] ml-[-9vw] lg:justify-center justify-around  w-screen items-center">
 
@@ -173,7 +173,7 @@ const Navbar = () => {
 
         </div>
       </div>
-      <div id="navbar-m" className={activedBurger === false ? "fixed lg:hidden  h-[10vh]  w-[100vw] bg-[#000000de] flex transition-all delay-75  z-[10000] justify-center items-center overflow-hidden " : "fixed lg:hidden transition-all delay-75 h-[70vw]  w-[100vw] bg-[#000000e5] flex  z-[10000] justify-center items-center overflow-hidden "}>
+      <div id="navbar-m" className={activedBurger === false ? "fixed lg:hidden  h-[10vh]  w-[100vw] bg-[#000000de] flex transition-all delay-75  z-[10000] justify-center items-center overflow-x-hidden " : "fixed lg:hidden transition-all delay-75 h-[70vw] overflow-x-hidden  w-[100vw] bg-[#000000e5] flex  z-[10000] justify-center items-center overflow-hidden "}>
         <div className="flex  flex-row gap-[2vw] text-white font-body text-[1.3vw] ml-[-9vw] lg:justify-center justify-around  w-screen items-center">
           <div className="lg:hidden flex mr-[10vw] hover:opacity-60 visible">
             <button id='hamburgerBTN' class="menu" onClick={() => { hamburger(); }} aria-label="Main Menu">
