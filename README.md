@@ -68,6 +68,6 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to orde
     :heavy_check_mark:Use celery task and beat<br>
     :arrow_right::heavy_check_mark:Fixed the issue of restrictive time to trigger worker is ignored<br>
     :heavy_check_mark:Fix login and sign up page visuals<br>
-    :arrow_right:Create a test.py and then deploy it before hacktober
-    :arrow_right:Complete commit guide and make issue submissions clear+accurate 
+    :arrow_right:Create a test.py and then deploy it before hacktober<br>
+    :arrow_right:Complete commit guide and make issue submissions clear+accurate<br> 
     
