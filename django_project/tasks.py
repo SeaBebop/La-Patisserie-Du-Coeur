@@ -23,7 +23,7 @@ app.conf.result_backend = 'rpc://'
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     # Define the schedule using crontab. It runs every minute.
-    sender.add_periodic_task(crontab(minute="*"), update.s())
+    sender.add_periodic_task(crontab(minute="0",hour="0"), update.s())
 
 def trigger():
     try:
@@ -50,12 +50,7 @@ def update():
         print(e)
     return "Sent!"
 
-app.conf.beat_schedule = {
-    'update-task': {
-        'task' : 'django_project.tasks.update',
-        'schedule' : crontab(minute=0, hour=23),
-    }
-}
+
 
 if __name__ == '__main__':
     app.start()

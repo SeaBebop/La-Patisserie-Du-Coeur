@@ -12,6 +12,7 @@ const TRANSFER_URL = "http://127.0.0.1:8000/api/v1/customer/transfer-data/";
 
 
 
+
 const SignUp = () => {
     const navigate = useNavigate();
 
@@ -142,7 +143,7 @@ const SignUp = () => {
     </label>
     */
     return (
-        <div className='lg:h-[70vw] h-[76vh]  min-h-[800px] flex justify-center  w-screen'>
+        <div className='lg:h-[70vw] md:h-[95vh] h-[76vh]   min-h-[800px] flex justify-center  w-screen'>
 
 
             <>
@@ -156,16 +157,16 @@ const SignUp = () => {
                             <button onClick={redirctToVerify}>Verify Email</button>
                         </div>
                     ) : (
-                        <div className='flex justify-center   items-center'>
+                        <div className='flex justify-center w-[85vw] overflow-x-hidden '>
 
 
-                            <div className=' lg:h-[35vw] h-[75vw] lg:-mt-[12vw]  flex  justify-center w-[75vw] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg'>
+                            <div className=' lg:h-[35vw] md:h-[75vh] h-[61vh] mt-[12vh] md:mt-[12vh] lg:mt-[12vw]  flex  justify-center w-[100%] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg'>
                                 <div className='flex h-auto flex-col w-[70vw] justify-center items-center'>
 
                                     <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
 
                                     <h1 className=' font-body  lg:text-[2vw] text-[4.5vw]  mb-[4vw] text-white'>REGISTER</h1>
-                                    <form className='flex-col w-[70%] lg:gap-[2.7vw] gap-[7vw] flex' onSubmit={handleSubmit}>
+                                    <form className='flex-col w-[70%] lg:gap-[2.7vw] gap-[10vw] flex' onSubmit={handleSubmit}>
                                             <div>
                                                 
                                             
