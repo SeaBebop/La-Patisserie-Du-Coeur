@@ -115,13 +115,13 @@ const Login = () => {
 
     <div className=" w-[100vw] lg:h-[60vw] min-h-[807px] h-[75vh] flex justify-center items-center overflow-y-hidden ">
 
-      <div className=" lg:h-[32vw] h-[75vw] overflow-y-hidden flex flex-col justify-center mt-[4vw] lg:mt-[1vw] w-[65vw] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg">
+      <div className=" lg:h-[32vw] h-[100vw] md:h-[75vw] overflow-y-hidden flex flex-col justify-center mt-[4vw] lg:mt-[1vw] w-[65vw] lg:w-[28vw] bg-[#ee5042e5] rounded-md shadow-lg">
           <div className=" h-[40%] ">
           <div className=" font-body  text-[2vw]">
-            <h1 className="font-Fancy text-[7vw] lg:text-[3.5vw] text-orange-200">L</h1>
+            <h1 className="font-Fancy text-[8.5vw] md:text-[7vw] lg:text-[3.5vw] text-orange-200">L</h1>
           </div>
-          <div className={"lg:mt-[-.4vw] mt-[2vw] mb-[-4vw] lg:mb-[2vw] text-[3vw] lg:text-[.9vw] text-white"}>
-            Savor the deliciousness with us
+          <div className={"lg:mt-[-.4vw] mt-[2vw] mb-[-4vw] lg:mb-[2vw] text-[3.75vw] md:text-[3vw] lg:text-[.9vw] text-white"}>
+            <i>Savor the deliciousness with us</i> 
           </div>
             
           </div>
@@ -132,7 +132,7 @@ const Login = () => {
           <div>
 
             {/*This is how you would make an error message for situations of your choice*/}
-            <p ref={errRef} className={errMsg ? "errmsg text-[2.7vw] text-white flex lg:text-[1.35vw] absolute w-[42.5vw] mt-[-13vw] ml-[10vw] lg:ml-[-7vw] lg:mt-[-15vw]" : "hidden"} aria-live="assertive">*{errMsg}</p>
+            <p ref={errRef} className={errMsg ? "errmsg text-[3vw] md:text-[2.7vw] text-white flex lg:text-[1.35vw] absolute w-[42.5vw] mt-[-15vw] md:mt-[-13vw] ml-[10vw] lg:ml-[1.4vw] lg:mt-[-5vw]" : "hidden"} aria-live="assertive">*{errMsg}</p>
             {/*Test later*/}
             <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{verify ? <Link to='/email_verification'>Verify Your Email</Link> : ''}</div>
           </div>
@@ -140,10 +140,10 @@ const Login = () => {
             <form onSubmit={onSubmit}>
               <div className="flex items-center flex-col">
                 <div className=" mt-[-1.71vw] delay-100  transition-all">
-                  <p className={username != '' ? "opacity-100 ease-in text-[3vw] lg:text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>UserID/Email</p>
+                  <p className={username != '' ? "opacity-100 ease-in text-[3.6vw] md:text-[3vw] lg:text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>UserID/Email</p>
                 </div>
                 <input
-                  className="rounded-md pl-[1vw] py-[.2vw] w-[80%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]  mb-[.4vw] bg-slate-100"
+                  className="rounded-md pl-[1vw] py-[.2vw] w-[80%] h-[6vw] md:h-[4vw] lg:h-[2vw] text-[3.4vw] md:text-[3vw] lg:text-[1.3vw]  mb-[.4vw] bg-slate-100"
                   onChange={(e) => changeUsername(e.target.value)}
                   value={username}
                   placeholder={"UserID/Email"}
@@ -154,10 +154,10 @@ const Login = () => {
 
               <div className="flex items-center flex-col mt-[1.3vw]">
                 <div className="mt-[-1.71vw] delay-100 transition-all">
-                  <p className={password != '' ? "opacity-100 ease-in text-[3vw] lg:text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>Password</p>
+                  <p className={password != '' ? "opacity-100 ease-in text-[3.6vw] md:text-[3vw] lg:text-[1.2vw]  delay-100 transition-all" : "opacity-0  ease-out delay-100 transition-all"}>Password</p>
                 </div>
                 <input
-                  className="rounded-md pl-[1vw] py-[.2vw] w-[80%] h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]  mb-[.4vw] bg-slate-100"
+                  className="rounded-md pl-[1vw] py-[.2vw] w-[80%] h-[6vw] md:h-[4vw] lg:h-[2vw] text-[3vw] lg:text-[1.3vw]  mb-[.4vw] bg-slate-100"
                   onChange={(e) => changePassword(e.target.value)}
                   placeholder="Password"
                   value={password}
@@ -166,13 +166,13 @@ const Login = () => {
 
               </div>
 
-              <div className='persistCheck'>
+              <div className='persistCheck my-[2vw]'>
                 <input type="checkbox" name="" id='persist' onChange={togglePersist} checked={persist} value="" />
                 <label htmlFor="persist" className="text-[3vw] lg:text-[1.2vw] text-white"> Stay Logged in?</label>
               </div>
-              <button className="h-[14%] w-[40%] mt-[1vw] rounded text-[3vw] lg:text-[1.2vw] bg-white" type={'submit'}>Log In</button>
+              <button className="h-[14%] w-[40%] mt-[2vw] md:mt-[1vw] rounded text-[3vw] lg:text-[1.2vw] bg-white" type={'submit'}>Log In</button>
             </form>
-            <button className="text-black  text-[3vw] lg:text-[1.2vw] underline" onClick={PwdNavigate}>Forgot your password?</button>
+            <button className="text-black  text-[3vw] md:mt-[1vw] mt-[3vw] lg:text-[1.2vw] underline" onClick={PwdNavigate}>Forgot your password?</button>
           </div>
      
       </div>
