@@ -5,7 +5,7 @@ const useLogout = () => {
     
     const {auth,setAuth} = useAuth();
     const access_token = auth.accessToken;
-    const LOGOUT_URL = 'http://localhost:8000/api/v1/dj-rest-auth/logout/';
+    const LOGOUT_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/logout/';
     const logout = async () => {
         
         try{

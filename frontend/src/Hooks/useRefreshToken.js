@@ -7,18 +7,15 @@ import jwt_decode from 'jwt-decode'
 const useRefreshToken = () =>
 {
     const {auth,setAuth} = useAuth();
-    const REFRESH_URL = 'http://localhost:8000/api/v1/dj-rest-auth/token/refresh/';
-    const USER_URL = 'http://localhost:8000/api/v1/dj-rest-auth/user/';
+    const REFRESH_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/token/refresh/';
+    const USER_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/user/';
     const navigate = useNavigate();
     const logout = useLogout(); 
 
 
-
+     
     const refresh = async () =>
     {   //Process of refreshing the accesstoken with the refresh token
-        console.log('This is a access token: ' + JSON.stringify(auth.accessToken))
-        console.log('This is xD city' + JSON.stringify(auth.refreshToken))
-
 
         try{
             const response = await axios.post(REFRESH_URL,JSON.stringify({'{}':''}), {
@@ -59,7 +56,7 @@ const useRefreshToken = () =>
     })
     
   } catch(err){
-    console.log(err.response.status)
+    
     //Added for the following issue:
     //When the user logs in with "Stay logged in" as false
     //When the user reloads the user log in doesnt persist which is good

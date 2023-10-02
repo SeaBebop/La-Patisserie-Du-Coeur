@@ -2,7 +2,7 @@ import React, { useRef,useEffect, useState } from 'react';
 import axios from '../api/axios';
 import useAuth from '../Hooks/useAuth';
 
-const KEY_URL = 'http://127.0.0.1:8000/api/v1/dj-rest-auth/registration/resend-email/';
+const KEY_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/registration/resend-email/';
 
 const Resend = () => {
   const {auth} = useAuth();

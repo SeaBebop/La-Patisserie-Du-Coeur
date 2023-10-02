@@ -29,7 +29,7 @@ SECRET_KEY = env('DOCKER_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG",default = False)
 
-ALLOWED_HOSTS = [  "localhost:3000",  "127.0.0.1", "localhost:8000","localhost"]
+ALLOWED_HOSTS = [  "https://lacoeurbakery-com.onrender.com "]
 
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 30
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -149,12 +149,12 @@ MIDDLEWARE = [
 # new
 CORS_ALLOWED_ORIGINS  = (
 
-"http://localhost:3000",
+"https://lacoeurbakery-com.onrender.com",
 
-"http://localhost:8000",
+
 
 )
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://localhost:8000",] # new
+CSRF_TRUSTED_ORIGINS = ["https://lacoeurbakery-com.onrender.com"] # new
 SIMPLE_JWT = {
 'AUTH_HEADER_TYPES': ('JWT',),
 
@@ -267,11 +267,18 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+#HTTPS
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 3600 
+
+
 
 #Stripe setup
 STRIPE_SECRET_KEY = env('DOCKER_STRIPE')
-FRONTEND_CHECKOUT_SUCCESS_URL = 'http://localhost:3000/cart/checkout/true/'
-FRONTEND_CHECKOUT_FAILED_URL = 'http://localhost:3000/cart/checkout/false/'
+FRONTEND_CHECKOUT_SUCCESS_URL = 'https://lacoeurbakery-com.onrender.com/cart/checkout/true/'
+FRONTEND_CHECKOUT_FAILED_URL = 'https://lacoeurbakery-com.onrender.com/cart/checkout/false/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 

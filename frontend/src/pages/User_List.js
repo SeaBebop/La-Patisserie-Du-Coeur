@@ -6,8 +6,8 @@ import useAuth from '../Hooks/useAuth';
 
 
 const User_List = () => {
-  const USER_URL = 'http://localhost:8000/api/v1/users/';
-  const TOKEN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/token/verify/';
+  const USER_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/users/';
+  const TOKEN_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/token/verify/';
 
   const [users, setUsers] = useState();
   const refresh = useRefreshToken();  

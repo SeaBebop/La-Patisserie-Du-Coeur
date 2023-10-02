@@ -7,8 +7,8 @@ import useCartChecker from '../Hooks/useCartChecker';
 const USER_REGREX = /^[a-zA-Z][a-zA-Z0-9_]{3,24}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%)]).{7,24}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const SIGNIN_URL = 'http://127.0.0.1:8000/api/v1/dj-rest-auth/registration/';
-const TRANSFER_URL = "http://127.0.0.1:8000/api/v1/customer/transfer-data/";
+const SIGNIN_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/registration/';
+const TRANSFER_URL = "https://lacoeurbakery-com.onrender.com/api/v1/customer/transfer-data/";
 
 
 

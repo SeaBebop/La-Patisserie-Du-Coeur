@@ -136,7 +136,7 @@ class CustomerPurchase(APIView):
         
         paymentComprehension = [{'payment_intent': d['payment_intent'], 'customerID':d['customer'], 'checkoutID':d['id'], 'productsName': [Product.objects.filter(id=(int(x))).values_list('name', flat=True)[0] for x in d['metadata']['product'].split(',')],
                                  'productsPrice': ["%.2f" % round(float(Product.objects.filter(id=(int(x))).values_list('price', flat=True)[0]),2) for x in d['metadata']['product'].split(',')], 'productsQuantity':[int(x) for x in d['metadata']['product_quantity'].split(',')],
-                                 'productImages': [ 'http://localhost:8000/products/'+ Product.objects.filter(id=(int(x))).values_list('image', flat=True)[0] for x in d['metadata']['product'].split(',')],
+                                 'productImages': [ 'https://lacoeurbakery-com.onrender.com/products/'+ Product.objects.filter(id=(int(x))).values_list('image', flat=True)[0] for x in d['metadata']['product'].split(',')],
                                  'userInfo':  d['metadata']['userInfo'], 'amount_total': "%.2f" %  float(round(Decimal(0.01) * Decimal(d['amount_total']),2))} for d in paymentIntentDetails if d['payment_status'] == 'paid']
         paymentIntentDetails = [stripe.Charge.list(customer=customerID, payment_intent=d['payment_intent'])[
             'data'] for d in paymentComprehension]

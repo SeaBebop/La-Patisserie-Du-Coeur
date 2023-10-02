@@ -60,7 +60,7 @@ const PurchaseHistory = () => {
   },
     [])
 
-  const PURCHASE_HISTORY_URL = 'http://127.0.0.1:8000/api/v1/customer/purchase-history/'
+  const PURCHASE_HISTORY_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/customer/purchase-history/'
   const access_token = auth.accessToken === undefined ? undefined : auth.accessToken;
   const header_context = access_token === undefined ? { 'Content-Type': 'application/json', } :
     {

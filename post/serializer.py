@@ -102,7 +102,7 @@ class CartSerializer(serializers.ModelSerializer):
         return my_list[0]
     def get_product_image(self,instance):
         my_list = Product.objects.filter(name=instance.orders.item).values_list('image',flat=True)
-        return 'http://localhost:8000/products/' + my_list[0]
+        return 'https://lacoeurbakery-com.onrender.com/products/' + my_list[0]
     def get_order_price(self,instance):
         return '{0:.2f}'.format(instance.orders.item.price * instance.orders.quantity)
     def get_total_price(self,instance):

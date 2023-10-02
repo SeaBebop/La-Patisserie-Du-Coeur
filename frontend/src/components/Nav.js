@@ -15,7 +15,7 @@ import Products from "../pages/products.js";
 import useCartChecker from "../Hooks/useCartChecker.js";
 
 import useAuth from "../Hooks/useAuth.js";
-const CART_URL = 'http://127.0.0.1:8000/api/v1/cart/'
+const CART_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/cart/'
 
 const Navbar = () => {
 

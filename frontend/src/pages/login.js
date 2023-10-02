@@ -6,7 +6,7 @@ import useLocalStorage from "../Hooks/useLocalStorage";
 import useCartChecker from "../Hooks/useCartChecker";
 
 const Login = () => {
-  const LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
+  const LOGIN_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/login/'
 
 
   //Storage condition

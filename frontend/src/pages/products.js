@@ -7,8 +7,8 @@ import useCartChecker from '../Hooks/useCartChecker';
 
 
 
-const PRODUCT_DATA_URL = 'http://127.0.0.1:8000/api/v1/shop';
-const ORDER_URL = 'http://127.0.0.1:8000/api/v1/order/';
+const PRODUCT_DATA_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/shop';
+const ORDER_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/order/';
 
 
 /*The filter Idea is inspired by  https://codesandbox.io/s/r5x4i?file=/src/App.js 

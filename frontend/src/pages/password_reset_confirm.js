@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import axios from '../api/axios';
 import useAuth from '../Hooks/useAuth';
 
-const KEY_URL = 'http://localhost:8000/api/v1/dj-rest-auth/password/reset/confirm/';
+const KEY_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/dj-rest-auth/password/reset/confirm/';
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%)]).{7,24}$/;
 
 const PasswordResetConfirm = () => {

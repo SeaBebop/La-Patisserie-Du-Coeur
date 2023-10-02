@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const URL_NAME = 'http//localhost:3500';
+const URL_NAME = 'https://lacoeurbakery-com.onrender.com ';
+
 
 export default axios.create({
     baseURL: URL_NAME,

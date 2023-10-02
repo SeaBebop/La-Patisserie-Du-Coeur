@@ -14,7 +14,7 @@ const PersistLogin = () => {
     const refresh = useRefreshToken();
 
     const { auth, persist } = useAuth();
-    console.log('This is the refresh token xD' + JSON.stringify(auth.refreshToken));
+
 
     useEffect(() => {
         //Added delay so the loading pulse doesn't look jarring 
@@ -42,8 +42,7 @@ const PersistLogin = () => {
     }, [])
 
     useEffect(() => {
-        console.log(`isLoading: ${isLoading}`)
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
+
     }, [isLoading])
     return (
         <>

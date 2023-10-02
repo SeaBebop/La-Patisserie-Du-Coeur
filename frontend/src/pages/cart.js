@@ -8,9 +8,9 @@ import SVG_twitter from "../components/SVG_Twitter"
 import jwt_decode from 'jwt-decode'
 import useCartChecker from "../Hooks/useCartChecker";
 
-const CART_URL = 'http://127.0.0.1:8000/api/v1/cart/'
-const ORDER_ID_URL = 'http://127.0.0.1:8000/api/v1/order/'
-const CREATE_CHECKOUT_URL = 'http://127.0.0.1:8000/api/v1/checkout/create-checkout-session/'
+const CART_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/cart/'
+const ORDER_ID_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/order/'
+const CREATE_CHECKOUT_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/checkout/create-checkout-session/'
 
 const Cart = () => {
     const containerRef = useRef(null);
@@ -129,6 +129,7 @@ const Cart = () => {
     }
   
     useEffect(() => {
+        //Gets cart list when called 
         const fetchCart = async () => {
             const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
             await sleep(400)
@@ -171,7 +172,7 @@ const Cart = () => {
 
     }, [])
     function HandlePages() {
-
+        //Add pagination to cart list
         let pageCalc = 0;
         let counter = 0;
         let pageAmount = [];

@@ -8,7 +8,7 @@ import useAuth from '../Hooks/useAuth';
 
 const Item = () => {
   const {productID} = useParams();
-  const AUTHOR_DATA_URL = 'http://127.0.0.1:8000/api/v1/' + productID;
+  const AUTHOR_DATA_URL = 'https://lacoeurbakery-com.onrender.com/api/v1/' + productID;
 
   const {auth} = useAuth();
   const [data,setData] = useState('');
