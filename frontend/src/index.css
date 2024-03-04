@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@responsive {
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+.offscreen {
+  position: absolute;
+  left: -10000px;
+}
+
+.unrevealed{
+opacity: 0;
+transition: all 1s;
+
+}
+.revealed{
+opacity: 1;
+}
+.hiring-color{
+  background: linear-gradient(180deg, #fde047 66%, #fb3131 34%);
+}
+
+.loader{
+  display: flex;
+  justify-content: center;
+}
+.loader > div {
+  width: 1vw;
+  height: 1vw;
+  margin: 1vw 1vw;
+  border-radius: 50%;
+
+  opacity: 1;
+  animation: loader 0.6  infinite alternate;
+
+}
+.shadows-text { 
+  text-shadow: -.1vw -.1vw 0 #00000048, .1vw -.1vw 0 #0000001a, -.1vw .1vw 0 #0000001a, .1vw .1vw 0 #0000001a;
+}
+.loader > div:nth-child(2){
+  animation-delay: .3s;
+}
+.loader > div:nth-child(2){
+  animation-delay: .6s;
+}
+
+.loader-m{
+  display: flex;
+  justify-content: center;
+}
+.loader-m > div {
+  width: 3vw;
+  height: 3vw;
+  margin: 3vw 3vw;
+  border-radius: 50%;
+
+  opacity: 1;
+  animation: loader 0.6  infinite alternate;
+
+}
+
+.loader-m > div:nth-child(2){
+  animation-delay: .3s;
+}
+.loader-m > div:nth-child(2){
+  animation-delay: .6s;
+}
+#flex-B{
+  flex-basis:50%;
+}
+@layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+}

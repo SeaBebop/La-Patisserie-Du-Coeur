@@ -1,0 +1,16 @@
+# Reactjs
+
+FROM node:20-bullseye as build
+WORKDIR  /code
+COPY  frontend/package*.json ./
+RUN npm install
+RUN npm install serve --save-dev
+# Trying to force everything in the website to be installed
+RUN npm install tailwindcss
+COPY frontend/public ./public
+COPY frontend/src ./src
+COPY frontend/tailwind.config.js ./
+COPY static/pictures ./public/static/
+COPY ./products/ ./public/static/products/
+CMD npm run build && npx serve -s build
+VOLUME /code/build /app/build

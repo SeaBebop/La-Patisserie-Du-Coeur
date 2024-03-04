@@ -1,0 +1,103 @@
+version: "3.9"
+services:
+  nginx:
+    image: seabebop/bakery-nginx:nginx
+    build:
+      dockerfile: DockerfileNginx-dev
+    ports:
+    - "80:80"
+    volumes:
+      - frontend-build:/app/build
+    depends_on:
+      - web
+    env_file:
+      - ./env_nginx.env
+    links:
+     - "web"
+     - "frontend"
+      
+  web:
+    image: seabebop/bakery-django:web
+ 
+    build: 
+      context: .
+      dockerfile: DockerfileDjango
+
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+    env_file:
+      - ./env_backend_dev.env
+      - ./env_rabbitmq.env
+  frontend:
+    image: seabebop/bakery-react:v1.0
+    build:
+      context: .
+      dockerfile: DockerfileReact
+    volumes:
+      - frontend-build:/app/build
+
+    ports:
+      - 3000:3000
+
+  db:
+    image: seabebop/postgres:14
+    build:
+      dockerfile: DockerfilePSQL-dev
+    volumes:
+      - ./database/BakeryInit.sql:/docker-entrypoint-initdb.d/BakeryInit.sql
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=scram-sha-256"
+      - "POSTGRES_INITDB_ARGS--auth-host=scram-sha-256"
+      - "POSTGRES_DB=bakery"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=DB_PASS"
+    command: ["postgres", "-c", "max_prepared_transactions=100"]
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672   
+      - 15672:15672
+
+    env_file:
+      - ./env_rabbitmq.env
+  celery-worker:
+    image: seabebop/bakery-django:celery-worker
+    build: 
+      context: .
+      dockerfile: DockerfileDjango
+    env_file:
+      - ./env_backend_dev.env
+      - ./env_rabbitmq.env
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "celery", "-A", "django_project.tasks", "worker","--loglevel=info"]
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+  celery-beat:
+    image: seabebop/bakery-django:celery-beat
+    build: 
+      context: .
+      dockerfile: DockerfileDjango
+    env_file:
+      - ./env_backend_dev.env
+      - ./env_rabbitmq.env
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--", "celery", "-A", "django_project.tasks", "beat","--loglevel=info"]
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+      - celery-worker
+volumes:
+  postgres_data:
+    name: "postgres_data"
+  frontend-build:
+    name: "build"
+
+
+

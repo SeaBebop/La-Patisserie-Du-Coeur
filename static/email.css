@@ -1,0 +1,53 @@
+html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  div.body {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8vw;
+    margin-right: 8vw;
+    margin-top: 1vw;
+    background-color: #f4f4f4;
+    padding-top: 2vw;
+    padding-bottom: 4vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    
+  }
+  
+  div.paragraph {
+  
+    margin-left: 2vw;
+  }
+  
+  div.paragraph-2 {
+    margin-top: 2vw;
+    margin-left: 2vw;
+  }
+  
+  div.paragraph-3 {
+    margin-left: 4vw;
+  }
+  
+  div.paragraph-4 {
+    margin-left: 4vw;
+  }
+  
+  span.paragraph {
+    margin-top: 2vw;
+  }
+  
+  div.flexUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  
+    background-color: #ff0000;
+    color: white;
+    margin-top: 2vw;
+    margin-left: 8vw;
+    margin-right: 8vw;
+  }

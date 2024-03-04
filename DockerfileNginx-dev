@@ -1,0 +1,5 @@
+# Nginx
+
+FROM nginx 
+COPY ./products ./products/
+COPY ./nginx_local.conf ./etc/nginx/templates/default.conf.template 

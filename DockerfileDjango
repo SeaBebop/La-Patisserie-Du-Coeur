@@ -1,0 +1,26 @@
+# Pull base image
+FROM python:3.12.0-bullseye
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+# Set work directory
+# WORKDIR /code 
+COPY ./accounts ./accounts
+COPY ./checkout ./checkout
+COPY ./customer ./customer
+COPY ./django_project ./django_project
+COPY ./post ./post
+COPY ./products ./products
+COPY ./static ./static
+COPY ./templates ./templates
+COPY ./manage.py .
+COPY ./wait-for-it.sh .
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+CMD python -m pip install gunicorn
+CMD python -m pip install fcntl
+CMD gunicorn django_project.wsgi:application -b 0.0.0.0:8000 
+
+

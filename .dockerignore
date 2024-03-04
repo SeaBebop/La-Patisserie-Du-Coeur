@@ -1,0 +1,5 @@
+.venv
+.git
+.gitignore
+env_backend.env
+env_rabbitmq.env

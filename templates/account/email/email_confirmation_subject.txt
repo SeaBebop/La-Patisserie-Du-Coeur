@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}Welcome to La Patisserie Du Coeur - Confirm your email!{% endblocktrans %}
+{% endautoescape %}
