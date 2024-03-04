@@ -17,8 +17,10 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to conv
   - [Dependencies](#dependencies)
 
 ## Features
-![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/d69f5060-ce1c-48a3-a0e0-ab490b449c6b)
 
+<div style="float: right; margin-left: 20px;">
+  <img src="https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/d69f5060-ce1c-48a3-a0e0-ab490b449c6b" alt="Image" width="200"/>
+</div>
 - **User-friendly Interface**: Users can easily browse through a variety of bakery goods and conveniently add them to their cart.
 - **Inventory Management**: Celery task and beat efficiently manage the product inventory, ensuring accurate stock levels.
 - **Persistent Sessions**: Anonymous users are registered with a persistent session, enabling them to access their cart and purchase history across sessions.
