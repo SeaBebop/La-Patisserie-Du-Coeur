@@ -17,6 +17,7 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to conv
   - [Dependencies](#dependencies)
 
 ## Features
+![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/d69f5060-ce1c-48a3-a0e0-ab490b449c6b)
 
 - **User-friendly Interface**: Users can easily browse through a variety of bakery goods and conveniently add them to their cart.
 - **Inventory Management**: Celery task and beat efficiently manage the product inventory, ensuring accurate stock levels.
@@ -40,11 +41,15 @@ docker compose  -f "docker-compose-dev.yml" up -d --build rabbitmq celery-worker
 ```
 [(Back to Top)](#table-of-contents)
 ## Setting Up Emails (Optional):
+![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/0c07bcdf-712a-4923-a9ed-5548a5abddba)
+
 - **Create a SendGrid Account:** Visit SendGrid's website to create your own account.
 - **Generate API Key:** Generate a full access API key from your SendGrid account settings.
 - **Update Environment Variables:** Update DOCKER_DEFAULT_FROM_EMAIL with your email and DOCKER_EMAIL_HOST_PASSWORD with your API key in env_backend_dev.env.
 [(Back to Top)](#table-of-contents)
 ## Setting Up Stripe Test Payments (Optional):
+![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/2d97c294-b7ce-497c-9bf2-abc68f8e5051)
+
 - **Create a Stripe Account:** Sign up for a Stripe account on their website.
 - **Locate Secret Key:** Find your secret key in your Stripe account settings and copy it to DOCKER_STRIPE in env_backend_dev.
 - **Configure Webhooks:** Follow the instructions provided at Stripe Dashboard and adjust step 2 to $ stripe listen --forward-to localhost/api/v1/checkout/webhook/stripe/.
