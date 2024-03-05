@@ -52,6 +52,10 @@ git clone https://github.com/<your-username>/La-Patisserie-Du-Coeur.git
 ``` bash
 docker compose  -f "docker-compose-dev.yml" up -d --build rabbitmq celery-worker celery-beat db frontend web nginx
 ```
+## Alternative only FrontEnd Setup:
+```bash
+cd frontend && npm start
+```
 [(Back to Top)](#table-of-contents)
 ## Setting Up Emails (Optional):
 ![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/0c07bcdf-712a-4923-a9ed-5548a5abddba)
