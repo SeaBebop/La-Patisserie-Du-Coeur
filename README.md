@@ -5,6 +5,7 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to conv
 
 # GCE Deployed Demo
 - https://lacoeurbakery.xyz
+  - Currently WAF blocking most Eurasian due to DDos attacks
 # Table of Contents
 
 - [La Patisserie Du Coeur](#la-patisserie-du-coeur)
