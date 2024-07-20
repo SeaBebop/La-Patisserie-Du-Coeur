@@ -8,6 +8,7 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to conv
 # Table of Contents
 
 - [La Patisserie Du Coeur](#la-patisserie-du-coeur)
+  - [Structure](#structure)
   - [Features](#features)
   - [Setup](#setup)
     - [Clone the repository](#clone-the-repository)
@@ -15,6 +16,8 @@ La Patisserie Du Coeur is an e-commerce bakery website that allows users to conv
   - [Setting Up Emails (Optional)](#setting-up-emails-optional)
   - [Setting Up Stripe Test Payments (Optional)](#setting-up-stripe-test-payments-optional)
   - [Dependencies](#dependencies)
+## Structure
+![image](https://github.com/user-attachments/assets/1915c7be-1253-4ee5-9bf6-c230fafc36be)
 
 ## Features
 
