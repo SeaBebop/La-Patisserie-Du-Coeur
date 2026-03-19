@@ -3,8 +3,8 @@
 La Patisserie Du Coeur is an e-commerce bakery website that allows users to conveniently order bakery goods online. The website is built using Django REST API on the backend and ReactJS, Docker, and TailwindCSS on the frontend.
 ![image](https://github.com/SeaBebop/La-Patisserie-Du-Coeur/assets/54507045/eab797dd-fef7-4b25-8b71-99455a2d704a)
 
-# Deployed Demo (Currently AWS implimented! Previously was gcloud deployed )
-- https://lacoeurbakery.xyz
+# Deployed Demo (Previously AWS implemented)
+- Down
 
 # Table of Contents
 
